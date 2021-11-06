@@ -1,0 +1,16 @@
+{
+  "name": "UI5",
+  "version": "1.0.0",
+  "description": "This archive contains the complete OpenUI5 runtime. Deploy the content on any web server and load resources/sap-ui-core.js in your web application to use OpenUI5. Further information can be found at http://openui5.org",
+  "main": "index.js",
+  "dependencies": {
+    "@ui5/cli": "^2.14.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

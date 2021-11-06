@@ -1,0 +1,151 @@
+[
+    {
+        "id": 1,
+        "typDokumentu": {
+            "id": 1,
+            "nazwa": "PITDUPA"
+        },
+        "kontrahent": {
+            "id": 1,
+            "nazwa": "KontrahentDupa"
+        },
+        "dataWystawienia": "2023-10-10T00:00:00",
+        "dataZatwierdzeniaPrzyjecia": "2023-10-10T00:00:00",
+        "ktoWystawil": {
+            "id": 1,
+            "imie": "KtoWystawiłImie",
+            "nazwisko": "KtoWystawiłNaziwsko"
+        },
+        "ktoZatwierdzilPrzyjal": {
+            "id": 1,
+            "imie": "KtoZatwierdziłPrzyjąłImie",
+            "nazwisko": "KtoZatwierdziłPrzyjąłNazwisko"
+        },
+        "produkty": [
+            {
+                "dokumentId": 1,
+                "produktId": 1,
+                "ilosc": 0
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "typDokumentu": {
+            "id": 2,
+            "nazwa": "WZ"
+        },
+        "kontrahent": {
+            "id": 2,
+            "nazwa": "Lewiatan"
+        },
+        "dataWystawienia": "2022-10-10T00:00:00",
+        "dataZatwierdzeniaPrzyjecia": "2022-10-10T00:00:00",
+        "ktoWystawil": {
+            "id": 2,
+            "imie": "Tomasz",
+            "nazwisko": "Zsamot"
+        },
+        "ktoZatwierdzilPrzyjal": {
+            "id": 2,
+            "imie": "Tomasz",
+            "nazwisko": "Zsamot"
+        },
+        "produkty": [
+            {
+                "dokumentId": 2,
+                "produktId": 2,
+                "ilosc": 0
+            },
+            {
+                "dokumentId": 2,
+                "produktId": 3,
+                "ilosc": 0
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "typDokumentu": {
+            "id": 3,
+            "nazwa": "RW"
+        },
+        "kontrahent": {
+            "id": 3,
+            "nazwa": "Dino"
+        },
+        "dataWystawienia": "2021-11-10T00:00:00",
+        "dataZatwierdzeniaPrzyjecia": "2021-11-10T00:00:00",
+        "ktoWystawil": {
+            "id": 3,
+            "imie": "Daniel",
+            "nazwisko": "Leinad"
+        },
+        "ktoZatwierdzilPrzyjal": {
+            "id": 3,
+            "imie": "Daniel",
+            "nazwisko": "Leinad"
+        },
+        "produkty": [
+            {
+                "dokumentId": 3,
+                "produktId": 4,
+                "ilosc": 0
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "typDokumentu": {
+            "id": 4,
+            "nazwa": "PW"
+        },
+        "kontrahent": {
+            "id": 4,
+            "nazwa": "Netto"
+        },
+        "dataWystawienia": "2021-10-10T00:00:00",
+        "dataZatwierdzeniaPrzyjecia": "2021-10-10T00:00:00",
+        "ktoWystawil": {
+            "id": 4,
+            "imie": "Bartosz",
+            "nazwisko": "Zsotrab"
+        },
+        "ktoZatwierdzilPrzyjal": {
+            "id": 4,
+            "imie": "Bartosz",
+            "nazwisko": "Zsotrab"
+        },
+        "produkty": []
+    },
+    {
+        "id": 5,
+        "typDokumentu": {
+            "id": 2,
+            "nazwa": "WZ"
+        },
+        "kontrahent": {
+            "id": 2,
+            "nazwa": "Lewiatan"
+        },
+        "dataWystawienia": "2021-10-09T00:00:00",
+        "dataZatwierdzeniaPrzyjecia": "2021-10-09T00:00:00",
+        "ktoWystawil": {
+            "id": 2,
+            "imie": "Tomasz",
+            "nazwisko": "Zsamot"
+        },
+        "ktoZatwierdzilPrzyjal": {
+            "id": 2,
+            "imie": "Tomasz",
+            "nazwisko": "Zsamot"
+        },
+        "produkty": [
+            {
+                "dokumentId": 5,
+                "produktId": 5,
+                "ilosc": 0
+            }
+        ]
+    }
+]

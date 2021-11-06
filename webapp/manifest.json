@@ -1,0 +1,112 @@
+{
+	"_version": "1.3.0",
+	"sap.app": {
+		"_version": "1.3.0",
+		"id": "opensap.myapp",
+		"type": "application",
+		"title": "{{appTitle}}",
+		"i18n": "i18n/i18n.properties",
+		"description": "{{appDescription}}",
+		"applicationVersion": {
+			"version": "1.0.0"
+		}
+	},
+	"sap.ui": {
+		"_version": "1.3.0",
+		"technology": "UI5",
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		},
+		"supportedThemes": ["sap_bluecrystal"]
+	},
+	"sap.ui5": {
+		"_version": "1.2.0",
+		"rootView": {
+			"viewName": "opensap.myapp.view.App",
+			"type": "XML",
+			"id": "app"
+		},
+		"handleValidation" : true,
+		"autoPrefixId": true,
+		"dependencies": {
+			"minUI5Version": "1.86",
+			"libs": {
+				"sap.ui.core": {
+					"minVersion": "1.87.0"
+				},
+				"sap.m": {
+					"minVersion": "1.87.0"
+				},
+				"sap.f": {
+				},
+				"sap.uxap": {
+					
+				},
+				"sap.ui.layout": {
+					"minVersion": "1.87.0"
+				}
+			}
+		},
+		"config": {
+			"fullWidth": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "opensap.myapp.i18n.i18n"
+				}			
+			},
+			"applications":{
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/Applications.json"
+			}
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.f.routing.Router",
+				"viewType": "XML",
+				"viewPath": "opensap.myapp.view",
+				"controlId": "fcl",
+				"transition": "slide",
+				"bypassed": {
+				},
+				"async": true
+			},
+			"routes": [	
+				{
+					"pattern": ":layout:",
+					"name": "master",
+					"target": [
+						"master",
+						"detail"
+					]
+				},
+				{
+					"pattern": "detail/{product}/{layout}",
+					"name": "detail",
+					"target": [
+						"master",
+						"detail"
+					]
+				}
+			],
+			"targets": {
+				"master": {
+					"viewName": "Master",
+					"controlAggregation": "beginColumnPages"
+				},
+				"detail": {
+					"viewName": "Detail",
+					"controlAggregation": "midColumnPages"
+				}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		}
+	}
+}

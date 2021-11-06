@@ -1,0 +1,32 @@
+<!-- <?xml version="1.0"?>
+<mvc:View controllerName="opensap.myapp.controller.App" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core"
+	xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" displayBlock="true">
+	<App id = "app">
+	</App>
+</mvc:View> -->
+
+<mvc:View
+	controllerName="opensap.myapp.controller.App"
+	displayBlock="true"
+	xmlns="sap.m"
+	xmlns:f="sap.f"
+	xmlns:mvc="sap.ui.core.mvc">
+	<App
+		id="app"
+		class="sapUiDemoCart">
+		<f:FlexibleColumnLayout
+			id="fcl"
+			backgroundDesign="Solid"
+			stateChange="onStateChanged"
+			layout = "{/layout}"
+			/>
+
+			<!-- <f:beginColumnPages>
+				<mvc:XMLView id="beginView" viewName="opensap.myapp.view.Master"/>
+			</f:beginColumnPages>
+			<f:midColumnPages>
+				<mvc:XMLView id="detailView" viewName="opensap.myapp.view.Detail"/>
+			</f:midColumnPages> 
+		</f:FlexibleColumnLayout>--><!-- Tutaj statycznie zamieniamy na wykorzystanie Routera -->
+	</App>
+</mvc:View>

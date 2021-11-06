@@ -1,0 +1,13 @@
+specVersion: '2.3'
+metadata:
+  name: UI5
+type: application
+framework:
+  name: OpenUI5
+  version: "1.89.1"
+  libraries:
+    - name: sap.m
+    - name: sap.f
+    - name: sap.uxap
+    - name: sap.ui.core
+    - name: sap.ui.layout
