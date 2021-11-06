@@ -108,14 +108,14 @@
 						<blocks>
 							<m:Table
 								id="suppliersTable"
-								items="{path : 'dokumenty>/'}">
+								items="{path : 'dokumenty>produkty'}">
 								<m:columns>
 									<m:Column/>
 								</m:columns>
 								<m:items>
-									<m:ColumnListItem type="Navigation">
+									<m:ColumnListItem type="Navigation" press=".onProductPress">
 										<m:cells>
-											<m:ObjectIdentifier text="{dokumenty>/id}"/>
+											<m:ObjectIdentifier text="{dokumenty>produktId}"/>
 										</m:cells>
 									</m:ColumnListItem>
 								</m:items>

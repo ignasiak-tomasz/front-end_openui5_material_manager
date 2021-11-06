@@ -1,6 +1,7 @@
 sap.ui.define([
-	"sap/ui/core/mvc/Controller"
-], function (Controller) {
+	"sap/ui/core/mvc/Controller",
+	"sap/f/library"
+], function (Controller, fioriLibrary) {
 	"use strict";
 
 	return Controller.extend("opensap.myapp.controller.Detail", {
@@ -12,10 +13,18 @@ sap.ui.define([
 
 			this.oRouter.getRoute("master").attachPatternMatched(this._onProductMatched, this);
 			this.oRouter.getRoute("detail").attachPatternMatched(this._onProductMatched, this);
+			this.oRouter.getRoute("detailDetail").attachPatternMatched(this._onProductMatched, this);
 		},
         /**
-         * To zmowu nie za działa
-         */
+		 * To się nie uda
+		 */
+		onProductPress: function (oEvent) {
+			var supplierPath = oEvent.getSource().getBindingContext("dokumenty").getPath(),
+				supplier = supplierPath.split("/").slice(-1).pop();
+
+			this.oRouter.navTo("detailDetail", {layout: fioriLibrary.LayoutType.ThreeColumnsMidExpanded, supplier: supplier, product: this._product});
+		},
+
 		_onProductMatched: function (oEvent) {
 			this._product = oEvent.getParameter("arguments").product || this._product || "0";
 			this.getView().bindElement({
