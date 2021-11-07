@@ -1,7 +1,8 @@
 sap.ui.define([
 	"sap/ui/model/json/JSONModel",
-	"sap/ui/core/mvc/Controller"
-], function (JSONModel, Controller) {
+	"sap/ui/core/mvc/Controller",
+	'sap/f/library'
+], function (JSONModel, Controller, fioriLibrary) {
 	"use strict";
 
 	return Controller.extend("opensap.myapp.controller.DetailDetail", {
@@ -22,6 +23,10 @@ sap.ui.define([
 				path: "/" + this._product + "/produkty/" + this._supplier,
 				model: "dokumenty"
 			});
+		},
+
+		handleAboutPress: function () {
+			this.oRouter.navTo("page2", {layout: fioriLibrary.LayoutType.EndColumnFullScreen});
 		},
 
 		onExit: function () {
