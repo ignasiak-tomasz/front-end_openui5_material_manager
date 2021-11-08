@@ -13,13 +13,13 @@
         "dataZatwierdzeniaPrzyjecia": "2023-10-10T00:00:00",
         "ktoWystawil": {
             "id": 1,
-            "imie": "KtoWystawiłImie",
-            "nazwisko": "KtoWystawiłNaziwsko"
+            "imie": "Zenon",
+            "nazwisko": "Burczybrzucha"
         },
         "ktoZatwierdzilPrzyjal": {
             "id": 1,
-            "imie": "KtoZatwierdziłPrzyjąłImie",
-            "nazwisko": "KtoZatwierdziłPrzyjąłNazwisko"
+            "imie": "Stefan",
+            "nazwisko": "Bajon"
         },
         "produkty": [
             {
