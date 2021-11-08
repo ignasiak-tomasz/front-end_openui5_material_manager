@@ -60,8 +60,8 @@
 		<f:footer>
 			<OverflowToolbar>
 				<ToolbarSpacer/>
-				<Button type="Accept" text="Accept"/>
-				<Button type="Reject" text="Reject"/>
+				<Button type="Accept" text="Zapisz"/>
+				<Button type="Reject" text="Anuluj"/>
 			</OverflowToolbar>
 		</f:footer>
 		
