@@ -75,7 +75,13 @@
 				},
 				"async": true
 			},
-			"routes": [	
+			"routes": [
+				{
+					"pattern": "page2",
+					"name": "page2",
+					"target": "page2",
+					"layout": "EndColumnFullScreen"
+				},	
 				{
 					"pattern": ":layout:",
 					"name": "master",
@@ -91,6 +97,15 @@
 						"master",
 						"detail"
 					]
+				},
+				{
+					"pattern": "detail/{product}/detailDetail/{supplier}/{layout}",
+					"name": "detailDetail",
+					"target": [
+						"master",
+						"detail",
+						"detailDetail"
+					]
 				}
 			],
 			"targets": {
@@ -101,6 +116,14 @@
 				"detail": {
 					"viewName": "Detail",
 					"controlAggregation": "midColumnPages"
+				},
+				"detailDetail": {
+					"viewName": "DetailDetail",
+					"controlAggregation": "endColumnPages"
+				},
+				"page2": {
+					"viewName": "AboutPage",
+					"controlAggregation": "endColumnPages"
 				}
 			}
 		},
