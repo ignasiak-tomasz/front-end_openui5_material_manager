@@ -34,7 +34,7 @@
 			</DynamicPageTitle>
 		</title>
 		<content>
-			<m:Link text="Navigate to next page…" press=".handleAboutPress"/>
+			<m:Link text="Zobacz więcej" press=".handleAboutPress"/>
 		</content>
 	</DynamicPage>
 </mvc:View>
