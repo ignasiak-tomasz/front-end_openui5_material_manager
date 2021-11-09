@@ -27,7 +27,7 @@ sap.ui.define([
 			 * Model 1
 			 */
 			var oDocumentsModel = new JSONModel();
-			jQuery.ajax({
+			/*jQuery.ajax({
 				method: "GET",
 				url: "proxy/https/localhost:5001/api/inz/dokumenty",
         		contentType: "application/json",
@@ -41,12 +41,12 @@ sap.ui.define([
 				}
 			}).then(function(data){
 					oDocumentsModel.setData(data);
-			});
-			// $.getJSON("temp_database.json", function(data){
-			// 	oDocumentsModel.setData(data);
-			// }).fail(function(){
-			// 	console.log("An error has occurred.");
-			// });
+			});*/
+			 $.getJSON("temp_database.json", function(data){
+			 	oDocumentsModel.setData(data);
+			 }).fail(function(){
+			 	console.log("An error has occurred.");
+			 });
 			oDocumentsModel.setSizeLimit(1000);
 			this.setModel(oDocumentsModel, 'dokumenty');
 
@@ -55,7 +55,7 @@ sap.ui.define([
 			 * Modle 2
 			 */
 			 var oProductsModel = new JSONModel();
-			 jQuery.ajax({
+			 /*jQuery.ajax({
 				 method: "GET",
 				 url: "proxy/https/localhost:5001/api/inz/produkty",
 				 contentType: "application/json",
@@ -69,12 +69,12 @@ sap.ui.define([
 				 }
 			 }).then(function(data){
 					 oProductsModel.setData(data);
-			 });
-			//  $.getJSON("temp_database_products.json", function(data){
-			// 	oProductsModel.setData(data);
-			//  }).fail(function(){
-			// 	 console.log("An error has occurred.");
-			//  });
+			 });*/
+			  $.getJSON("temp_database_products.json", function(data){
+			 	oProductsModel.setData(data);
+			  }).fail(function(){
+			 	 console.log("An error has occurred.");
+			  });
 			 oProductsModel.setSizeLimit(1000);
 			 this.setModel(oProductsModel, 'products');
 
