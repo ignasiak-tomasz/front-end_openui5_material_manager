@@ -14,15 +14,19 @@ sap.ui.define([
 		
 		init : function(){
 			var oModel,
+				oDocumentsModel,
 				oProductsModel,
 				oRouter;
 
 			UIComponent.prototype.init.apply(this, arguments);
 
-			oModel = new JSONModel();
-			this.setModel(oModel);
-				
-			var oProductsModel = new JSONModel();
+			oModel = new JSONModel(); /**Base model for All Solution */
+			this.setModel(oModel); /**Base model for All Solution */
+			
+			/**
+			 * Model 1
+			 */
+			var oDocumentsModel = new JSONModel();
 			/*jQuery.ajax({
 				method: "GET",
 				url: "proxy/https/localhost:5001/api/inz/dokumenty",
@@ -36,15 +40,44 @@ sap.ui.define([
 					console.log(error);
 				}
 			}).then(function(data){
-					oProductsModel.setData(data);
+					oDocumentsModel.setData(data);
 			});*/
-			$.getJSON("temp_database.json", function(data){
-				oProductsModel.setData(data);
-			}).fail(function(){
-				console.log("An error has occurred.");
-			});
-			oProductsModel.setSizeLimit(1000);
-			this.setModel(oProductsModel, 'dokumenty');
+			 $.getJSON("temp_database.json", function(data){
+			 	oDocumentsModel.setData(data);
+			 }).fail(function(){
+			 	console.log("An error has occurred.");
+			 });
+			oDocumentsModel.setSizeLimit(1000);
+			this.setModel(oDocumentsModel, 'dokumenty');
+
+
+			/**
+			 * Modle 2
+			 */
+			 var oProductsModel = new JSONModel();
+			 /*jQuery.ajax({
+				 method: "GET",
+				 url: "proxy/https/localhost:5001/api/inz/produkty",
+				 contentType: "application/json",
+				 dataType: 'json',
+				 async: false,
+				 success: function(data){
+					 console.log(data);
+				 },
+				 error: function(error){
+					 console.log(error);
+				 }
+			 }).then(function(data){
+					 oProductsModel.setData(data);
+			 });*/
+			  $.getJSON("temp_database_products.json", function(data){
+			 	oProductsModel.setData(data);
+			  }).fail(function(){
+			 	 console.log("An error has occurred.");
+			  });
+			 oProductsModel.setSizeLimit(1000);
+			 this.setModel(oProductsModel, 'products');
+
 
 			oRouter = this.getRouter();
 			oRouter.attachBeforeRouteMatched(this._onBeforeRouteMatched, this);
@@ -54,7 +87,9 @@ sap.ui.define([
 			return this._getFcl().then(function(oFCL) {
 				var oSettings = {
 					defaultTwoColumnLayoutType: fioriLibrary.LayoutType.TwoColumnsMidExpanded,
-					defaultThreeColumnLayoutType: fioriLibrary.LayoutType.ThreeColumnsMidExpanded
+					defaultThreeColumnLayoutType: fioriLibrary.LayoutType.ThreeColumnsMidExpanded,
+					initialColumnsCount: 2//,
+					// maxColumnsCount: 2
 				};
 				return (FlexibleColumnLayoutSemanticHelper.getInstanceFor(oFCL, oSettings));
 			});

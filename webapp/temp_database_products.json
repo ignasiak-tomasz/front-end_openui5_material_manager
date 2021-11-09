@@ -1,0 +1,117 @@
+[
+    {
+      "id": 1,
+      "nazwa": "Produkt 5",
+      "iloscObecna": 5,
+      "iloscZarezerwowana": 1,
+      "iloscDostepna": 4,
+      "kodEan": "11111111",
+      "lokalizacja": {
+        "id": 1,
+        "numerRegalu": 1
+      },
+      "kategoria": {
+        "id": 1,
+        "nazwa": "Bez nazwy"
+      },
+      "dokumenty": [
+        {
+          "dokumentId": 1,
+          "produktId": 1,
+          "ilosc": 0
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "nazwa": "Produkt 4",
+      "iloscObecna": 2,
+      "iloscZarezerwowana": 1,
+      "iloscDostepna": 1,
+      "kodEan": "789",
+      "lokalizacja": {
+        "id": 2,
+        "numerRegalu": 2
+      },
+      "kategoria": {
+        "id": 2,
+        "nazwa": "Farba"
+      },
+      "dokumenty": [
+        {
+          "dokumentId": 2,
+          "produktId": 2,
+          "ilosc": 0
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "nazwa": "Produkt 3",
+      "iloscObecna": 0,
+      "iloscZarezerwowana": 0,
+      "iloscDostepna": 0,
+      "kodEan": "",
+      "lokalizacja": {
+        "id": 0,
+        "numerRegalu": 0
+      },
+      "kategoria": {
+        "id": 1,
+        "nazwa": "Bez nazwy"
+      },
+      "dokumenty": [
+        {
+          "dokumentId": 2,
+          "produktId": 3,
+          "ilosc": 0
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "nazwa": "Produkt 2",
+      "iloscObecna": 50,
+      "iloscZarezerwowana": 10,
+      "iloscDostepna": 40,
+      "kodEan": "456",
+      "lokalizacja": {
+        "id": 10,
+        "numerRegalu": 10
+      },
+      "kategoria": {
+        "id": 3,
+        "nazwa": "Chemia"
+      },
+      "dokumenty": [
+        {
+          "dokumentId": 3,
+          "produktId": 4,
+          "ilosc": 0
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "nazwa": "Produkt 1",
+      "iloscObecna": 200,
+      "iloscZarezerwowana": 100,
+      "iloscDostepna": 100,
+      "kodEan": "123",
+      "lokalizacja": {
+        "id": 5,
+        "numerRegalu": 5
+      },
+      "kategoria": {
+        "id": 5,
+        "nazwa": "Art. spożywcze"
+      },
+      "dokumenty": [
+        {
+          "dokumentId": 5,
+          "produktId": 5,
+          "ilosc": 0
+        }
+      ]
+    }
+  ]

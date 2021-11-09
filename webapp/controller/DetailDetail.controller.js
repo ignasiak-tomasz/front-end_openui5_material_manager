@@ -17,11 +17,22 @@ sap.ui.define([
 		_onPatternMatch: function (oEvent) {
 			this._supplier = oEvent.getParameter("arguments").supplier || this._supplier || "0";
 			this._product = oEvent.getParameter("arguments").product || this._product || "0";
+			var produkt_id = this.getView().getModel("dokumenty").getProperty("/" + this._product + "/produkty/" + this._supplier + "/produktId");
+			var oModel = this.getView().getModel("products");
+			
+			oModel.dataLoaded().then(function() {
 
-			this.getView().bindElement({
-				path: "/" + this._product + "/produkty/" + this._supplier,
-				model: "dokumenty"
-			});
+				var oData = oModel.getData();
+				for(var i = 0; i< oData.length; i++){
+					if(oData[i].id == produkt_id){
+						this.getView().bindElement({
+							path: "/"+i,
+							model: "products"
+						  });
+						break;
+					}
+				}				
+			}.bind(this));
 		},
 
 		handleAboutPress: function () {
