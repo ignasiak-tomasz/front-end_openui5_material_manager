@@ -5,7 +5,7 @@
 	xmlns:f="sap.f"
 	xmlns:form="sap.ui.layout.form"
 	xmlns:mvc="sap.ui.core.mvc">
-		<ObjectPageLayout
+	<ObjectPageLayout
 		id="ObjectPageLayout"
 		showTitleInHeaderContent="true"
 		alwaysShowContentHeader="false"
