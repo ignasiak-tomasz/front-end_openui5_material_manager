@@ -2,8 +2,9 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"sap/ui/core/mvc/Controller",
 	"sap/ui/model/Filter",
-	"sap/ui/model/FilterOperator"
-], function (JSONModel, Controller, Filter, FilterOperator) {
+	"sap/ui/model/FilterOperator",
+	'sap/ui/model/Sorter',
+], function (JSONModel, Controller, Filter, FilterOperator, Sorter) {
 	"use strict";
 
 	return Controller.extend("opensap.myapp.controller.Master", {
@@ -39,6 +40,7 @@ sap.ui.define([
 
 			this.oApplicationTable.getBinding("items").filter(oTableSearchState, "Application");
 		},
+<<<<<<< Updated upstream
 		onAdd: function(){
 			var oNextUIState;
 			this.getOwnerComponent().getHelper().then(function (oHelper) {
@@ -49,5 +51,14 @@ sap.ui.define([
 				});
 			}.bind(this));
 		}
+=======
+		onSort: function () {
+			this._bDescendingSort = !this._bDescendingSort;
+			var oBinding = this.oApplicationTable.getBinding("items"),
+				oSorter = new Sorter("id", this._bDescendingSort);
+
+			oBinding.sort(oSorter);
+		},
+>>>>>>> Stashed changes
 	});
 });

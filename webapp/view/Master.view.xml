@@ -34,9 +34,9 @@
 						<Column width="12em">
 							<Text text="{i18n>appplication}" />
 						</Column>
-						<!-- <Column	hAlign="End">
-							<Text text="Number of Items" />
-						</Column> -->
+						 <Column>
+							<Text text="Description" />
+						</Column> 
 					</columns>
 					<items>
 						<!--<ColumnListItem type="Navigation" press="onListItemPress">-->
@@ -44,11 +44,14 @@
 							<cells>
 								<!-- <ObjectIdentifier title="{applications>text}" /> -->
 								<ObjectIdentifier title="{dokumenty>id}" text="{dokumenty>typDokumentu/nazwa}" />
-								<!-- <ObjectNumber
-										number="{
-											parts:[{path:'products>data'}],
-											type: 'sap.ui.model.type.Integer'
-										}" /> -->
+								<ObjectIdentifier
+										text="{
+											parts:[{path:'dokumenty>dataWystawienia'}],
+											type: 'sap.ui.model.type.DateTime',
+											formatOptions: {
+												strictParsing: true
+											}
+										}" /> 
 							</cells>
 						</ColumnListItem>
 					</items>
