@@ -38,6 +38,16 @@ sap.ui.define([
 			}
 
 			this.oApplicationTable.getBinding("items").filter(oTableSearchState, "Application");
+		},
+		onAdd: function(){
+			var oNextUIState;
+			this.getOwnerComponent().getHelper().then(function (oHelper) {
+				oNextUIState = oHelper.getNextUIState(3);
+				this.oRouter.navTo("detail", {
+					layout: oNextUIState.layout,
+					product: product
+				});
+			}.bind(this));
 		}
 	});
 });

@@ -1,0 +1,40 @@
+<mvc:View
+	xmlns="sap.m"
+	xmlns:f="sap.f"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:l="sap.ui.layout">
+	<f:DynamicPage toggleHeaderOnTitleClick="false">
+		<!-- DynamicPage Title -->
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<Title text="Dodawanie nowego dokumentu"/>
+				</f:heading>
+			</f:DynamicPageTitle>
+			<f:content>
+				<l:VerticalLayout class="sapUiContentPadding" width="100%">
+					<Label text="Name" labelFor="input-a" design="Bold" />
+					<Input id="input-a" required="true" value="{dokument_Add>/name}"/>
+
+					<Label text="Descriptiom" labelFor="input-b" design="Bold" />
+					<Input id="input-b" required="true" value="{dokument_Add>/description}"/>
+
+					<Label text="Category" labelFor="input-c" design="Bold" />
+					<Input id="input-c" required="true" value="{dokument_Add>/category}"/>
+
+					<Label text="hasDelivery" labelFor="input-d" design="Bold" />
+					<Input id="input-d" required="true" value="{dokument_Add>/hasDelivery}"/>
+
+					<Label text="city" labelFor="input-e" design="Bold" />
+					<Input id="input-e" required="true" value="{dokument_Add>/city}"/>
+
+					<Label text="street" labelFor="input-f" design="Bold" />
+					<Input id="input-f" required="true" value="{dokument_Add>/street}"/>
+
+					<Label text="postalCode" labelFor="input-g" design="Bold" />
+					<Input id="input-g" required="true" value="{dokument_Add>/postalCode}"/>
+				</l:VerticalLayout>
+			</f:content>
+		</f:title>
+	</f:DynamicPage>
+</mvc:View>
