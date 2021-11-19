@@ -40,18 +40,15 @@ sap.ui.define([
 
 			this.oApplicationTable.getBinding("items").filter(oTableSearchState, "Application");
 		},
-<<<<<<< Updated upstream
 		onAdd: function(){
 			var oNextUIState;
 			this.getOwnerComponent().getHelper().then(function (oHelper) {
 				oNextUIState = oHelper.getNextUIState(3);
 				this.oRouter.navTo("detail", {
-					layout: oNextUIState.layout,
-					product: product
+					layout: oNextUIState.layout
 				});
 			}.bind(this));
-		}
-=======
+		},
 		onSort: function () {
 			this._bDescendingSort = !this._bDescendingSort;
 			var oBinding = this.oApplicationTable.getBinding("items"),
@@ -59,6 +56,5 @@ sap.ui.define([
 
 			oBinding.sort(oSorter);
 		},
->>>>>>> Stashed changes
 	});
 });
