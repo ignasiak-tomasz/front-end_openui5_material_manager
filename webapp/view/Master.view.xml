@@ -16,13 +16,13 @@
 		<!-- DynamicPage Content -->
 		<f:content>
 			<VBox fitContainer="true">
-				<!--OverflowToolbar class="sapFDynamicPageAlignContent">
+				<OverflowToolbar class="sapFDynamicPageAlignContent">
 					<ToolbarSpacer/>
-					<!- <SearchField search=".onSearch" width="17.5rem"/> ->
+					<SearchField search=".onSearch" width="17.5rem"/> 
 					<OverflowToolbarButton icon="sap-icon://add" text="Add" type="Transparent" press=".onAdd"/>
-					<!- <OverflowToolbarButton icon="sap-icon://sort" text="Sort" type="Transparent" press=".onSort"/> ->
-				</OverflowToolbar 
-				-->
+					<OverflowToolbarButton icon="sap-icon://sort" text="Sort" type="Transparent" press=".onSort"/>
+				</OverflowToolbar>
+				
 				<Table id="applicationTable"
 					inset="false"
 					items="{
@@ -43,7 +43,7 @@
 						<ColumnListItem type="Navigation" press=".onListItemPress">
 							<cells>
 								<!-- <ObjectIdentifier title="{applications>text}" /> -->
-								<ObjectIdentifier title="{dokumenty>id}" text="{dokumenty>id}" />
+								<ObjectIdentifier title="{dokumenty>id}" text="{dokumenty>typDokumentu/nazwa}" />
 								<!-- <ObjectNumber
 										number="{
 											parts:[{path:'products>data'}],

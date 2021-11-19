@@ -81,6 +81,12 @@
 					"name": "page2",
 					"target": "page2",
 					"layout": "EndColumnFullScreen"
+				},
+				{
+					"pattern": "addDocument",
+					"name": "addDocument",
+					"target": "addDocument",
+					"layout": "EndColumnFullScreen"
 				},	
 				{
 					"pattern": ":layout:",
@@ -124,7 +130,12 @@
 				"page2": {
 					"viewName": "AboutPage",
 					"controlAggregation": "endColumnPages"
+				},
+				"addDocument": {
+					"viewName": "AddDocument",
+					"controlAggregation": "endColumnPages"
 				}
+
 			}
 		},
 		"contentDensities": {

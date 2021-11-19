@@ -1,7 +1,9 @@
 sap.ui.define([
 	"sap/ui/model/json/JSONModel",
-	"sap/ui/core/mvc/Controller"
-], function (JSONModel, Controller) {
+	"sap/ui/core/mvc/Controller",
+	"sap/ui/model/Filter",
+	"sap/ui/model/FilterOperator"
+], function (JSONModel, Controller, Filter, FilterOperator) {
 	"use strict";
 
 	return Controller.extend("opensap.myapp.controller.Master", {
@@ -19,13 +21,33 @@ sap.ui.define([
 				product = productPath.split("/").slice(-1).pop(),
 				oNextUIState;
 
-				this.getOwnerComponent().getHelper().then(function (oHelper) {
-					oNextUIState = oHelper.getNextUIState(1);
-					this.oRouter.navTo("detail", {
-						layout: oNextUIState.layout,
-						product: product
-					});
-				}.bind(this));
+			this.getOwnerComponent().getHelper().then(function (oHelper) {
+				oNextUIState = oHelper.getNextUIState(1);
+				this.oRouter.navTo("detail", {
+					layout: oNextUIState.layout,
+					product: product
+				});
+			}.bind(this));
+		},
+		onSearch: function (oEvent) {
+			var oTableSearchState = [],
+				sQuery = oEvent.getParameter("query");
+
+			if (sQuery && sQuery.length > 0) {
+				oTableSearchState = [new Filter("typDokumentu/nazwa", FilterOperator.Contains, sQuery)];
+			}
+
+			this.oApplicationTable.getBinding("items").filter(oTableSearchState, "Application");
+		},
+		onAdd: function(){
+			var oNextUIState;
+			this.getOwnerComponent().getHelper().then(function (oHelper) {
+				oNextUIState = oHelper.getNextUIState(3);
+				this.oRouter.navTo("detail", {
+					layout: oNextUIState.layout,
+					product: product
+				});
+			}.bind(this));
 		}
 	});
 });

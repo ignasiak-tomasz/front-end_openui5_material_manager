@@ -3,11 +3,11 @@
         "id": 1,
         "typDokumentu": {
             "id": 1,
-            "nazwa": "PITDUPA"
+            "nazwa": "PIT"
         },
         "kontrahent": {
             "id": 1,
-            "nazwa": "KontrahentDupa"
+            "nazwa": "Kontrahent"
         },
         "dataWystawienia": "2023-10-10T00:00:00",
         "dataZatwierdzeniaPrzyjecia": "2023-10-10T00:00:00",
