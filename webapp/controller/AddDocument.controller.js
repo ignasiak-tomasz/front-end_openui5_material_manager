@@ -5,6 +5,7 @@ sap.ui.define([
 	"use strict";
 
 	return Controller.extend("opensap.myapp.controller.AddDocument", {
+		/*
 		onInit: function () {
 			this.oOwnerComponent = this.getOwnerComponent();
 
@@ -45,6 +46,6 @@ sap.ui.define([
 
 		onExit: function () {
 			this.oRouter.getRoute("detailDetail").detachPatternMatched(this._onPatternMatch, this);
-		}
+		}*/
 	});
 });

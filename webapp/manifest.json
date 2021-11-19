@@ -19,7 +19,7 @@
 			"tablet": true,
 			"phone": true
 		},
-		"supportedThemes": ["sap_bluecrystal"]
+		"supportedThemes": ["sap_belize"]
 	},
 	"sap.ui5": {
 		"_version": "1.2.0",

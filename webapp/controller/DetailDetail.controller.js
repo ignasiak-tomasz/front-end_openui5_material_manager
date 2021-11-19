@@ -5,6 +5,7 @@ sap.ui.define([
 	"use strict";
 
 	return Controller.extend("opensap.myapp.controller.DetailDetail", {
+		
 		onInit: function () {
 			this.oOwnerComponent = this.getOwnerComponent();
 
