@@ -1,6 +1,8 @@
 sap.ui.define([
-	"sap/ui/core/mvc/Controller"
-], function (Controller) {
+	"sap/ui/core/mvc/Controller",
+	"sap/m/MessageBox",
+	"sap/m/MessageToast"
+], function (Controller, MessageBox, MessageToast) {
 	"use strict";
 
 	return Controller.extend("opensap.myapp.controller.Detail", {
@@ -39,6 +41,57 @@ sap.ui.define([
 				path: "/" + this._product,
 				model: "dokumenty"
 			});
+		},
+		onDelete: function(oEvent){
+			var idDokumentu = this.getView().getBindingContext("dokumenty").getProperty("id");
+
+			MessageBox.warning( this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("deletionQuestion", [idDokumentu]), {
+				actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
+				emphasizedAction: MessageBox.Action.OK,
+				onClose: function (sAction) {
+					if(sAction === MessageBox.Action.OK){
+						//oModel.metadataLoaded().then(this._onMetadataDelete.bind(this,sPath,sId)); OData
+						this.getView().getModel("dokumenty").dataLoaded().then(this._onMetadataDelete.bind(this, idDokumentu));
+					}
+				}.bind(this)
+				
+			});
+		},
+		_onMetadataDelete: function(idDokumentu){
+			$.ajax({
+					
+				url: "proxy/https/localhost:5001/api/inz/dokumenty/" + idDokumentu,
+				type: 'DELETE',
+				success: function(result) {
+					var Object = result;
+				},
+				error: function(error){
+					var Object = error;
+				}
+			}).then(
+				function(data){
+					this._mySuccessHandler(idDokumentu)
+				}.bind(this),
+				function(data){
+					this._myErrorHandler(idDokumentu)
+				}.bind(this)
+			);
+		},
+		_mySuccessHandler: function(idDokumentu){				
+			var oModel = this.getView().getModel("dokumenty"),
+				oData = oModel.getData();
+
+			oData.splice(this._product,1);
+			oModel.setData(oData);
+			oModel.refresh();
+
+			var sMessage = this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("deletionSuccess", [idDokumentu]);
+			MessageToast.show(sMessage);
+		},
+		_myErrorHandler: function(idDokumentu){
+			var sMessage = this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("deletionError", [idDokumentu]);
+			MessageToast.show(sMessage);
+			//this.getView().getModel("dokumenty").resetChanges(); Only OData
 		},
         /**
          * Ta metoda wyświetla w dolnej części Drugiego okna informację o tym czy chcemy zapisać zmiany.
