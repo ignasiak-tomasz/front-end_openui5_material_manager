@@ -86,7 +86,7 @@
 					"pattern": "addDocument",
 					"name": "addDocument",
 					"target": "addDocument",
-					"layout": "EndColumnFullScreen"
+					"layout": "MidColumnFullScreen"
 				},	
 				{
 					"pattern": ":layout:",
@@ -133,7 +133,7 @@
 				},
 				"addDocument": {
 					"viewName": "AddDocument",
-					"controlAggregation": "endColumnPages"
+					"controlAggregation": "midColumnPages"
 				}
 
 			}

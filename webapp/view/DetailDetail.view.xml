@@ -72,6 +72,9 @@
 					<items>
 						<IconTabFilter text="Attachments">
 							<Text text="Attachments go here ..." />
+							<content>
+								<Link text="Navigate to next page…" press=".handleAboutPress"/>
+							</content>
 						</IconTabFilter>
 						<IconTabFilter text="Notes">
 							<Text text="Notes go here ..." />
