@@ -1,4 +1,5 @@
 <mvc:View
+	controllerName="opensap.myapp.controller.AddDocument"
 	xmlns="sap.m"
 	xmlns:f="sap.f"
 	xmlns:mvc="sap.ui.core.mvc"

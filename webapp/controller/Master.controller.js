@@ -44,7 +44,7 @@ sap.ui.define([
 			var oNextUIState;
 			this.getOwnerComponent().getHelper().then(function (oHelper) {
 				oNextUIState = oHelper.getNextUIState(3);
-				this.oRouter.navTo("detail", {
+				this.oRouter.navTo("addDocument", {
 					layout: oNextUIState.layout
 				});
 			}.bind(this));
