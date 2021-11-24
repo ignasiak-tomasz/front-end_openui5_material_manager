@@ -1,19 +1,37 @@
 sap.ui.define([
 	"sap/ui/model/json/JSONModel",
-	"sap/ui/core/mvc/Controller"
-], function (JSONModel, Controller) {
+	"sap/ui/core/mvc/Controller",
+	"sap/ui/core/Core"
+], function (JSONModel, Controller, Core) {
 	"use strict";
 
 	return Controller.extend("opensap.myapp.controller.AddDocument", {
-		/*
+		
 		onInit: function () {
-			this.oOwnerComponent = this.getOwnerComponent();
+			var oView = this.getView(),
+				oMM = Core.getMessageManager();
 
-			this.oRouter = this.oOwnerComponent.getRouter();
-			this.oModel = this.oOwnerComponent.getModel();
+			oView.setModel(new JSONModel({ name: "", email: "" }));
 
-			this.oRouter.getRoute("addDocument").attachPatternMatched(this._onPatternMatch, this);
+			// attach handlers for validation errors
+
+			// this.oOwnerComponent = this.getOwnerComponent();
+
+			// this.oRouter = this.oOwnerComponent.getRouter();
+			// this.oModel = this.oOwnerComponent.getModel();
+
+			// this.oRouter.getRoute("addDocument").attachPatternMatched(this._onPatternMatch, this);
 		},
+		onSubmit: function () {
+			var oView = this.getView(),
+				aInputs = [
+				oView.byId("nameInput"),
+				oView.byId("emailInput")
+			];
+
+		}
+		
+		/*,
 
 		_onPatternMatch: function (oEvent) {
 			this._supplier = oEvent.getParameter("arguments").supplier || this._supplier || "0";

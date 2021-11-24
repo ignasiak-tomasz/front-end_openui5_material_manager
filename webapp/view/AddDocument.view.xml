@@ -4,8 +4,32 @@
 	xmlns:f="sap.f"
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns:l="sap.ui.layout">
-	<f:DynamicPage toggleHeaderOnTitleClick="false">
-		<!-- DynamicPage Title -->
+	<l:VerticalLayout class="sapUiContentPadding" width="50%" alignItems="Center">
+		<Label text="Name" labelFor="nameInput" />
+		<Input
+			id="nameInput"
+			class="sapUiSmallMarginBottom"
+			placeholder="Enter name"
+			valueStateText="Name must not be empty."
+			value="{
+				path : '/name',
+				type : 'sap.ui.model.type.String'
+			}" />
+
+		<Label text="E-mail" labelFor="emailInput" />
+		<Input
+			id="emailInput"
+			class="sapUiSmallMarginBottom"
+			type="Email"
+			placeholder="Enter email"
+			valueStateText="E-mail must be a valid email address."
+			value="{
+				path: '/email'
+			}" />
+		<Button text="Submit" press=".onSubmit" />
+	</l:VerticalLayout>
+	<!-- <f:DynamicPage toggleHeaderOnTitleClick="false">
+		<!- DynamicPage Title ->
 		<f:title>
 			<f:DynamicPageTitle>
 				<f:heading>
@@ -13,7 +37,7 @@
 				</f:heading>
 			</f:DynamicPageTitle>
 			<f:content>
-				<l:VerticalLayout class="sapUiContentPadding" width="100%">
+				<!- <l:VerticalLayout class="sapUiContentPadding" width="100%">
 					<Label text="Name" labelFor="input-a" design="Bold" />
 					<Input id="input-a" required="true" value="{dokument_Add>/name}"/>
 
@@ -34,8 +58,8 @@
 
 					<Label text="postalCode" labelFor="input-g" design="Bold" />
 					<Input id="input-g" required="true" value="{dokument_Add>/postalCode}"/>
-				</l:VerticalLayout>
+				</l:VerticalLayout> ->
 			</f:content>
 		</f:title>
-	</f:DynamicPage>
+	</f:DynamicPage> -->
 </mvc:View>
