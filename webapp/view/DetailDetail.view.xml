@@ -15,37 +15,37 @@
 						</FlexBox>
 					</f:heading>
 					<f:expandedContent>
-						<Label text="This is a subheading"/>
+						<Label text="Szczegóły"/>
 					</f:expandedContent>
 					<f:snappedContent>
-						<Label text="This is a subheading"/>
+						<Label text="Szczegóły"/>
 					</f:snappedContent>
 					<f:snappedTitleOnMobile>
-						<Title text="This is a subheading"/>
+						<Title text="Szczegóły"/>
 					</f:snappedTitleOnMobile>
 					<f:actions>
-						<Button text="Edit" type="Emphasized"/>
-						<Button text="Delete" type="Transparent"/>
-						<Button text="Copy" type="Transparent"/>
+						<Button text="Edycja" type="Emphasized"/>
+						<Button text="Usuń" type="Transparent"/>
+						<Button text="Kopiuj" type="Transparent"/>
 					</f:actions> 
 					<f:navigationActions>
 						<OverflowToolbarButton
 							type="Transparent"
 							icon="sap-icon://full-screen"
 							press=".handleFullScreen"
-							tooltip="Enter Full Screen Mode"
+							tooltip="Widok pełnoekranowy"
 							visible="{= ${/actionButtonsInfo/endColumn/fullScreen} !== null }"/>
 						<OverflowToolbarButton
 							type="Transparent"
 							icon="sap-icon://exit-full-screen"
 							press=".handleExitFullScreen"
-							tooltip="Exit Full Screen Mode"
+							tooltip="Opuść widok pełnoekranowy"
 							visible="{= ${/actionButtonsInfo/endColumn/exitFullScreen} !== null }"/>
 						<OverflowToolbarButton
 							type="Transparent"
 							icon="sap-icon://decline"
 							press=".handleClose"
-							tooltip="Close column"
+							tooltip="Zamknij podgląd"
 							visible="{= ${/actionButtonsInfo/endColumn/closeColumn} !== null }"/>
 					</f:navigationActions>
 				</f:DynamicPageTitle>
@@ -55,14 +55,14 @@
 				<f:DynamicPageHeader pinnable="true">
 					<layout:HorizontalLayout allowWrapping="true">
 						<layout:VerticalLayout class="sapUiMediumMarginEnd">
-							<ObjectAttribute title="Location" text="Warehouse A"/>
-							<ObjectAttribute title="Halway" text="23L"/>
-							<ObjectAttribute title="Rack" text="34"/>
+							<ObjectAttribute title="Lokalizacja" text="Magazyn główny BBDT"/>
+							<ObjectAttribute title="Rząd" text="A1.01"/>
+							<ObjectAttribute title="Półka" text="01"/>
 						</layout:VerticalLayout>
 
 						<layout:VerticalLayout>
-							<ObjectAttribute title="Availability"/>
-							<ObjectStatus text="In Stock" state="Success" />
+							<ObjectAttribute title="Dostępność"/>
+							<ObjectStatus text="Na stanie" state="Success" />
 						</layout:VerticalLayout>
 					</layout:HorizontalLayout>
 				</f:DynamicPageHeader>
@@ -70,17 +70,17 @@
 			<f:content>
 				<IconTabBar id="iconTabBar" class="sapUiResponsiveContentPadding">
 					<items>
-						<IconTabFilter text="Attachments">
-							<Text text="Attachments go here ..." />
+						<IconTabFilter text="Załącznik">
+							<Text text="Tu znajdziesz interesujące Cię załączniki" />
 							<content>
-								<Link text="Navigate to next page…" press=".handleAboutPress"/>
+								<Link text="Przejdź do następnej strony" press=".handleAboutPress"/><!--Tu możnaby rozkminić czy wrzucać jakieś zdjęcia (jeśli tak, to jak)?-->
 							</content>
 						</IconTabFilter>
-						<IconTabFilter text="Notes">
-							<Text text="Notes go here ..." />
+						<IconTabFilter text="Uwagi">
+							<Text text="Notes go here ..." /><!--Dynamiczne czy wyrzucamy?-->
 						</IconTabFilter>
-						<IconTabFilter text="People">
-							<Text text="People content goes here ..." />
+						<IconTabFilter text="Osoby zajmujące się produktem"><!--Zastanowić się, czy jest nam potrzebne. Jeśli tak, to co tu wrzucić?-->
+							<Text text=" ..." />
 						</IconTabFilter>
 					</items>
 				</IconTabBar>

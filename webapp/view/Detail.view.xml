@@ -37,19 +37,19 @@
 						type="Transparent"
 						icon="sap-icon://full-screen"
 						press=".handleFullScreen"
-						tooltip="Enter Full Screen Mode"
+						tooltip="Widok pełnoekranowy"
 						visible="{= ${/actionButtonsInfo/midColumn/fullScreen} !== null }"/>
 					<m:OverflowToolbarButton
 						type="Transparent"
 						icon="sap-icon://exit-full-screen"
 						press=".handleExitFullScreen"
-						tooltip="Exit Full Screen Mode"
+						tooltip="Opuść widok pełnoekranowy"
 						visible="{= ${/actionButtonsInfo/midColumn/exitFullScreen} !== null }"/>
 					<m:OverflowToolbarButton
 						type="Transparent"
 						icon="sap-icon://decline"
 						press=".handleClose"
-						tooltip="Close column"
+						tooltip="Zamknij podgląd"
 						visible="{= ${/actionButtonsInfo/midColumn/closeColumn} !== null }"/>
 				</navigationActions>
 
@@ -125,7 +125,7 @@
 				</subSections>
 			</ObjectPageSection>
 
-			<ObjectPageSection title="Lista dostawców"><!--TODO do wprowadzenia w i18n--> <!--To jest cały blok, który pojawia się w nagłówku strony-->
+			<ObjectPageSection title="Lista produktów"><!--TODO do wprowadzenia w i18n--> <!--To jest cały blok, który pojawia się w nagłówku strony-->
 				<subSections>
 					<ObjectPageSubSection>
 						<blocks>
