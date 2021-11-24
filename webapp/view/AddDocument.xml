@@ -9,7 +9,7 @@
 		<f:title>
 			<f:DynamicPageTitle>
 				<f:heading>
-					<Title text="Dodawanie nowego dokumentu"/>
+					<Title text="Nowy dokument"/>
 				</f:heading>
 			</f:DynamicPageTitle>
 			<f:content>

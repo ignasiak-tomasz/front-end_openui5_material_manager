@@ -125,7 +125,7 @@
 				</subSections>
 			</ObjectPageSection>
 
-			<ObjectPageSection title="Lista produktów"><!--TODO do wprowadzenia w i18n--> <!--To jest cały blok, który pojawia się w nagłówku strony-->
+			<ObjectPageSection title="Lista towarów"><!--TODO do wprowadzenia w i18n--> <!--To jest cały blok, który pojawia się w nagłówku strony-->
 				<subSections>
 					<ObjectPageSubSection>
 						<blocks>
