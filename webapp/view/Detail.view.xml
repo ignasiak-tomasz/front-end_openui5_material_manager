@@ -60,7 +60,8 @@
 						press=".onEditToggleButtonPress"/>
 					<m:Button
 						text="Usuń"
-						type="Transparent"/>
+						type="Transparent"
+						press=".onDelete"/>
 					<m:Button
 						text="Kopiuj"
 						type="Transparent"/>
