@@ -55,6 +55,6 @@ sap.ui.define([
 				oSorter = new Sorter("id", this._bDescendingSort);
 
 			oBinding.sort(oSorter);
-		},
+		}
 	});
 });
