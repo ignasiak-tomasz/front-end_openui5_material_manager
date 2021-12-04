@@ -13,6 +13,8 @@ sap.ui.define([
 
 			oView.setModel(new JSONModel({ name: "", email: "" }));
 
+			this.oRouter = this.getOwnerComponent().getRouter();
+
 			// attach handlers for validation errors
 
 			// this.oOwnerComponent = this.getOwnerComponent();
@@ -24,11 +26,81 @@ sap.ui.define([
 		},
 		onSubmit: function () {
 			var oView = this.getView(),
-				aInputs = [
+				oViewModelDataJson = oView.getModel().getJSON();//,
+				/*aInputs = [
 				oView.byId("nameInput"),
 				oView.byId("emailInput")
-			];
+				];*/
+			jQuery.ajax({
+				method: "POST",
+				url: "proxy/https/localhost:5001/xxxxxxxx",
+				contentType: "application/json; charset=utf-8",
+				dataType: 'json',
+				data: JSON.stringify(oViewModelDataJson),
+				///async: false,
+				success: function(data){
+						var lv_data = data;
+				},
+				error: function(error){
+					var lv_error = error;
+				}
+				
+			}).then(function(data){
+				//Success
+				var sHeaderId = data.getResponseHeader( "xxxx"),// Tutaj masz wprowadzić coś co zwraca Denis
+					oNextUIState;
+				
+				this.getOwnerComponent().getHelper().then(function (oHelper) {
+					oNextUIState = oHelper.getNextUIState(1);
+					this.oRouter.navTo("detail", {
+						layout: oNextUIState.layout,
+						product: sHeaderId
+					});
+				}.bind(this));
 
+				var sNewIdKey = sHeaderLocation.replace("/api/restaurant/", "");
+				this._onCreateSuccess(sNewIdKey);
+			}.bind(this), function(data){
+				//Error
+			}.bind(this));/*.then(function(data){
+					oProductsModel.setData(data);
+			});*/
+			//this.getView().setModel(oProductsModel, 'products');
+			//var oModel = this.getView().getModel('products'); // nadmiarowe do tymaczasowej pomocy*/
+		},
+		_onCreateSuccess: function (sNewIdKey) {
+			var sMessage = 'Poprawnie zapisano dane !!!';/*this.getResourceBundle().getText("newPersonCreated",
+				[oPerson.Pesel]);*/
+			
+			var oJSONModel_Add =  this.getView().getBindingContext('products_Add').getModel();
+
+			var sJSON_Add =  oJSONModel_Add.getJSON();
+			var oJSON_Add = JSON.parse(sJSON_Add);
+			oJSON_Add.id = sNewIdKey;
+
+			var oModel = this.getView().getModel("products");
+			var sModel = oModel.getJSON();
+			var oJSON = JSON.parse(sModel);
+
+			oJSON.push(oJSON_Add);
+			oModel.setData(oJSON);
+
+			this.getRouter().navTo("List", true);
+			this.getView().unbindObject('products_Add');
+	
+			MessageToast.show(sMessage, {
+				closeOnBrowserNavigation : false
+			});
+		},
+		_onCreateFailed: function (oError) {
+			var sMessage = 'Błąd przy zapisie danych !!!';// this.getResourceBundle().getText("newPersonNotCreated",
+				//[oPerson.Pesel]);
+				
+			this.onNavBack();
+	
+			MessageToast.show(sMessage, {
+				closeOnBrowserNavigation : false
+			});
 		}
 		
 		/*,
