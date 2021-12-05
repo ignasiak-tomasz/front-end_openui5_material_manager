@@ -78,6 +78,14 @@ sap.ui.define([
 			 oProductsModel.setSizeLimit(1000);
 			 this.setModel(oProductsModel, 'products');
 
+			 $.getJSON("temp_database_typ_dokumentu.json", function(data){
+				oProductsModel.setData(data);
+			 }).fail(function(){
+				 console.log("An error has occurred.");
+			 });
+			oProductsModel.setSizeLimit(1000);
+			this.setModel(oProductsModel, 'typ_dokumentu');
+
 
 			oRouter = this.getRouter();
 			oRouter.attachBeforeRouteMatched(this._onBeforeRouteMatched, this);

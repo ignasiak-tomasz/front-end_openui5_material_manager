@@ -107,47 +107,45 @@ sap.ui.define([
 		_onPatternMatch: function (oEvent) {
 			var oModel = this.getView().getModel("dokumenty");
 			oModel.dataLoaded().then(this._onMetadataLoaded.bind(this,oModel));
-			/*
-			this._supplier = oEvent.getParameter("arguments").supplier || this._supplier || "0";
-			this._product = oEvent.getParameter("arguments").product || this._product || "0";
-			var produkt_id = this.getView().getModel("dokumenty").getProperty("/" + this._product + "/produkty/" + this._supplier + "/produktId");
-			var oModel = this.getView().getModel("products");
-			
-			oModel.dataLoaded().then(function() {
-
-				var oData = oModel.getData();
-				for(var i = 0; i< oData.length; i++){
-					if(oData[i].id == produkt_id){
-						this.getView().bindElement({
-							path: "/"+i,
-							model: "products"
-						  });
-						break;
-					}
-				}				
-			}.bind(this));*/
 		},
 		_onMetadataLoaded: function(oModel){
 			var oTODOClearLineModel = oModel.getProperty("/0");
-			// clear oModel
-			var oJSON = new JSONModel(oTODOClearLineModel);
-			for (var item in oTODOClearLineModel) {
-				if (oTODOClearLineModel.hasOwnProperty(item)) {
-					console.log(item + " -> " + oTODOClearLineModel[item]);
+
+			// for (var item in oTODOClearLineModel) { https://stackoverflow.com/questions/684672/how-do-i-loop-through-or-enumerate-a-javascript-object
+			// 	if (oTODOClearLineModel.hasOwnProperty(item)) {
+			// 		console.log(item + " -> " + oTODOClearLineModel[item]);
+			// 	}
+			// }
+			// console.log("-----------------------------------------------------------------------------------");
+			// for (var key of Object.keys(oTODOClearLineModel)) {
+			// 	console.log(key + " -> " + oTODOClearLineModel[key])
+			// }
+			// console.log("-----------------------------------------------------------------------------------");
+
+			for (let key of Object.keys(oTODOClearLineModel)) {
+				if(typeof(oTODOClearLineModel[key]) === 'object'){
+					if(Array.isArray(oTODOClearLineModel[key])){ oTODOClearLineModel[key] = null; continue; }
+					for (let key_deep of Object.keys(oTODOClearLineModel[key])) {
+						if(typeof(oTODOClearLineModel[key][key_deep]) === 'object'){
+							if(Array.isArray(oTODOClearLineModel[key][key_deep])){ oTODOClearLineModel[key][key_deep] = null; continue; }
+							for (let key_deep_deep of Object.keys(oTODOClearLineModel[key][key_deep])) {
+								if(typeof(oTODOClearLineModel[key][key_deep][key_deep_deep]) === 'object'){
+									console.log('Controller AddDocument to more deep structure');
+								}else{
+									oTODOClearLineModel[key][key_deep][key_deep_deep] = null;
+								}
+							}
+						}else{
+							oTODOClearLineModel[key][key_deep] = null;
+						}
+					}
+				}else{
+					oTODOClearLineModel[key] = null;
 				}
 			}
-			console.log("-----------------------------------------------------------------------------------");
-			for (var key of Object.keys(oTODOClearLineModel)) {
-				console.log(key + " -> " + oTODOClearLineModel[key])
-			}
 
-			console.log("-----------------------------------------------------------------------------------");
 
-			for (let [key, value] of Object.entries(oTODOClearLineModel)) {
-				console.log(`${key}: ${value}`);
-			  }
-
-			oJSON.setData(null);
+			var oJSON = new JSONModel(oTODOClearLineModel);
 			this.getView().setModel(oJSON);// Czysta struktura JSON
 		},
 		onExit: function () {
