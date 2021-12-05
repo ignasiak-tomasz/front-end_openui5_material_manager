@@ -7,7 +7,6 @@
 	<l:VerticalLayout class="sapUiContentPadding" width="50%" alignItems="Center">
 		<Label text="Name" labelFor="nameInput" />
 		<Input
-			id="nameInput"
 			class="sapUiSmallMarginBottom"
 			placeholder="Enter name"
 			valueStateText="Name must not be empty."
@@ -18,7 +17,6 @@
 
 		<Label text="E-mail" labelFor="emailInput" />
 		<Input
-			id="emailInput"
 			class="sapUiSmallMarginBottom"
 			type="Email"
 			placeholder="Enter email"
