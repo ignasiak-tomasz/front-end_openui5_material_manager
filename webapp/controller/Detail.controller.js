@@ -1,8 +1,10 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	"sap/m/MessageBox",
-	"sap/m/MessageToast"
-], function (Controller, MessageBox, MessageToast) {
+	"sap/m/MessageToast",
+	"sap/m/PDFViewer",
+	"sap/ui/core/util/File"
+], function (Controller, MessageBox, MessageToast, PDFViewer, File) {
 	"use strict";
 
 	return Controller.extend("opensap.myapp.controller.Detail", {
@@ -16,6 +18,9 @@ sap.ui.define([
 			this.oRouter.getRoute("master").attachPatternMatched(this._onProductMatched, this); 
 			this.oRouter.getRoute("detail").attachPatternMatched(this._onProductMatched, this);
 			this.oRouter.getRoute("detailDetail").attachPatternMatched(this._onProductMatched, this);
+
+			this._pdfViewer = new PDFViewer();
+			this.getView().addDependent(this._pdfViewer);
 		},
         /**
 		 * To się nie uda
@@ -34,7 +39,68 @@ sap.ui.define([
 					});
 				}.bind(this));
 		},
+		onExportPDF: function (){
+			var idDokumentu = this.getView().getBindingContext("dokumenty").getProperty("id");
+			var nazwaDokumentu = this.getView().getBindingContext("dokumenty").getProperty("typDokumentu/nazwa");
+			var TytulDokumentu = "Dokument " + nazwaDokumentu + ", id " + idDokumentu;
 
+			jQuery.ajax({
+				method: "GET",
+				url: "proxy/https/localhost:5001/api/inz/dokument/pdf/" + idDokumentu,
+        		contentType: "application/json",
+				async: false,
+				success: function(data){
+					console.log(data);
+				},
+				error: function(error){
+					console.log(error);
+				}
+			}).then(function(data){
+				var base64EncodedPDF = data.plik_base64; // the encoded string
+
+				var decodedPdfContent = atob(base64EncodedPDF);
+				const byteArray = new Uint8Array(decodedPdfContent.length);
+				for(var i=0; i<decodedPdfContent .length; i++){
+					var temp = decodedPdfContent[i];
+					byteArray[i] = decodedPdfContent.charCodeAt(i);
+				};
+
+				var blob = new Blob([byteArray.buffer], { type: 'application/pdf' });
+				var _pdfurl = URL.createObjectURL(blob);
+				
+				
+				if(!this._pdfViewer){
+					jQuery.sap.addUrlWhitelist("blob"); // register blob url as whitelist
+
+					this._pdfViewer = new sap.m.PDFViewer({
+						width:"auto",
+						source:_pdfurl // my blob url
+					});
+
+					// var test = jQuery.sap.validateUrl(_pdfurl);
+
+					// jQuery.sap.addUrlWhitelist("blob"); // register blob url as whitelist
+					
+					// var test2 = jQuery.sap.validateUrl(_pdfurl);
+			   };
+			    this._pdfViewer.downloadPDF = function(){
+			 	File.save(
+					byteArray.buffer,
+			 		TytulDokumentu,
+			 		"pdf",
+			 		"application/pdf"
+			 		);
+			 	};
+				 
+				 /*
+				var URI = new sap.ui.core.URI(_pdfurl);
+
+				this._pdfViewer.setSource(URI);*/
+				this._pdfViewer.setTitle(TytulDokumentu);
+				this._pdfViewer.open();
+					//oDocumentsModel.setData(data);
+			});
+		},
 		_onProductMatched: function (oEvent) {
 			this._product = oEvent.getParameter("arguments").product || this._product || "0";
 			this.getView().bindElement({

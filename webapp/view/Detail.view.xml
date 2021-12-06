@@ -67,8 +67,9 @@
 						type="Transparent"/>
 					<m:Button
 						icon="sap-icon://action"
-						text="Udostępnij"
-						type="Transparent"/>
+						text="Eksportuj do PDF"
+						type="Transparent"
+						press=".onExportPDF"/>
 				</actions>
 			</ObjectPageDynamicHeaderTitle>
 		</headerTitle>
