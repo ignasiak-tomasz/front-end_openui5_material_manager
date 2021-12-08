@@ -6,7 +6,7 @@
 	xmlns:l="sap.ui.layout"
 	xmlns:core="sap.ui.core">
 	<l:VerticalLayout class="sapUiContentPadding" width="50%" alignItems="Center">
-		<Label text="Name" labelFor="nameInput" />
+		<!--<Label text="Name" labelFor="nameInput" />
 		<Input
 			id="nameInput"
 			class="sapUiSmallMarginBottom"
@@ -26,18 +26,28 @@
 			valueStateText="E-mail must be a valid email address."
 			value="{
 				path: '/email'
-			}" />
+			}" />-->
 
-		<Label text="Typ Dokumentu" labelFor="type_documenty" />
+		<Label text="Typ Dokumentu" labelFor="type_documentu" />
 		<ComboBox
-				id="type_documenty"
+				id="type_documentu"
 				showSecondaryValues= "true"
 				items="{
-					path: 'typ_dokumentu>/',
+					path: 'typy_dokumentu>/',
 					sorter: { path: 'text' }
 				}">
-				<core:ListItem key="{typ_dokumentu>id}" text="{typ_dokumentu>nazwa}" /><!--additionalText = "{typ_dokumentu>id}"-->
+				<core:ListItem key="{typy_dokumentu>id}" text="{typy_dokumentu>nazwa}" /><!--additionalText = "{typ_dokumentu>id}"-->
 		</ComboBox>
+		<Label text="Kontrahenci" labelFor="kontrahenci" />
+		<ComboBox
+				id="kontrahenci"
+				showSecondaryValues= "true"
+				items="{
+					path: 'kontrahenci>/',
+					sorter: { path: 'id' }
+				}">
+				<core:ListItem key="{kontrahenci>id}" text="{kontrahenci>nazwa}" /><!--additionalText = "{typ_dokumentu>id}"-->
+		</ComboBox>		
 
 		<Button text="Submit" press=".onSubmit" />
 	</l:VerticalLayout>

@@ -123,13 +123,13 @@ sap.ui.define([
 			// console.log("-----------------------------------------------------------------------------------");
 
 			for (let key of Object.keys(oTODOClearLineModel)) {
-				if(typeof(oTODOClearLineModel[key]) === 'object'){
+				if(typeof(oTODOClearLineModel[key]) === 'object' && oTODOClearLineModel[key] !== null){
 					if(Array.isArray(oTODOClearLineModel[key])){ oTODOClearLineModel[key] = null; continue; }
 					for (let key_deep of Object.keys(oTODOClearLineModel[key])) {
-						if(typeof(oTODOClearLineModel[key][key_deep]) === 'object'){
+						if(typeof(oTODOClearLineModel[key][key_deep]) === 'object' && oTODOClearLineModel[key][key_deep] !== null){
 							if(Array.isArray(oTODOClearLineModel[key][key_deep])){ oTODOClearLineModel[key][key_deep] = null; continue; }
 							for (let key_deep_deep of Object.keys(oTODOClearLineModel[key][key_deep])) {
-								if(typeof(oTODOClearLineModel[key][key_deep][key_deep_deep]) === 'object'){
+								if(typeof(oTODOClearLineModel[key][key_deep][key_deep_deep]) === 'object' && oTODOClearLineModel[key][key_deep][key_deep_deep] !== null){
 									console.log('Controller AddDocument to more deep structure');
 								}else{
 									oTODOClearLineModel[key][key_deep][key_deep_deep] = null;

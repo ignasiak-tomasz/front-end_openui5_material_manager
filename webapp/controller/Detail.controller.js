@@ -126,7 +126,7 @@ sap.ui.define([
 		_onMetadataDelete: function(idDokumentu){
 			$.ajax({
 					
-				url: "proxy/https/localhost:5001/api/inz/dokumenty/" + idDokumentu,
+				url: "proxy/https/localhost:5001/api/inz/dokument/" + idDokumentu,
 				type: 'DELETE',
 				success: function(result) {
 					var Object = result;
