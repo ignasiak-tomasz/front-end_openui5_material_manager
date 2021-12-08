@@ -1,8 +1,9 @@
 sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"sap/ui/core/mvc/Controller",
-	"sap/ui/core/Core"
-], function (JSONModel, Controller, Core) {
+	"sap/ui/core/Core",
+	"sap/m/MessageToast"
+], function (JSONModel, Controller, Core, MessageToast) {
 	"use strict";
 
 	return Controller.extend("opensap.myapp.controller.AddDocument", {
@@ -19,16 +20,17 @@ sap.ui.define([
 			// this.oModel = this.oOwnerComponent.getModel();
 		},
 		onSubmit: function () {
+			this._prepareModel();
 			var oView = this.getView(),
-				oViewModelDataJson = oView.getModel().getJSON();//,
+				oViewModelDataJson = oView.getModel("addDocument");//,
 				/*aInputs = [
 				oView.byId("nameInput"),
 				oView.byId("emailInput")
 				];*/
-			/*
+			
 				jQuery.ajax({
 				method: "POST",
-				url: "proxy/https/localhost:5001/xxxxxxxx",
+				url: "proxy/https/localhost:5001/api/inz/dokument",
 				contentType: "application/json; charset=utf-8",
 				dataType: 'json',
 				data: JSON.stringify(oViewModelDataJson),
@@ -40,64 +42,54 @@ sap.ui.define([
 					var lv_error = error;
 				}
 				
-			}).then(function(data){
-				//Success
-				var sHeaderId = data.getResponseHeader( "xxxx"),// Tutaj masz wprowadzić coś co zwraca Denis
-					oNextUIState;
-				
+			}).then(function(data){		
 				this.getOwnerComponent().getHelper().then(function (oHelper) {
-					oNextUIState = oHelper.getNextUIState(1);
-					this.oRouter.navTo("detail", {
-						layout: oNextUIState.layout,
-						product: sHeaderId
-					});
+					this._onCreateSuccess(data.id, oHelper);
 				}.bind(this));
-
-				var sNewIdKey = sHeaderLocation.replace("/api/restaurant/", "");
-				this._onCreateSuccess(sNewIdKey);
 			}.bind(this), function(data){
-				//Error
+				this._onCreateFailed();
 			}.bind(this));
-			*/
-
-			/*
-			var oParseJson = JSON.parse(oViewModelDataJson);
-			oParseJson.id = 6;
-			var oModelDokumenty = oView.getModel("dokumenty"),
-				sModelDokumenty = oModelDokumenty.getJSON(),
-				oJSONModelDokumenty = JSON.parse(sModelDokumenty);
-			oJSONModelDokumenty.push(oParseJson);
-			oModelDokumenty.setData(oJSONModelDokumenty);/*
 		},
-		_onCreateSuccess: function (sNewIdKey) {
-			var sMessage = 'Poprawnie zapisano dane !!!';/*this.getResourceBundle().getText("newPersonCreated",
-				[oPerson.Pesel]);*/
+		_onCreateSuccess: function (sHeaderId, oHelper) {
+			var sMessage = 'Poprawnie zapisano dane !!!';/*this.getResourceBundle().getText("newPersonCreated",*/
 			
-			var oJSONModel_Add =  this.getView().getBindingContext('products_Add').getModel();
+			var oNewModel = this.getView().getModel("addDocument"),
+				oJSONNewModel;
+			oNewModel.id = sHeaderId;
+			oJSONNewModel = oNewModel.getJSON();
 
-			var sJSON_Add =  oJSONModel_Add.getJSON();
-			var oJSON_Add = JSON.parse(sJSON_Add);
-			oJSON_Add.id = sNewIdKey;
+			var oModel = this.getView().getModel("dokumenty"),
+				sModelDokumenty = oModel.getJSON(),
+				oJSONModelDokumenty = JSON.parse(sModelDokumenty);
+			oJSONModelDokumenty.push(oNewModel);
+			oModel.setData(oJSONModelDokumenty)
 
-			var oModel = this.getView().getModel("products");
-			var sModel = oModel.getJSON();
-			var oJSON = JSON.parse(sModel);
+			var oNextUIState = oHelper.getNextUIState(1);
+			this.getView().unbindObject();
 
-			oJSON.push(oJSON_Add);
-			oModel.setData(oJSON);
+			this.oRouter.navTo("detail", {
+				layout: oNextUIState.layout,
+				product: sHeaderId
+			});
 
-			this.getRouter().navTo("List", true);
-			this.getView().unbindObject('products_Add');
-	
 			MessageToast.show(sMessage, {
 				closeOnBrowserNavigation : false
 			});
+		},
+		_prepareModel: function(){
+			var dzisiaj = new Date().toISOString();
+			var test = this.getView().getModel("addDocument");
+			var type_doc = this.getView().byId("type_documentu").getSelectedItem().mProperties;
+			this.getView().getModel("addDocument").setProperty("/typDokumentu/id", type_doc.key);
+			this.getView().getModel("addDocument").setProperty("/typDokumentu/nazwa", type_doc.text);
+			this.getView().getModel("addDocument").setProperty("dataWystawienia", new Date());
+			var test2 = this.getView().getModel("addDocument");
 		},
 		_onCreateFailed: function (oError) {
 			var sMessage = 'Błąd przy zapisie danych !!!';// this.getResourceBundle().getText("newPersonNotCreated",
 				//[oPerson.Pesel]);
 				
-			this.onNavBack();
+			//this.onNavBack(); //<!-- brak takiej funkcji
 	
 			MessageToast.show(sMessage, {
 				closeOnBrowserNavigation : false
@@ -144,9 +136,8 @@ sap.ui.define([
 				}
 			}
 
-
 			var oJSON = new JSONModel(oTODOClearLineModel);
-			this.getView().setModel(oJSON);// Czysta struktura JSON
+			this.getView().setModel(oJSON, "addDocument");// Czysta struktura JSON
 		},
 		onExit: function () {
 			this.oRouter.getRoute("addDocument").detachPatternMatched(this._onPatternMatch, this);
