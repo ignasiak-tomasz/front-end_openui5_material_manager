@@ -54,17 +54,17 @@
 				</navigationActions>
 
 				<actions>
-					<m:ToggleButton
+					<!--m:ToggleButton
 						text="Edytuj"
 						type="Emphasized"
-						press=".onEditToggleButtonPress"/>
+						press=".onEditToggleButtonPress"/-->
 					<m:Button
 						text="Usuń"
 						type="Transparent"
 						press=".onDelete"/>
-					<m:Button
+					<!--m:Button
 						text="Kopiuj"
-						type="Transparent"/>
+						type="Transparent"/-->
 					<m:Button
 						icon="sap-icon://action"
 						text="Eksportuj do PDF"

@@ -23,6 +23,8 @@ sap.ui.define([
 			this._prepareModel();
 			var oView = this.getView(),
 				oViewModelDataJson = oView.getModel("addDocument");//,
+				let data = JSON.parse(oViewModelDataJson.getJSON());
+				delete data.id;
 				/*aInputs = [
 				oView.byId("nameInput"),
 				oView.byId("emailInput")
@@ -33,7 +35,7 @@ sap.ui.define([
 				url: "proxy/https/localhost:5001/api/inz/dokument",
 				contentType: "application/json; charset=utf-8",
 				dataType: 'json',
-				data: JSON.stringify(oViewModelDataJson),
+				data: JSON.stringify(data),
 				///async: false,
 				success: function(data){
 						var lv_data = data;
@@ -55,13 +57,13 @@ sap.ui.define([
 			
 			var oNewModel = this.getView().getModel("addDocument"),
 				oJSONNewModel;
-			oNewModel.id = sHeaderId;
+			oNewModel.setProperty("/id", sHeaderId);
 			oJSONNewModel = oNewModel.getJSON();
 
 			var oModel = this.getView().getModel("dokumenty"),
 				sModelDokumenty = oModel.getJSON(),
 				oJSONModelDokumenty = JSON.parse(sModelDokumenty);
-			oJSONModelDokumenty.push(oNewModel);
+			oJSONModelDokumenty.push(JSON.parse(oJSONNewModel));
 			oModel.setData(oJSONModelDokumenty)
 
 			var oNextUIState = oHelper.getNextUIState(1);
@@ -77,13 +79,32 @@ sap.ui.define([
 			});
 		},
 		_prepareModel: function(){
-			var dzisiaj = new Date().toISOString();
-			var test = this.getView().getModel("addDocument");
+			function toIsoString(date) {
+				var tzo = -date.getTimezoneOffset(),
+					pad = function(num) {
+						var norm = Math.floor(Math.abs(num));
+						return (norm < 10 ? '0' : '') + norm;
+					};
+			  
+				return date.getFullYear() +
+					'-' + pad(date.getMonth() + 1) +
+					'-' + pad(date.getDate()) +
+					'T' + pad(date.getHours()) +
+					':' + pad(date.getMinutes()) +
+					':' + pad(date.getSeconds())
+			}
+
+			var dataWystawienia = toIsoString(new Date());
+			this.getView().getModel("addDocument").setProperty("/dataWystawienia", dataWystawienia);
+
 			var type_doc = this.getView().byId("type_documentu").getSelectedItem().mProperties;
-			this.getView().getModel("addDocument").setProperty("/typDokumentu/id", type_doc.key);
+			this.getView().getModel("addDocument").setProperty("/typDokumentu/id", parseInt(type_doc.key));
 			this.getView().getModel("addDocument").setProperty("/typDokumentu/nazwa", type_doc.text);
-			this.getView().getModel("addDocument").setProperty("dataWystawienia", new Date());
-			var test2 = this.getView().getModel("addDocument");
+
+			var type_doc = this.getView().byId("kontrahenci").getSelectedItem().mProperties;
+			this.getView().getModel("addDocument").setProperty("/kontrahent/id", parseInt(type_doc.key));
+			this.getView().getModel("addDocument").setProperty("/kontrahent/nazwa", type_doc.text);
+			
 		},
 		_onCreateFailed: function (oError) {
 			var sMessage = 'Błąd przy zapisie danych !!!';// this.getResourceBundle().getText("newPersonNotCreated",
@@ -101,7 +122,7 @@ sap.ui.define([
 			oModel.dataLoaded().then(this._onMetadataLoaded.bind(this,oModel));
 		},
 		_onMetadataLoaded: function(oModel){
-			var oTODOClearLineModel = oModel.getProperty("/0");
+			let oTODOClearLineModel = JSON.parse(JSON.stringify(oModel.getProperty("/0")));
 
 			// for (var item in oTODOClearLineModel) { https://stackoverflow.com/questions/684672/how-do-i-loop-through-or-enumerate-a-javascript-object
 			// 	if (oTODOClearLineModel.hasOwnProperty(item)) {
@@ -124,19 +145,19 @@ sap.ui.define([
 								if(typeof(oTODOClearLineModel[key][key_deep][key_deep_deep]) === 'object' && oTODOClearLineModel[key][key_deep][key_deep_deep] !== null){
 									console.log('Controller AddDocument to more deep structure');
 								}else{
-									oTODOClearLineModel[key][key_deep][key_deep_deep] = null;
+									oTODOClearLineModel[key][key_deep][key_deep_deep] = undefined;
 								}
 							}
 						}else{
-							oTODOClearLineModel[key][key_deep] = null;
+							oTODOClearLineModel[key][key_deep] = undefined;
 						}
 					}
 				}else{
-					oTODOClearLineModel[key] = null;
+					oTODOClearLineModel[key] = undefined;
 				}
 			}
 
-			var oJSON = new JSONModel(oTODOClearLineModel);
+			let oJSON = new JSONModel(oTODOClearLineModel);
 			this.getView().setModel(oJSON, "addDocument");// Czysta struktura JSON
 		},
 		onExit: function () {
