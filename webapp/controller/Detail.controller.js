@@ -151,6 +151,8 @@ sap.ui.define([
 			oModel.setData(oData);
 			oModel.refresh();
 
+			this.handleExitFullScreen();
+
 			var sMessage = this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("deletionSuccess", [idDokumentu]);
 			MessageToast.show(sMessage);
 		},

@@ -64,15 +64,31 @@ sap.ui.define([
 				sModelDokumenty = oModel.getJSON(),
 				oJSONModelDokumenty = JSON.parse(sModelDokumenty);
 			oJSONModelDokumenty.push(JSON.parse(oJSONNewModel));
-			oModel.setData(oJSONModelDokumenty)
+			oModel.setData(oJSONModelDokumenty);
+			oModel.refresh();
 
-			var oNextUIState = oHelper.getNextUIState(1);
-			this.getView().unbindObject();
-
-			this.oRouter.navTo("detail", {
-				layout: oNextUIState.layout,
-				product: sHeaderId
+			// var oNextUIState = oHelper.getNextUIState(1);
+			this.getView().unbindObject("addDocument");
+			var index = -1;
+			oModel.oData.find(function(item, i){
+				if(item.id === sHeaderId){
+				  index = i;
+				  return i;
+				}
 			});
+
+			this.oOwnerComponent.getHelper().then(function (oHelper) {
+				let oNextUIState = oHelper.getNextUIState(1); 
+				this.oRouter.navTo("detail", {
+					layout: oNextUIState.layout,
+					product: index
+				});
+				this.onExit();
+			}.bind(this));
+			// this.oRouter.navTo("detail", {
+			// 	layout: oNextUIState.layout,
+			// 	product: index
+			// });
 
 			MessageToast.show(sMessage, {
 				closeOnBrowserNavigation : false
@@ -101,9 +117,14 @@ sap.ui.define([
 			this.getView().getModel("addDocument").setProperty("/typDokumentu/id", parseInt(type_doc.key));
 			this.getView().getModel("addDocument").setProperty("/typDokumentu/nazwa", type_doc.text);
 
-			var type_doc = this.getView().byId("kontrahenci").getSelectedItem().mProperties;
-			this.getView().getModel("addDocument").setProperty("/kontrahent/id", parseInt(type_doc.key));
-			this.getView().getModel("addDocument").setProperty("/kontrahent/nazwa", type_doc.text);
+			var type_doc2 = this.getView().byId("kontrahenci").getSelectedItem().mProperties;
+			this.getView().getModel("addDocument").setProperty("/kontrahent/id", parseInt(type_doc2.key));
+			this.getView().getModel("addDocument").setProperty("/kontrahent/nazwa", type_doc2.text);
+			
+			var type_doc3 = this.getView().byId("ktoWystawil").getSelectedItem().mProperties;
+			this.getView().getModel("addDocument").setProperty("/ktoWystawil/id", parseInt(type_doc3.key));
+			this.getView().getModel("addDocument").setProperty("/ktoWystawil/imie", type_doc3.text);
+			this.getView().getModel("addDocument").setProperty("/ktoWystawil/nazwisko", type_doc3.additionalText);
 			
 		},
 		_onCreateFailed: function (oError) {
@@ -122,7 +143,7 @@ sap.ui.define([
 			oModel.dataLoaded().then(this._onMetadataLoaded.bind(this,oModel));
 		},
 		_onMetadataLoaded: function(oModel){
-			let oTODOClearLineModel = JSON.parse(JSON.stringify(oModel.getProperty("/0")));
+			let oTODOClearLineModel = JSON.parse(JSON.stringify(oModel.getProperty("/0"))); // Delete reference to original path
 
 			// for (var item in oTODOClearLineModel) { https://stackoverflow.com/questions/684672/how-do-i-loop-through-or-enumerate-a-javascript-object
 			// 	if (oTODOClearLineModel.hasOwnProperty(item)) {
@@ -162,6 +183,9 @@ sap.ui.define([
 		},
 		onExit: function () {
 			this.oRouter.getRoute("addDocument").detachPatternMatched(this._onPatternMatch, this);
+			this.getView().byId("type_documentu").setSelectedItem(null);
+			this.getView().byId("kontrahenci").setSelectedItem(null);
+			this.getView().byId("ktoWystawil").setSelectedItem(null);
 		}
 	});
 });

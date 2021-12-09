@@ -135,7 +135,36 @@ sap.ui.define([
 				console.log("An error has occurred.");
 			});*/
 			oKontrahenciModel.setSizeLimit(1000);
-			this.setModel(oKontrahenciModel, 'kontrahenci');			
+			this.setModel(oKontrahenciModel, 'kontrahenci');		
+			
+			/**
+			 * Modle 5
+			 */
+			var oKontrahenciModel = new JSONModel();
+			jQuery.ajax({
+				method: "GET",
+				url: "proxy/https/localhost:5001/api/inz/pracownicy",
+				contentType: "application/json",
+				dataType: 'json',
+				async: false,
+				success: function(data){
+					console.log(data);
+				},
+				error: function(error){
+					console.log(error);
+				}
+			}).then(function(data){
+				oKontrahenciModel.setData(data);
+			});
+
+			/*
+			$.getJSON("temp_database_pracownicy.json", function(data){
+				oKontrahenciModel.setData(data);
+			}).fail(function(){
+				console.log("An error has occurred.");
+			});*/
+			oKontrahenciModel.setSizeLimit(1000);
+			this.setModel(oKontrahenciModel, 'pracownicy');	
 
 			oRouter = this.getRouter();
 			oRouter.attachBeforeRouteMatched(this._onBeforeRouteMatched, this);

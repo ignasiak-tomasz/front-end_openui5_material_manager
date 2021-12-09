@@ -38,6 +38,7 @@
 				}">
 				<core:ListItem key="{typy_dokumentu>id}" text="{typy_dokumentu>nazwa}" /><!--additionalText = "{typ_dokumentu>id}"-->
 		</ComboBox>
+
 		<Label text="Kontrahenci" labelFor="kontrahenci" />
 		<ComboBox
 				id="kontrahenci"
@@ -47,6 +48,18 @@
 					sorter: { path: 'id' }
 				}">
 				<core:ListItem key="{kontrahenci>id}" text="{kontrahenci>nazwa}" /><!--additionalText = "{typ_dokumentu>id}"-->
+		</ComboBox>	
+
+		<Label text="Kto Wystawił Dokument" labelFor="ktoWystawil" />	
+		<ComboBox
+				id="ktoWystawil"
+				showSecondaryValues= "true"
+				filterSecondaryValues = "true"
+				items="{
+					path: 'pracownicy>/',
+					sorter: { path: 'id' }
+				}">
+				<core:ListItem key="{pracownicy>id}" text="{pracownicy>imie}" additionalText="{pracownicy>nazwisko}"/><!-- = "{pracownicy>nazwisko}"-->
 		</ComboBox>		
 
 		<Button text="Submit" press=".onSubmit" />
