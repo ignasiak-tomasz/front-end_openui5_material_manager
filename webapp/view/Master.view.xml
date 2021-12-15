@@ -35,7 +35,7 @@
 							<Text text="{i18n>appplication}" />
 						</Column>
 						 <Column>
-							<Text text="Description" />
+							<Text text="{i18n>date_and_time}" />
 						</Column> 
 					</columns>
 					<items>

@@ -11,10 +11,10 @@
 				<f:DynamicPageTitle>
 					<f:heading>
 						<FlexBox wrap="Wrap" fitContainer="true" alignItems="Center">
-							<Title text="{products>id}" wrapping="true" class="sapUiTinyMarginEnd"/>
+							<Title text="Produkt id: {products>id}" wrapping="true" class="sapUiTinyMarginEnd"/>
 						</FlexBox>
 					</f:heading>
-					<f:expandedContent>
+					<!--f:expandedContent>
 						<Label text="Szczegóły"/>
 					</f:expandedContent>
 					<f:snappedContent>
@@ -22,7 +22,7 @@
 					</f:snappedContent>
 					<f:snappedTitleOnMobile>
 						<Title text="Szczegóły"/>
-					</f:snappedTitleOnMobile>
+					</f:snappedTitleOnMobile-->
 					<!--f:actions>
 						<Button text="Edycja" type="Emphasized"/>
 						<Button text="Usuń" type="Transparent"/>
@@ -55,14 +55,15 @@
 				<f:DynamicPageHeader pinnable="true">
 					<layout:HorizontalLayout allowWrapping="true">
 						<layout:VerticalLayout class="sapUiMediumMarginEnd">
-							<ObjectAttribute title="Lokalizacja" text="Magazyn główny BBDT"/>
-							<ObjectAttribute title="Rząd" text="A1.01"/>
-							<ObjectAttribute title="Półka" text="01"/>
+							<ObjectAttribute title="Ilość Obecna" text="{products>iloscObecna}"/>
+							<ObjectAttribute title="Ilość Zarezerwowana" text="{products>iloscZarezerwowana}"/>
+							<ObjectAttribute title="Ilość Dostepna" text="{products>iloscDostepna}"/>
 						</layout:VerticalLayout>
 
 						<layout:VerticalLayout>
-							<ObjectAttribute title="Dostępność"/>
-							<ObjectStatus text="Na stanie" state="Success" />
+							<ObjectAttribute title="Kod EAN" text="{products>kodEan}"/>
+							<!--ObjectAttribute title="Ilość Dostepna" />
+							<ObjectStatus text="In Stock" state="Success" /-->
 						</layout:VerticalLayout>
 					</layout:HorizontalLayout>
 				</f:DynamicPageHeader>

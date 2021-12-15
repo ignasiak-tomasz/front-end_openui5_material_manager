@@ -16,7 +16,7 @@
 		<headerTitle>
 			<ObjectPageDynamicHeaderTitle>
 				<expandedHeading>
-					<m:Title text="{dokumenty>ktoWystawil/imie}" wrapping="true" class="sapUiSmallMarginEnd"/>
+					<m:Title text="Dokument Id: {dokumenty>id}" wrapping="true" class="sapUiSmallMarginEnd"/>
 				</expandedHeading>
 
 				<snappedHeading>
@@ -27,7 +27,7 @@
 								displaySize="S"
 								displayShape="Square"
 								class="sapUiTinyMarginEnd"/> -->
-							<m:Title text="{dokumenty>ktoWystawil/imie}" wrapping="true"/>
+							<m:Title text="Dokument Id: {dokumenty>id}" wrapping="true"/>
 						</m:FlexBox>
 					</m:FlexBox>
 				</snappedHeading>
@@ -83,12 +83,12 @@
 				</f:Avatar>
 				
 				<m:VBox justifyContent="Center" class="sapUiSmallMarginEnd">
-					<m:Label text="Kategoria Główna"/>
-					<m:Text text="{dokumenty>ktoWystawil/imie}"/>
+					<m:Label text="Typ dokumentu"/>
+					<m:Text text="{dokumenty>typDokumentu/nazwa}"/>
 				</m:VBox>
 				<m:VBox justifyContent="Center" class="sapUiSmallMarginEnd">
-					<m:Label text="Podkategoria"/>
-					<m:Text text="{dokumenty>ktoWystawil/imie}"/>
+					<m:Label text="Kontrahent"/>
+					<m:Text text="{dokumenty>kontrahent/nazwa}"/>
 				</m:VBox>
 				<!-- <m:VBox justifyContent="Center" class="sapUiSmallMarginEnd">
 					<m:Label text="Price"/>
@@ -113,12 +113,12 @@
 								columnsL="1"
 								columnsM="1">
 								<form:content>
-									<m:Label text="Referencja"/><!--TODO do wprowadzenia w i18n--> <!--Tutaj końcowo pojawią się informacje w osobnych akapitach. Lekcja 13 już je ma-->
-									<m:Text text="{dokumenty>ktoWystawil/imie}"/>
-									<m:Label text="Opis"/><!--TODO do wprowadzenia w i18n--> <!--Tutaj końcowo pojawią się informacje w osobnych akapitach. Lekcja 13 już je ma-->
-									<m:Text text="{dokumenty>ktoWystawil/imie}"/>
-									<m:Label text="Dostawca"/><!--TODO do wprowadzenia w i18n--> <!--Tutaj końcowo pojawią się informacje w osobnych akapitach. Lekcja 13 już je ma-->
-									<m:Text text="{dokumenty>ktoWystawil/imie}"/>
+									<m:Label text="Kto i kiedy wystawił dokument? "/><!--TODO do wprowadzenia w i18n--> <!--Tutaj końcowo pojawią się informacje w osobnych akapitach. Lekcja 13 już je ma-->
+									<m:Text text="{dokumenty>ktoWystawil/imie} {dokumenty>ktoWystawil/nazwisko} {dokumenty>dataWystawienia}"/>
+									<m:Label text="Kto i kiedy zatwierdził / przyjął dokument? "/><!--TODO do wprowadzenia w i18n--> <!--Tutaj końcowo pojawią się informacje w osobnych akapitach. Lekcja 13 już je ma-->
+									<m:Text text="{dokumenty>ktoZatwierdzilPrzyjal/imie} {dokumenty>ktoZatwierdzilPrzyjal/nazwisko} {dokumenty>dataZatwierdzeniaPrzyjecia}"/>
+									<!--m:Label text="Dostawca"/--><!--TODO do wprowadzenia w i18n--> <!--Tutaj końcowo pojawią się informacje w osobnych akapitach. Lekcja 13 już je ma-->
+									<!--m:Text text="{dokumenty>ktoWystawil/imie}"/-->
 								</form:content>
 							</form:SimpleForm>
 						</blocks>
@@ -126,7 +126,7 @@
 				</subSections>
 			</ObjectPageSection>
 
-			<ObjectPageSection title="Lista towarów"><!--TODO do wprowadzenia w i18n--> <!--To jest cały blok, który pojawia się w nagłówku strony-->
+			<ObjectPageSection title="Lista Numerów Produktów przyisanych do Dokumentu o ID: {dokumenty>id}"><!--TODO do wprowadzenia w i18n--> <!--To jest cały blok, który pojawia się w nagłówku strony-->
 				<subSections>
 					<ObjectPageSubSection>
 						<blocks>
