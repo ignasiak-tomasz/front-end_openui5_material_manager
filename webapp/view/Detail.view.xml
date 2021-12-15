@@ -5,7 +5,7 @@
 	xmlns:f="sap.f"
 	xmlns:form="sap.ui.layout.form"
 	xmlns:mvc="sap.ui.core.mvc">
-		<ObjectPageLayout
+	<ObjectPageLayout
 		id="ObjectPageLayout"
 		showTitleInHeaderContent="true"
 		alwaysShowContentHeader="false"
@@ -16,7 +16,7 @@
 		<headerTitle>
 			<ObjectPageDynamicHeaderTitle>
 				<expandedHeading>
-					<m:Title text="{dokumenty>ktoWystawil/imie}" wrapping="true" class="sapUiSmallMarginEnd"/>
+					<m:Title text="Dokument Id: {dokumenty>id}" wrapping="true" class="sapUiSmallMarginEnd"/>
 				</expandedHeading>
 
 				<snappedHeading>
@@ -27,24 +27,49 @@
 								displaySize="S"
 								displayShape="Square"
 								class="sapUiTinyMarginEnd"/> -->
-							<m:Title text="{dokumenty>ktoWystawil/imie}" wrapping="true"/>
+							<m:Title text="Dokument Id: {dokumenty>id}" wrapping="true"/>
 						</m:FlexBox>
 					</m:FlexBox>
 				</snappedHeading>
+				
+				<navigationActions>
+					<m:OverflowToolbarButton
+						type="Transparent"
+						icon="sap-icon://full-screen"
+						press=".handleFullScreen"
+						tooltip="Widok pełnoekranowy"
+						visible="{= ${/actionButtonsInfo/midColumn/fullScreen} !== null }"/>
+					<m:OverflowToolbarButton
+						type="Transparent"
+						icon="sap-icon://exit-full-screen"
+						press=".handleExitFullScreen"
+						tooltip="Opuść widok pełnoekranowy"
+						visible="{= ${/actionButtonsInfo/midColumn/exitFullScreen} !== null }"/>
+					<m:OverflowToolbarButton
+						type="Transparent"
+						icon="sap-icon://decline"
+						press=".handleClose"
+						tooltip="Zamknij podgląd"
+						visible="{= ${/actionButtonsInfo/midColumn/closeColumn} !== null }"/>
+				</navigationActions>
+
 				<actions>
-					<m:ToggleButton
-						text="Edit"
+					<!--m:ToggleButton
+						text="Edytuj"
 						type="Emphasized"
-						press=".onEditToggleButtonPress"/>
+						press=".onEditToggleButtonPress"/-->
 					<m:Button
-						text="Delete"
-						type="Transparent"/>
-					<m:Button
-						text="Copy"
-						type="Transparent"/>
+						text="Usuń"
+						type="Transparent"
+						press=".onDelete"/>
+					<!--m:Button
+						text="Kopiuj"
+						type="Transparent"/-->
 					<m:Button
 						icon="sap-icon://action"
-						type="Transparent"/>
+						text="Eksportuj do PDF"
+						type="Transparent"
+						press=".onExportPDF"/>
 				</actions>
 			</ObjectPageDynamicHeaderTitle>
 		</headerTitle>
@@ -58,12 +83,12 @@
 				</f:Avatar>
 				
 				<m:VBox justifyContent="Center" class="sapUiSmallMarginEnd">
-					<m:Label text="Main Category"/>
-					<m:Text text="{dokumenty>ktoWystawil/imie}"/>
+					<m:Label text="Typ dokumentu"/>
+					<m:Text text="{dokumenty>typDokumentu/nazwa}"/>
 				</m:VBox>
 				<m:VBox justifyContent="Center" class="sapUiSmallMarginEnd">
-					<m:Label text="Subcategory"/>
-					<m:Text text="{dokumenty>ktoWystawil/imie}"/>
+					<m:Label text="Kontrahent"/>
+					<m:Text text="{dokumenty>kontrahent/nazwa}"/>
 				</m:VBox>
 				<!-- <m:VBox justifyContent="Center" class="sapUiSmallMarginEnd">
 					<m:Label text="Price"/>
@@ -73,7 +98,7 @@
 		</headerContent>
 
 		<sections>
-			<ObjectPageSection title="General Information"><!--TODO do wprowadzenia w i18n--> <!--To jest cały blok, który pojawia się w nagłówku strony-->
+			<ObjectPageSection title="Informator"><!--TODO do wprowadzenia w i18n--> <!--To jest cały blok, który pojawia się w nagłówku strony-->
 				<subSections>
 					<ObjectPageSubSection>
 						<blocks>
@@ -88,12 +113,12 @@
 								columnsL="1"
 								columnsM="1">
 								<form:content>
-									<m:Label text="Product ID"/><!--TODO do wprowadzenia w i18n--> <!--Tutaj końcowo pojawią się informacje w osobnych akapitach. Lekcja 13 już je ma-->
-									<m:Text text="{dokumenty>ktoWystawil/imie}"/>
-									<m:Label text="Description"/><!--TODO do wprowadzenia w i18n--> <!--Tutaj końcowo pojawią się informacje w osobnych akapitach. Lekcja 13 już je ma-->
-									<m:Text text="{dokumenty>ktoWystawil/imie}"/>
-									<m:Label text="Supplier"/><!--TODO do wprowadzenia w i18n--> <!--Tutaj końcowo pojawią się informacje w osobnych akapitach. Lekcja 13 już je ma-->
-									<m:Text text="{dokumenty>ktoWystawil/imie}"/>
+									<m:Label text="Kto i kiedy wystawił dokument? "/><!--TODO do wprowadzenia w i18n--> <!--Tutaj końcowo pojawią się informacje w osobnych akapitach. Lekcja 13 już je ma-->
+									<m:Text text="{dokumenty>ktoWystawil/imie} {dokumenty>ktoWystawil/nazwisko} {dokumenty>dataWystawienia}"/>
+									<m:Label text="Kto i kiedy zatwierdził / przyjął dokument? "/><!--TODO do wprowadzenia w i18n--> <!--Tutaj końcowo pojawią się informacje w osobnych akapitach. Lekcja 13 już je ma-->
+									<m:Text text="{dokumenty>ktoZatwierdzilPrzyjal/imie} {dokumenty>ktoZatwierdzilPrzyjal/nazwisko} {dokumenty>dataZatwierdzeniaPrzyjecia}"/>
+									<!--m:Label text="Dostawca"/--><!--TODO do wprowadzenia w i18n--> <!--Tutaj końcowo pojawią się informacje w osobnych akapitach. Lekcja 13 już je ma-->
+									<!--m:Text text="{dokumenty>ktoWystawil/imie}"/-->
 								</form:content>
 							</form:SimpleForm>
 						</blocks>
@@ -101,20 +126,20 @@
 				</subSections>
 			</ObjectPageSection>
 
-			<ObjectPageSection title="Suppliers"><!--TODO do wprowadzenia w i18n--> <!--To jest cały blok, który pojawia się w nagłówku strony-->
+			<ObjectPageSection title="Lista Numerów Produktów przyisanych do Dokumentu o ID: {dokumenty>id}"><!--TODO do wprowadzenia w i18n--> <!--To jest cały blok, który pojawia się w nagłówku strony-->
 				<subSections>
 					<ObjectPageSubSection>
 						<blocks>
 							<m:Table
 								id="suppliersTable"
-								items="{path : 'dokumenty>/'}">
+								items="{path : 'dokumenty>produkty'}">
 								<m:columns>
 									<m:Column/>
 								</m:columns>
 								<m:items>
-									<m:ColumnListItem type="Navigation">
+									<m:ColumnListItem type="Navigation" press=".onProductPress">
 										<m:cells>
-											<m:ObjectIdentifier text="{dokumenty>/id}"/>
+											<m:ObjectIdentifier text="{dokumenty>produktId}"/>
 										</m:cells>
 									</m:ColumnListItem>
 								</m:items>
@@ -128,8 +153,8 @@
 		<footer>
 			<m:OverflowToolbar>
 				<m:ToolbarSpacer/>
-				<m:Button type="Accept" text="Save"/>
-				<m:Button type="Reject" text="Cancel"/>
+				<m:Button type="Accept" text="Zapisz"/>
+				<m:Button type="Reject" text="Anuluj"/>
 			</m:OverflowToolbar>
 		</footer>
 	</ObjectPageLayout>

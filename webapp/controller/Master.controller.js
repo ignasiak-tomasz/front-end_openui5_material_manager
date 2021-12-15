@@ -1,8 +1,10 @@
 sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"sap/ui/core/mvc/Controller",
-	'sap/f/library'
-], function (JSONModel, Controller, fioriLibrary) {
+	"sap/ui/model/Filter",
+	"sap/ui/model/FilterOperator",
+	'sap/ui/model/Sorter',
+], function (JSONModel, Controller, Filter, FilterOperator, Sorter) {
 	"use strict";
 
 	return Controller.extend("opensap.myapp.controller.Master", {
@@ -17,9 +19,42 @@ sap.ui.define([
 		 */
 		onListItemPress: function (oEvent) {
 			var productPath = oEvent.getSource().getBindingContext("dokumenty").getPath(),
-				product = productPath.split("/").slice(-1).pop();
+				product = productPath.split("/").slice(-1).pop(),
+				oNextUIState;
 
-			this.oRouter.navTo("detail", {layout: fioriLibrary.LayoutType.TwoColumnsMidExpanded, product: product});
+			this.getOwnerComponent().getHelper().then(function (oHelper) {
+				oNextUIState = oHelper.getNextUIState(1);
+				this.oRouter.navTo("detail", {
+					layout: oNextUIState.layout,
+					product: product
+				});
+			}.bind(this));
+		},
+		onSearch: function (oEvent) {
+			var oTableSearchState = [],
+				sQuery = oEvent.getParameter("query");
+
+			if (sQuery && sQuery.length > 0) {
+				oTableSearchState = [new Filter("typDokumentu/nazwa", FilterOperator.Contains, sQuery)];
+			}
+
+			this.oApplicationTable.getBinding("items").filter(oTableSearchState, "Application");
+		},
+		onAdd: function(){
+			var oNextUIState;
+			this.getOwnerComponent().getHelper().then(function (oHelper) {
+				oNextUIState = oHelper.getNextUIState(3);
+				this.oRouter.navTo("addDocument", {
+					layout: oNextUIState.layout
+				});
+			}.bind(this));
+		},
+		onSort: function () {
+			this._bDescendingSort = !this._bDescendingSort;
+			var oBinding = this.oApplicationTable.getBinding("items"),
+				oSorter = new Sorter("id", this._bDescendingSort);
+
+			oBinding.sort(oSorter);
 		}
 	});
 });

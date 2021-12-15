@@ -1,0 +1,101 @@
+<mvc:View
+	controllerName="opensap.myapp.controller.AddDocument"
+	xmlns="sap.m"
+	xmlns:f="sap.f"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:l="sap.ui.layout"
+	xmlns:core="sap.ui.core">
+	<l:VerticalLayout class="sapUiContentPadding" width="50%" alignItems="Center">
+		<!--<Label text="Name" labelFor="nameInput" />
+		<Input
+			id="nameInput"
+			class="sapUiSmallMarginBottom"
+			placeholder="Enter name"
+			valueStateText="Name must not be empty."
+			value="{
+				path : '/name',
+				type : 'sap.ui.model.type.String'
+			}" />
+
+		<Label text="E-mail" labelFor="emailInput" />
+		<Input
+			id="emailInput"
+			class="sapUiSmallMarginBottom"
+			type="Email"
+			placeholder="Enter email"
+			valueStateText="E-mail must be a valid email address."
+			value="{
+				path: '/email'
+			}" />-->
+
+		<Label text="Typ Dokumentu" labelFor="type_documentu" />
+		<ComboBox
+				id="type_documentu"
+				showSecondaryValues= "true"
+				items="{
+					path: 'typy_dokumentu>/',
+					sorter: { path: 'text' }
+				}">
+				<core:ListItem key="{typy_dokumentu>id}" text="{typy_dokumentu>nazwa}" /><!--additionalText = "{typ_dokumentu>id}"-->
+		</ComboBox>
+
+		<Label text="Kontrahenci" labelFor="kontrahenci" />
+		<ComboBox
+				id="kontrahenci"
+				showSecondaryValues= "true"
+				items="{
+					path: 'kontrahenci>/',
+					sorter: { path: 'id' }
+				}">
+				<core:ListItem key="{kontrahenci>id}" text="{kontrahenci>nazwa}" /><!--additionalText = "{typ_dokumentu>id}"-->
+		</ComboBox>	
+
+		<Label text="Kto Wystawił Dokument" labelFor="ktoWystawil" />	
+		<ComboBox
+				id="ktoWystawil"
+				showSecondaryValues= "true"
+				filterSecondaryValues = "true"
+				items="{
+					path: 'pracownicy>/',
+					sorter: { path: 'id' }
+				}">
+				<core:ListItem key="{pracownicy>id}" text="{pracownicy>imie}" additionalText="{pracownicy>nazwisko}"/><!-- = "{pracownicy>nazwisko}"-->
+		</ComboBox>		
+
+		<Button text="Submit" press=".onSubmit" />
+	</l:VerticalLayout>
+	<!-- <f:DynamicPage toggleHeaderOnTitleClick="false">
+		<!- DynamicPage Title ->
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<Title text="Nowy dokument"/>
+				</f:heading>
+			</f:DynamicPageTitle>
+			<f:content>
+				<!- <l:VerticalLayout class="sapUiContentPadding" width="100%">
+					<Label text="Name" labelFor="input-a" design="Bold" />
+					<Input id="input-a" required="true" value="{dokument_Add>/name}"/>
+
+					<Label text="Descriptiom" labelFor="input-b" design="Bold" />
+					<Input id="input-b" required="true" value="{dokument_Add>/description}"/>
+
+					<Label text="Category" labelFor="input-c" design="Bold" />
+					<Input id="input-c" required="true" value="{dokument_Add>/category}"/>
+
+					<Label text="hasDelivery" labelFor="input-d" design="Bold" />
+					<Input id="input-d" required="true" value="{dokument_Add>/hasDelivery}"/>
+
+					<Label text="city" labelFor="input-e" design="Bold" />
+					<Input id="input-e" required="true" value="{dokument_Add>/city}"/>
+
+					<Label text="street" labelFor="input-f" design="Bold" />
+					<Input id="input-f" required="true" value="{dokument_Add>/street}"/>
+
+					<Label text="postalCode" labelFor="input-g" design="Bold" />
+					<Input id="input-g" required="true" value="{dokument_Add>/postalCode}"/>
+				</l:VerticalLayout> ->
+			</f:content>
+		</f:title>
+	</f:DynamicPage> -->
+</mvc:View>

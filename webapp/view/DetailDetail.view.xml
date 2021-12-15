@@ -1,0 +1,90 @@
+<mvc:View
+	controllerName="opensap.myapp.controller.DetailDetail"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"	
+	xmlns:f="sap.f"
+	xmlns:layout="sap.ui.layout"
+	height="100%">
+		<f:DynamicPage 	toggleHeaderOnTitleClick="false">
+			<!-- DynamicPage Title -->
+			<f:title>
+				<f:DynamicPageTitle>
+					<f:heading>
+						<FlexBox wrap="Wrap" fitContainer="true" alignItems="Center">
+							<Title text="Produkt id: {products>id}" wrapping="true" class="sapUiTinyMarginEnd"/>
+						</FlexBox>
+					</f:heading>
+					<!--f:expandedContent>
+						<Label text="Szczegóły"/>
+					</f:expandedContent>
+					<f:snappedContent>
+						<Label text="Szczegóły"/>
+					</f:snappedContent>
+					<f:snappedTitleOnMobile>
+						<Title text="Szczegóły"/>
+					</f:snappedTitleOnMobile-->
+					<!--f:actions>
+						<Button text="Edycja" type="Emphasized"/>
+						<Button text="Usuń" type="Transparent"/>
+						<Button text="Kopiuj" type="Transparent"/>
+					</f:actions--> 
+					<f:navigationActions>
+						<OverflowToolbarButton
+							type="Transparent"
+							icon="sap-icon://full-screen"
+							press=".handleFullScreen"
+							tooltip="Widok pełnoekranowy"
+							visible="{= ${/actionButtonsInfo/endColumn/fullScreen} !== null }"/>
+						<OverflowToolbarButton
+							type="Transparent"
+							icon="sap-icon://exit-full-screen"
+							press=".handleExitFullScreen"
+							tooltip="Opuść widok pełnoekranowy"
+							visible="{= ${/actionButtonsInfo/endColumn/exitFullScreen} !== null }"/>
+						<OverflowToolbarButton
+							type="Transparent"
+							icon="sap-icon://decline"
+							press=".handleClose"
+							tooltip="Zamknij podgląd"
+							visible="{= ${/actionButtonsInfo/endColumn/closeColumn} !== null }"/>
+					</f:navigationActions>
+				</f:DynamicPageTitle>
+			</f:title>
+			<!-- DynamicPage Header  -->
+			<f:header>
+				<f:DynamicPageHeader pinnable="true">
+					<layout:HorizontalLayout allowWrapping="true">
+						<layout:VerticalLayout class="sapUiMediumMarginEnd">
+							<ObjectAttribute title="Ilość Obecna" text="{products>iloscObecna}"/>
+							<ObjectAttribute title="Ilość Zarezerwowana" text="{products>iloscZarezerwowana}"/>
+							<ObjectAttribute title="Ilość Dostepna" text="{products>iloscDostepna}"/>
+						</layout:VerticalLayout>
+
+						<layout:VerticalLayout>
+							<ObjectAttribute title="Kod EAN" text="{products>kodEan}"/>
+							<!--ObjectAttribute title="Ilość Dostepna" />
+							<ObjectStatus text="In Stock" state="Success" /-->
+						</layout:VerticalLayout>
+					</layout:HorizontalLayout>
+				</f:DynamicPageHeader>
+			</f:header>
+			<f:content>
+				<IconTabBar id="iconTabBar" class="sapUiResponsiveContentPadding">
+					<items>
+						<IconTabFilter text="Załącznik">
+							<Text text="Tu znajdziesz interesujące Cię załączniki" />
+							<content>
+								<Link text="Przejdź do następnej strony" press=".handleAboutPress"/><!--Tu możnaby rozkminić czy wrzucać jakieś zdjęcia (jeśli tak, to jak)?-->
+							</content>
+						</IconTabFilter>
+						<IconTabFilter text="Uwagi">
+							<Text text="Notes go here ..." /><!--Dynamiczne czy wyrzucamy?-->
+						</IconTabFilter>
+						<IconTabFilter text="Osoby zajmujące się produktem"><!--Zastanowić się, czy jest nam potrzebne. Jeśli tak, to co tu wrzucić?-->
+							<Text text=" ..." />
+						</IconTabFilter>
+					</items>
+				</IconTabBar>
+			</f:content>
+		</f:DynamicPage>
+</mvc:View>
