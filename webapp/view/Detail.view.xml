@@ -166,20 +166,26 @@
 				<subSections>
 					<ObjectPageSubSection>
 						<blocks>
-							<m:Table
-								id="suppliersTable"
-								items="{path : 'dokumenty>produkty'}">
-								<m:columns>
-									<m:Column/>
-								</m:columns>
-								<m:items>
-									<m:ColumnListItem type="Navigation" press=".onProductPress">
-										<m:cells>
-											<m:ObjectIdentifier text="{dokumenty>produktId}"/>
-										</m:cells>
-									</m:ColumnListItem>
-								</m:items>
-							</m:Table>
+							<m:VBox fitContainer="false">
+								<m:OverflowToolbar class="sapFDynamicPageAlignContent" enabled = "{editDetail>/edit}">
+									<m:ToolbarSpacer/>
+									<m:OverflowToolbarButton icon="sap-icon://add" text="Add" type="Transparent"  press=".onAdd"/>
+								</m:OverflowToolbar>
+								<m:Table
+									id="suppliersTable"
+									items="{path : 'dokumenty>produkty'}">
+									<m:columns>
+										<m:Column/>
+									</m:columns>
+									<m:items>
+										<m:ColumnListItem type="Navigation" press=".onProductPress">
+											<m:cells>
+												<m:ObjectIdentifier text="{dokumenty>produktId}"/>
+											</m:cells>
+										</m:ColumnListItem>
+									</m:items>
+								</m:Table>
+							</m:VBox>
 						</blocks>
 					</ObjectPageSubSection>
 				</subSections>
