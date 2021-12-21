@@ -4,7 +4,8 @@
 	xmlns:m="sap.m"
 	xmlns:f="sap.f"
 	xmlns:form="sap.ui.layout.form"
-	xmlns:mvc="sap.ui.core.mvc">
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core">
 	<ObjectPageLayout
 		id="ObjectPageLayout"
 		showTitleInHeaderContent="true"
@@ -54,10 +55,10 @@
 				</navigationActions>
 
 				<actions>
-					<!--m:ToggleButton
+					<m:ToggleButton
 						text="Edytuj"
 						type="Emphasized"
-						press=".onEditToggleButtonPress"/-->
+						press=".onEditToggleButtonPress"/>
 					<m:Button
 						text="Usuń"
 						type="Transparent"
@@ -87,7 +88,7 @@
 					<m:Text text="{dokumenty>typDokumentu/nazwa}"/>
 				</m:VBox>
 				<m:VBox justifyContent="Center" class="sapUiSmallMarginEnd">
-					<m:Label text="Kontrahent"/>
+					<m:Label text="Kontrachent"/>
 					<m:Text text="{dokumenty>kontrahent/nazwa}"/>
 				</m:VBox>
 				<!-- <m:VBox justifyContent="Center" class="sapUiSmallMarginEnd">
@@ -113,10 +114,45 @@
 								columnsL="1"
 								columnsM="1">
 								<form:content>
-									<m:Label text="Kto i kiedy wystawił dokument? "/><!--TODO do wprowadzenia w i18n--> <!--Tutaj końcowo pojawią się informacje w osobnych akapitach. Lekcja 13 już je ma-->
-									<m:Text text="{dokumenty>ktoWystawil/imie} {dokumenty>ktoWystawil/nazwisko} {dokumenty>dataWystawienia}"/>
-									<m:Label text="Kto i kiedy zatwierdził / przyjął dokument? "/><!--TODO do wprowadzenia w i18n--> <!--Tutaj końcowo pojawią się informacje w osobnych akapitach. Lekcja 13 już je ma-->
-									<m:Text text="{dokumenty>ktoZatwierdzilPrzyjal/imie} {dokumenty>ktoZatwierdzilPrzyjal/nazwisko} {dokumenty>dataZatwierdzeniaPrzyjecia}"/>
+									<!--m:Label text="Kto wystawił dokument "/><!-TODO do wprowadzenia w i18n-> <!-Tutaj końcowo pojawią się informacje w osobnych akapitach. Lekcja 13 już je ma->
+									<m:Text text="{dokumenty>ktoWystawil/imie} {dokumenty>ktoWystawil/nazwisko}"/-->
+
+									<m:Label text="Kto wystawił dokument" labelFor="ktoWystawil" />	
+									<m:ComboBox
+											id="ktoWystawil"
+											enabled = "{editDetail>/edit}"
+											showSecondaryValues= "true"
+											filterSecondaryValues = "true"
+											items="{
+												path: 'pracownicy>/',
+												sorter: { path: 'imie' }
+											}">
+											<core:ListItem key="{pracownicy>id}" text="{pracownicy>imie} {pracownicy>nazwisko}"/>
+									</m:ComboBox> 
+									
+									<m:Label text="Data wystawienia dokumentu"/><!--TODO do wprowadzenia w i18n--> <!--Tutaj końcowo pojawią się informacje w osobnych akapitach. Lekcja 13 już je ma-->
+									<m:Text text="{dokumenty>dataWystawienia}"/>
+									
+									<!--m:Label text="Kto zatwierdził / przyjął dokument "/><!-TODO do wprowadzenia w i18n-> <!-Tutaj końcowo pojawią się informacje w osobnych akapitach. Lekcja 13 już je ma->
+									<m:Text text="{dokumenty>ktoZatwierdzilPrzyjal/imie} {dokumenty>ktoZatwierdzilPrzyjal/nazwisko}"/-->
+									
+									<m:Label text="Kto zatwierdził / przyjął dokument" labelFor="ktoZatwierdzil" />	
+									<m:ComboBox
+											id="ktoZatwierdzil"
+											enabled = "{editDetail>/edit}"
+											showSecondaryValues= "false"
+											filterSecondaryValues = "true"
+											items="{
+												path: 'pracownicy>/',
+												sorter: { path: 'imie' }
+
+											}">
+											<core:ListItem key="{pracownicy>id}" text="{pracownicy>imie} {pracownicy>nazwisko}"/>
+									</m:ComboBox>	
+
+									<m:Label text="Data zatwierdzenia dokumentu"/><!--TODO do wprowadzenia w i18n--> <!--Tutaj końcowo pojawią się informacje w osobnych akapitach. Lekcja 13 już je ma-->
+									<m:Text text="{dokumenty>dataZatwierdzeniaPrzyjecia}"/>
+									
 									<!--m:Label text="Dostawca"/--><!--TODO do wprowadzenia w i18n--> <!--Tutaj końcowo pojawią się informacje w osobnych akapitach. Lekcja 13 już je ma-->
 									<!--m:Text text="{dokumenty>ktoWystawil/imie}"/-->
 								</form:content>
@@ -153,8 +189,8 @@
 		<footer>
 			<m:OverflowToolbar>
 				<m:ToolbarSpacer/>
-				<m:Button type="Accept" text="Zapisz"/>
-				<m:Button type="Reject" text="Anuluj"/>
+				<m:Button type="Accept" text="Zapisz" press=".onToolbarSpacerAccept"/>
+				<m:Button type="Reject" text="Anuluj" press=".onToolbarSpacerReject"/>
 			</m:OverflowToolbar>
 		</footer>
 	</ObjectPageLayout>

@@ -3,12 +3,20 @@ sap.ui.define([
 	"sap/m/MessageBox",
 	"sap/m/MessageToast",
 	"sap/m/PDFViewer",
-	"sap/ui/core/util/File"
-], function (Controller, MessageBox, MessageToast, PDFViewer, File) {
+	"sap/ui/core/util/File",
+	'sap/ui/model/json/JSONModel'
+], function (Controller, MessageBox, MessageToast, PDFViewer, File, JSONModel) {
 	"use strict";
 
 	return Controller.extend("opensap.myapp.controller.Detail", {
         onInit: function () {
+			
+			var oEditDetailModel = new JSONModel();
+			oEditDetailModel.setData({
+				edit: false
+			});
+			this.getView().setModel(oEditDetailModel, "editDetail");
+
 			this.oOwnerComponent = this.getOwnerComponent();
 
 			this.oRouter = this.oOwnerComponent.getRouter();
@@ -107,6 +115,19 @@ sap.ui.define([
 				path: "/" + this._product,
 				model: "dokumenty"
 			});
+			
+			//let bEdit = this.getView().getModel("editDetail").getProperty("/edit");
+
+			let iIdPersonCreateDocument = this.getView().getBindingContext("dokumenty").getProperty("ktoWystawil/id");
+			let oComboBoxKtoWystail = this.getView().byId("ktoWystawil");
+			oComboBoxKtoWystail.setSelectedKey(iIdPersonCreateDocument);
+			//oComboBoxKtoWystail.setEnabled(bEdit);
+
+			let iIdPersonAcceptDocument = this.getView().getBindingContext("dokumenty").getProperty("ktoZatwierdzilPrzyjal/id");
+			let oComboBoxKtoZatwierdzil = this.getView().byId("ktoZatwierdzil");
+			oComboBoxKtoZatwierdzil.setSelectedKey(iIdPersonAcceptDocument);
+			//oComboBoxKtoZatwierdzil.setEnabled(bEdit);
+
 		},
 		onDelete: function(oEvent){
 			var idDokumentu = this.getView().getBindingContext("dokumenty").getProperty("id");
@@ -169,6 +190,102 @@ sap.ui.define([
 				bCurrentShowFooterState = oObjectPage.getShowFooter();
 
 			oObjectPage.setShowFooter(!bCurrentShowFooterState);
+			
+			let bEdit = this.getView().getModel('editDetail').getProperty("/edit");
+			this.getView().getModel('editDetail').setProperty("/edit", !bEdit);
+		},
+		onToolbarSpacerAccept: function(){
+			var oObjectPage = this.getView().byId("ObjectPageLayout"),
+			bCurrentShowFooterState = oObjectPage.getShowFooter();
+
+			oObjectPage.setShowFooter(!bCurrentShowFooterState);
+			
+			let bEdit = this.getView().getModel('editDetail').getProperty("/edit");
+			this.getView().getModel('editDetail').setProperty("/edit", !bEdit);
+
+			let oDokument = this.getView().getBindingContext("dokumenty").getObject();
+
+			function toIsoString(date) {
+				var tzo = -date.getTimezoneOffset(),
+					pad = function(num) {
+						var norm = Math.floor(Math.abs(num));
+						return (norm < 10 ? '0' : '') + norm;
+					};
+			  
+				return date.getFullYear() +
+					'-' + pad(date.getMonth() + 1) +
+					'-' + pad(date.getDate()) +
+					'T' + pad(date.getHours()) +
+					':' + pad(date.getMinutes()) +
+					':' + pad(date.getSeconds())
+			}
+
+			var sDataZatwierdzeniaPrzyjecia = toIsoString(new Date());
+			oDokument.dataZatwierdzeniaPrzyjecia = sDataZatwierdzeniaPrzyjecia;
+			
+			var oComboBoxKtoWystail = this.getView().byId("ktoWystawil").getSelectedItem().mProperties;
+			oDokument.ktoWystawil.id = parseInt(oComboBoxKtoWystail.key);
+			oDokument.ktoWystawil.imie = oComboBoxKtoWystail.text;
+			oDokument.ktoWystawil.nazwisko = oComboBoxKtoWystail.additionalText;
+			
+			var oComboBoxKtoZatwierdzil = this.getView().byId("ktoZatwierdzil").getSelectedItem().mProperties;
+			oDokument.ktoZatwierdzil.id = parseInt(oComboBoxKtoZatwierdzil.key);
+			oDokument.ktoZatwierdzil.imie = oComboBoxKtoZatwierdzil.text;
+			oDokument.ktoZatwierdzil.nazwisko = oComboBoxKtoZatwierdzil.additionalText;
+
+			jQuery.ajax({
+				method: "PUT",
+				url: "proxy/https/localhost:5001/api/inz/dokument/" + oDokument.id,
+				contentType: "application/json; charset=utf-8",
+				dataType: 'json',
+				data: JSON.stringify(oDokument),
+				success: function(data){
+					var lv_data = data;
+				},
+				error: function(error){
+					var lv_error = error;
+				}
+				
+			}).then(function(data){
+				let sPath = this.getView().getBindingContext("dokumenty").getPath();
+				this.getView().getModel("dokumenty").setProperty(sPath,oDokument);		
+				this.getOwnerComponent().getHelper().then(function (oHelper) {
+					this._onEditSuccess(data.id);
+				}.bind(this));
+			}.bind(this), function(data){
+				this._onChangeFailed();
+			}.bind(this));
+		},
+		_onEditSuccess: function (oError) {
+			var sMessage = 'Poprawnie zapisano dane !!!';/*this.getResourceBundle().getText("newPersonCreated",*/
+				//[oPerson.Pesel]);
+				
+			//this.onNavBack(); //<!-- brak takiej funkcji
+	
+			MessageToast.show(sMessage, {
+				closeOnBrowserNavigation : false
+			});
+		},
+		
+		_onChangeFailed: function (oError) {
+			var sMessage = 'Błąd przy zapisie danych !!!';// this.getResourceBundle().getText("newPersonNotCreated",
+				//[oPerson.Pesel]);
+				
+			//this.onNavBack(); //<!-- brak takiej funkcji
+	
+			MessageToast.show(sMessage, {
+				closeOnBrowserNavigation : false
+			});
+		},
+
+		onToolbarSpacerReject: function(){
+			var oObjectPage = this.getView().byId("ObjectPageLayout"),
+			bCurrentShowFooterState = oObjectPage.getShowFooter();
+
+			oObjectPage.setShowFooter(!bCurrentShowFooterState);
+
+			let bEdit = this.getView().getModel('editDetail').getProperty("/edit");
+			this.getView().getModel('editDetail').setProperty("/edit", !bEdit);
 		},
 
 		handleFullScreen: function () {

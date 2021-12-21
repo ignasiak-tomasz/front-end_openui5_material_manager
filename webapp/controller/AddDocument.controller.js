@@ -15,6 +15,12 @@ sap.ui.define([
 
 			var oMM = Core.getMessageManager();
 
+			var oView = this.getView(),
+			  	aInputs = [
+				oView.byId("kontrahenci"),
+				oView.byId("ktoWystawil")
+			];
+
 			// attach handlers for validation errors
 			// this.oOwnerComponent = this.getOwnerComponent();
 			// this.oModel = this.oOwnerComponent.getModel();
