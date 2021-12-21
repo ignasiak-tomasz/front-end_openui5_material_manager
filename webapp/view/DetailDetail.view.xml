@@ -55,9 +55,9 @@
 				<f:DynamicPageHeader pinnable="true">
 					<layout:HorizontalLayout allowWrapping="true">
 						<layout:VerticalLayout class="sapUiMediumMarginEnd">
-							<ObjectAttribute title="Ilość Obecna" text="{products>iloscObecna}"/>
-							<ObjectAttribute title="Ilość Zarezerwowana" text="{products>iloscZarezerwowana}"/>
-							<ObjectAttribute title="Ilość Dostepna" text="{products>iloscDostepna}"/>
+							<ObjectAttribute title="Stan magazynowy" text="{products>iloscObecna}"/>
+							<ObjectAttribute title="Ilość zarezerwowana" text="{products>iloscZarezerwowana}"/>
+							<ObjectAttribute title="Ilość dostepna" text="{products>iloscDostepna}"/>
 						</layout:VerticalLayout>
 
 						<layout:VerticalLayout>
@@ -71,16 +71,16 @@
 			<f:content>
 				<IconTabBar id="iconTabBar" class="sapUiResponsiveContentPadding">
 					<items>
-						<IconTabFilter text="Załącznik">
+						<IconTabFilter text="Załączniki">
 							<Text text="Tu znajdziesz interesujące Cię załączniki" />
 							<content>
 								<Link text="Przejdź do następnej strony" press=".handleAboutPress"/><!--Tu możnaby rozkminić czy wrzucać jakieś zdjęcia (jeśli tak, to jak)?-->
 							</content>
 						</IconTabFilter>
 						<IconTabFilter text="Uwagi">
-							<Text text="Notes go here ..." /><!--Dynamiczne czy wyrzucamy?-->
+							<Text text="..." /><!--Dynamiczne czy wyrzucamy?-->
 						</IconTabFilter>
-						<IconTabFilter text="Osoby zajmujące się produktem"><!--Zastanowić się, czy jest nam potrzebne. Jeśli tak, to co tu wrzucić?-->
+						<IconTabFilter text="Odpowiedzialni:"><!--Zastanowić się, czy jest nam potrzebne. Jeśli tak, to co tu wrzucić?-->
 							<Text text=" ..." />
 						</IconTabFilter>
 					</items>

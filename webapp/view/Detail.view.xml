@@ -88,7 +88,7 @@
 					<m:Text text="{dokumenty>typDokumentu/nazwa}"/>
 				</m:VBox>
 				<m:VBox justifyContent="Center" class="sapUiSmallMarginEnd">
-					<m:Label text="Kontrachent"/>
+					<m:Label text="Kontrahent"/>
 					<m:Text text="{dokumenty>kontrahent/nazwa}"/>
 				</m:VBox>
 				<!-- <m:VBox justifyContent="Center" class="sapUiSmallMarginEnd">
@@ -117,7 +117,7 @@
 									<!--m:Label text="Kto wystawił dokument "/><!-TODO do wprowadzenia w i18n-> <!-Tutaj końcowo pojawią się informacje w osobnych akapitach. Lekcja 13 już je ma->
 									<m:Text text="{dokumenty>ktoWystawil/imie} {dokumenty>ktoWystawil/nazwisko}"/-->
 
-									<m:Label text="Kto wystawił dokument" labelFor="ktoWystawil" />	
+									<m:Label text="Wystawił" labelFor="ktoWystawil" />	
 									<m:ComboBox
 											id="ktoWystawil"
 											enabled = "{editDetail>/edit}"
@@ -130,13 +130,13 @@
 											<core:ListItem key="{pracownicy>id}" text="{pracownicy>imie} {pracownicy>nazwisko}"/>
 									</m:ComboBox> 
 									
-									<m:Label text="Data wystawienia dokumentu"/><!--TODO do wprowadzenia w i18n--> <!--Tutaj końcowo pojawią się informacje w osobnych akapitach. Lekcja 13 już je ma-->
+									<m:Label text="Data wystawienia"/><!--TODO do wprowadzenia w i18n--> <!--Tutaj końcowo pojawią się informacje w osobnych akapitach. Lekcja 13 już je ma-->
 									<m:Text text="{dokumenty>dataWystawienia}"/>
 									
 									<!--m:Label text="Kto zatwierdził / przyjął dokument "/><!-TODO do wprowadzenia w i18n-> <!-Tutaj końcowo pojawią się informacje w osobnych akapitach. Lekcja 13 już je ma->
 									<m:Text text="{dokumenty>ktoZatwierdzilPrzyjal/imie} {dokumenty>ktoZatwierdzilPrzyjal/nazwisko}"/-->
 									
-									<m:Label text="Kto zatwierdził / przyjął dokument" labelFor="ktoZatwierdzil" />	
+									<m:Label text="Zatwierdził" labelFor="ktoZatwierdzil" />	
 									<m:ComboBox
 											id="ktoZatwierdzil"
 											enabled = "{editDetail>/edit}"
@@ -150,7 +150,7 @@
 											<core:ListItem key="{pracownicy>id}" text="{pracownicy>imie} {pracownicy>nazwisko}"/>
 									</m:ComboBox>	
 
-									<m:Label text="Data zatwierdzenia dokumentu"/><!--TODO do wprowadzenia w i18n--> <!--Tutaj końcowo pojawią się informacje w osobnych akapitach. Lekcja 13 już je ma-->
+									<m:Label text="Data zatwierdzenia"/><!--TODO do wprowadzenia w i18n--> <!--Tutaj końcowo pojawią się informacje w osobnych akapitach. Lekcja 13 już je ma-->
 									<m:Text text="{dokumenty>dataZatwierdzeniaPrzyjecia}"/>
 									
 									<!--m:Label text="Dostawca"/--><!--TODO do wprowadzenia w i18n--> <!--Tutaj końcowo pojawią się informacje w osobnych akapitach. Lekcja 13 już je ma-->
@@ -162,7 +162,7 @@
 				</subSections>
 			</ObjectPageSection>
 
-			<ObjectPageSection title="Lista Numerów Produktów przyisanych do Dokumentu o ID: {dokumenty>id}"><!--TODO do wprowadzenia w i18n--> <!--To jest cały blok, który pojawia się w nagłówku strony-->
+			<ObjectPageSection title="Lista produktów w dokumencie o ID: {dokumenty>id}"><!--TODO do wprowadzenia w i18n--> <!--To jest cały blok, który pojawia się w nagłówku strony-->
 				<subSections>
 					<ObjectPageSubSection>
 						<blocks>
