@@ -175,12 +175,19 @@
 									id="suppliersTable"
 									items="{path : 'dokumenty>produkty'}">
 									<m:columns>
-										<m:Column/>
+										<m:Column width="12em">
+											<m:Text text="{i18n>detail_column_id}" />
+										</m:Column>
+										<m:Column width="12em">
+											<m:Text text="{i18n>detail_column_quantity}" />
+										</m:Column>
 									</m:columns>
 									<m:items>
 										<m:ColumnListItem type="Navigation" press=".onProductPress">
 											<m:cells>
 												<m:ObjectIdentifier text="{dokumenty>produktId}"/>
+												<m:Input  value="{dokumenty>ilosc}" type="Number" enabled = "{editDetail>/edit}"/>
+												<!--<m:ObjectIdentifier text="{dokumenty>ilosc}"/>-->
 											</m:cells>
 										</m:ColumnListItem>
 									</m:items>

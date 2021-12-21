@@ -238,11 +238,11 @@ sap.ui.define([
 			//oDokument.ktoWystawil.nazwisko = oComboBoxKtoWystail.additionalText;
 			
 			var oComboBoxKtoZatwierdzil = this.getView().byId("ktoZatwierdzil").getSelectedItem().mProperties;
-			oDokument.ktoZatwierdzil.id = parseInt(oComboBoxKtoZatwierdzil.key);
+			oDokument.ktoZatwierdzilPrzyjal.id = parseInt(oComboBoxKtoZatwierdzil.key);
 			for(let i=0; i<oModelPracownicy.length; i++){
-				if(oModelPracownicy[0].id = oDokument.ktoZatwierdzil.id){
-					oDokument.ktoZatwierdzil.imie = oModelPracownicy[0].imie;
-					oDokument.ktoZatwierdzil.nazwisko = oModelPracownicy[0].nazwisko;
+				if(oModelPracownicy[0].id = oDokument.ktoZatwierdzilPrzyjal.id){
+					oDokument.ktoZatwierdzilPrzyjal.imie = oModelPracownicy[0].imie;
+					oDokument.ktoZatwierdzilPrzyjal.nazwisko = oModelPracownicy[0].nazwisko;
 					break;
 				}
 			};
