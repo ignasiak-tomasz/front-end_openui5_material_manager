@@ -224,14 +224,31 @@ sap.ui.define([
 			oDokument.dataZatwierdzeniaPrzyjecia = sDataZatwierdzeniaPrzyjecia;
 			
 			var oComboBoxKtoWystail = this.getView().byId("ktoWystawil").getSelectedItem().mProperties;
+			let oModelPracownicy = this.getView().getModel("pracownicy").getData();
+
 			oDokument.ktoWystawil.id = parseInt(oComboBoxKtoWystail.key);
-			oDokument.ktoWystawil.imie = oComboBoxKtoWystail.text;
-			oDokument.ktoWystawil.nazwisko = oComboBoxKtoWystail.additionalText;
+			for(let i=0; i<oModelPracownicy.length; i++){
+				if(oModelPracownicy[0].id = oDokument.ktoWystawil.id){
+					oDokument.ktoWystawil.imie = oModelPracownicy[0].imie;
+					oDokument.ktoWystawil.nazwisko = oModelPracownicy[0].nazwisko;
+					break;
+				}
+			};
+			//oDokument.ktoWystawil.imie = oComboBoxKtoWystail.text;
+			//oDokument.ktoWystawil.nazwisko = oComboBoxKtoWystail.additionalText;
 			
 			var oComboBoxKtoZatwierdzil = this.getView().byId("ktoZatwierdzil").getSelectedItem().mProperties;
 			oDokument.ktoZatwierdzil.id = parseInt(oComboBoxKtoZatwierdzil.key);
-			oDokument.ktoZatwierdzil.imie = oComboBoxKtoZatwierdzil.text;
-			oDokument.ktoZatwierdzil.nazwisko = oComboBoxKtoZatwierdzil.additionalText;
+			for(let i=0; i<oModelPracownicy.length; i++){
+				if(oModelPracownicy[0].id = oDokument.ktoZatwierdzil.id){
+					oDokument.ktoZatwierdzil.imie = oModelPracownicy[0].imie;
+					oDokument.ktoZatwierdzil.nazwisko = oModelPracownicy[0].nazwisko;
+					break;
+				}
+			};
+
+			//oDokument.ktoZatwierdzil.imie = oComboBoxKtoZatwierdzil.text;
+			//oDokument.ktoZatwierdzil.nazwisko = oComboBoxKtoZatwierdzil.additionalText;
 
 			jQuery.ajax({
 				method: "PUT",
