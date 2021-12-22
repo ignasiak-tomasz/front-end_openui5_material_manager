@@ -169,7 +169,11 @@
 							<m:VBox fitContainer="false">
 								<m:OverflowToolbar class="sapFDynamicPageAlignContent" enabled = "{editDetail>/edit}">
 									<m:ToolbarSpacer/>
-									<m:OverflowToolbarButton icon="sap-icon://add" text="Add" type="Transparent"  press=".onAdd"/>
+									<m:OverflowToolbarButton icon="sap-icon://add" text="Add" type="Transparent"  press=".onAdd">
+										<m:customData>
+											<core:CustomData key="multi" value="true" />
+										</m:customData>
+									</m:OverflowToolbarButton>
 								</m:OverflowToolbar>
 								<m:Table
 									id="suppliersTable"

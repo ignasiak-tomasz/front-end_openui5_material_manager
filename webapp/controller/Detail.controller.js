@@ -4,8 +4,12 @@ sap.ui.define([
 	"sap/m/MessageToast",
 	"sap/m/PDFViewer",
 	"sap/ui/core/util/File",
-	'sap/ui/model/json/JSONModel'
-], function (Controller, MessageBox, MessageToast, PDFViewer, File, JSONModel) {
+	'sap/ui/model/json/JSONModel',
+	'sap/ui/core/Fragment',
+	'sap/ui/model/Filter',
+	'sap/ui/model/FilterOperator',
+	"sap/ui/core/syncStyleClass"
+], function (Controller, MessageBox, MessageToast, PDFViewer, File, JSONModel, Fragment, Filter, FilterOperator, syncStyleClass) {
 	"use strict";
 
 	return Controller.extend("opensap.myapp.controller.Detail", {
@@ -293,6 +297,69 @@ sap.ui.define([
 			MessageToast.show(sMessage, {
 				closeOnBrowserNavigation : false
 			});
+		},
+		onAdd: function(oEvent){
+			var oButton = oEvent.getSource(),
+				oView = this.getView();
+
+			if (!this._pDialog) {
+				this._pDialog = Fragment.load({
+					id: oView.getId(),
+					name: "opensap.myapp.view.Products",
+					controller: this
+				}).then(function(oDialog){
+					oView.addDependent(oDialog);
+					return oDialog;
+				});
+			}
+
+			this._pDialog.then(function(oDialog){
+				this._configDialog(oButton, oDialog);
+				oDialog.open();
+			}.bind(this));
+		},
+		_configDialog: function (oButton, oDialog) {
+
+			// Multi-select if required
+			var bMultiSelect = !!oButton.data("multi");
+			oDialog.setMultiSelect(bMultiSelect);
+
+			// toggle compact style
+			syncStyleClass("sapUiSizeCompact", this.getView(), oDialog);
+		},
+
+		handleSearchPopUp: function (oEvent) {
+			var sValue = oEvent.getParameter("value");
+			var oFilter = new Filter("nazwa", FilterOperator.Contains, sValue);
+			var oBinding = oEvent.getSource().getBinding("items");
+			oBinding.filter([oFilter]);
+		},
+
+		handleClosePopUp: function (oEvent) {
+			// reset the filter
+			var oBinding = oEvent.getSource().getBinding("items");
+			oBinding.filter([]);
+
+			var aContexts = oEvent.getParameter("selectedContexts");
+			if (aContexts && aContexts.length) {
+				let oObjectSelected = aContexts.map(function (oContext) { 
+					return oContext.getObject(); 
+				});
+				let oBindingIdDocument = this.getView().getBindingContext("dokumenty").getProperty('id');
+				let oBindingProduktyInDocument = this.getView().getBindingContext("dokumenty").getProperty('produkty');
+				for(let i = 0; i<oObjectSelected.length ; i++){
+					oBindingProduktyInDocument.push({
+						"dokumentId": parseInt(oBindingIdDocument),
+						"produktId": parseInt(oObjectSelected[i].id),
+						"ilosc": 0
+					});
+				}
+				let sPath = this.getView().getBindingContext("dokumenty").getPath();
+				this.getView().getModel("dokumenty").setProperty(sPath+"/produkty",oBindingProduktyInDocument);
+				
+				MessageToast.show("You have chosen " + aContexts.map(function (oContext) { return oContext.getObject().id; }).join(", "));
+			}
+
 		},
 
 		onToolbarSpacerReject: function(){

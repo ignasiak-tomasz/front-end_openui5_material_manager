@@ -1,0 +1,55 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<TableSelectDialog
+		id="myDialog"
+		noDataText="No Products Found"
+		title="Select Product"
+		search=".handleSearchPopUp"
+		confirm=".handleClosePopUp"
+		cancel=".handleClosePopUp"
+		items="{
+			path : 'products>/',
+			sorter : {
+				path : 'nazwa',
+				descending : false
+			}
+		}">
+		<ColumnListItem vAlign="Middle">
+			<cells>
+				<ObjectIdentifier title="{products>nazwa}" text="Id: {products>id}" />
+				<Text text="{products>iloscObecna}" />
+				<Text text="{products>iloscZarezerwowana}" />
+				<Text text="{products>iloscDostepna}" />	
+				<Text text="{products>kategoria/nazwa}" />
+			</cells>
+		</ColumnListItem>
+		<columns>
+			<Column width="12em">
+				<header>
+					<Text text="Product" />
+				</header>
+			</Column>
+			<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+				<header>
+					<Text text="iloscObecna" />
+				</header>
+			</Column>
+			<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+				<header>
+					<Text text="iloscZarezerwowana" />
+				</header>
+			</Column>
+			<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+				<header>
+					<Text text="iloscDostepna" />
+				</header>
+			</Column>
+			<Column hAlign="Center">
+				<header>
+					<Text text="Kategoria" />
+				</header>
+			</Column>
+		</columns>
+	</TableSelectDialog>
+</core:FragmentDefinition>
