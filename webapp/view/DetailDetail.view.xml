@@ -23,11 +23,11 @@
 					<f:snappedTitleOnMobile>
 						<Title text="Szczegóły"/>
 					</f:snappedTitleOnMobile-->
-					<!--f:actions>
-						<Button text="Edycja" type="Emphasized"/>
-						<Button text="Usuń" type="Transparent"/>
-						<Button text="Kopiuj" type="Transparent"/>
-					</f:actions--> 
+					<f:actions>
+						<!--Button text="Edycja" type="Emphasized"/-->
+						<Button text="Usuń" type="Emphasized" press=".onDeleteProductWithDocument"/>
+						<!--Button text="Kopiuj" type="Transparent"/-->
+					</f:actions> 
 					<f:navigationActions>
 						<OverflowToolbarButton
 							type="Transparent"

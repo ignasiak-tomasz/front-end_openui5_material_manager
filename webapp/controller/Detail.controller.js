@@ -242,7 +242,11 @@ sap.ui.define([
 			//oDokument.ktoWystawil.nazwisko = oComboBoxKtoWystail.additionalText;
 			
 			var oComboBoxKtoZatwierdzil = this.getView().byId("ktoZatwierdzil").getSelectedItem().mProperties;
-			oDokument.ktoZatwierdzilPrzyjal.id = parseInt(oComboBoxKtoZatwierdzil.key);
+			oDokument.ktoZatwierdzilPrzyjal = {
+				"id" : parseInt(oComboBoxKtoZatwierdzil.key),
+				"imie": " ",
+				"nazwisko": " ",
+			};
 			for(let i=0; i<oModelPracownicy.length; i++){
 				if(oModelPracownicy[0].id = oDokument.ktoZatwierdzilPrzyjal.id){
 					oDokument.ktoZatwierdzilPrzyjal.imie = oModelPracownicy[0].imie;
@@ -271,13 +275,13 @@ sap.ui.define([
 				let sPath = this.getView().getBindingContext("dokumenty").getPath();
 				this.getView().getModel("dokumenty").setProperty(sPath,oDokument);		
 				this.getOwnerComponent().getHelper().then(function (oHelper) {
-					this._onEditSuccess(data.id);
+					this._onEditSuccess();
 				}.bind(this));
 			}.bind(this), function(data){
 				this._onChangeFailed();
 			}.bind(this));
 		},
-		_onEditSuccess: function (oError) {
+		_onEditSuccess: function () {
 			var sMessage = 'Poprawnie zapisano dane !!!';/*this.getResourceBundle().getText("newPersonCreated",*/
 				//[oPerson.Pesel]);
 				
@@ -288,7 +292,7 @@ sap.ui.define([
 			});
 		},
 		
-		_onChangeFailed: function (oError) {
+		_onChangeFailed: function () {
 			var sMessage = 'Błąd przy zapisie danych !!!';// this.getResourceBundle().getText("newPersonNotCreated",
 				//[oPerson.Pesel]);
 				
@@ -357,7 +361,7 @@ sap.ui.define([
 				let sPath = this.getView().getBindingContext("dokumenty").getPath();
 				this.getView().getModel("dokumenty").setProperty(sPath+"/produkty",oBindingProduktyInDocument);
 				
-				MessageToast.show("You have chosen " + aContexts.map(function (oContext) { return oContext.getObject().id; }).join(", "));
+				//1MessageToast.show("You have chosen " + aContexts.map(function (oContext) { return oContext.getObject().id; }).join(", "));
 			}
 
 		},
