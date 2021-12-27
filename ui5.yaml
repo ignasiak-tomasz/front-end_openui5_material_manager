@@ -11,3 +11,4 @@ framework:
     - name: sap.uxap
     - name: sap.ui.core
     - name: sap.ui.layout
+    - name: sap.ui.table

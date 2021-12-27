@@ -46,6 +46,9 @@
 				},
 				"sap.ui.layout": {
 					"minVersion": "1.87.0"
+				},
+				"sap.ui.table": {
+					"minVersion": "1.87.0"
 				}
 			}
 		},
@@ -105,6 +108,14 @@
 					]
 				},
 				{
+					"pattern": "detailProduct/{product}/{layout}",
+					"name": "detailProduct",
+					"target": [
+						"master",
+						"detailProduct"
+					]
+				},
+				{
 					"pattern": "detail/{product}/detailDetail/{supplier}/{layout}",
 					"name": "detailDetail",
 					"target": [
@@ -121,6 +132,10 @@
 				},
 				"detail": {
 					"viewName": "Detail",
+					"controlAggregation": "midColumnPages"
+				},
+				"detailProduct": {
+					"viewName" : "DetailProduct",
 					"controlAggregation": "midColumnPages"
 				},
 				"detailDetail": {

@@ -12,6 +12,7 @@ sap.ui.define([
 			this.oView = this.getView();
 			this._bDescendingSort = false;
 			this.oApplicationTable = this.oView.byId("applicationTable");
+			this.oApplicationTable2 = this.oView.byId("applicationTable2");
 			this.oRouter = this.getOwnerComponent().getRouter();
 		},
 		/**
@@ -30,6 +31,19 @@ sap.ui.define([
 				});
 			}.bind(this));
 		},
+		onListItemPressProduct: function(oEvent){
+			var productPath = oEvent.getSource().getBindingContext("products").getPath(),
+			product = productPath.split("/").slice(-1).pop(),
+			oNextUIState;
+
+			this.getOwnerComponent().getHelper().then(function (oHelper) {
+				oNextUIState = oHelper.getNextUIState(1);
+				this.oRouter.navTo("detailProduct", {
+					layout: oNextUIState.layout,
+					product: product
+				});
+			}.bind(this));
+		},
 		onSearch: function (oEvent) {
 			var oTableSearchState = [],
 				sQuery = oEvent.getParameter("query");
@@ -39,6 +53,16 @@ sap.ui.define([
 			}
 
 			this.oApplicationTable.getBinding("items").filter(oTableSearchState, "Application");
+		},
+		onSearchProducts: function (oEvent) {
+			var oTableSearchState = [],
+				sQuery = oEvent.getParameter("query");
+
+			if (sQuery && sQuery.length > 0) {
+				oTableSearchState = [new Filter("nazwa", FilterOperator.Contains, sQuery)];
+			}
+
+			this.oApplicationTable2.getBinding("items").filter(oTableSearchState, "Application");
 		},
 		onAdd: function(){
 			var oNextUIState;
@@ -52,6 +76,13 @@ sap.ui.define([
 		onSort: function () {
 			this._bDescendingSort = !this._bDescendingSort;
 			var oBinding = this.oApplicationTable.getBinding("items"),
+				oSorter = new Sorter("id", this._bDescendingSort);
+
+			oBinding.sort(oSorter);
+		},
+		onSortProducts: function () {
+			this._bDescendingSort = !this._bDescendingSort;
+			var oBinding = this.oApplicationTable2.getBinding("items"),
 				oSorter = new Sorter("id", this._bDescendingSort);
 
 			oBinding.sort(oSorter);

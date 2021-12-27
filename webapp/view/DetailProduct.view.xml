@@ -1,0 +1,207 @@
+<mvc:View
+	controllerName = "opensap.myapp.controller.DetailProduct"
+	xmlns = "sap.uxap"
+	xmlns:m = "sap.m"
+	xmlns:f = "sap.f"
+	xmlns:form = "sap.ui.layout.form"
+	xmlns:mvc = "sap.ui.core.mvc"
+	xmlns:core = "sap.ui.core"
+	xmlns:tab = "sap.ui.table">
+	<ObjectPageLayout
+		id="ObjectPageLayout"
+		showTitleInHeaderContent="true"
+		alwaysShowContentHeader="false"
+		preserveHeaderStateOnScroll="false"
+		headerContentPinnable="true"
+		isChildPage="true"
+		upperCaseAnchorBar="false">
+		<headerTitle>
+			<ObjectPageDynamicHeaderTitle>
+				<expandedHeading>
+					<m:Title text="Product Id: {products>id}" wrapping="true" class="sapUiSmallMarginEnd"/>
+				</expandedHeading>
+
+				<snappedHeading>
+					<m:FlexBox wrap="Wrap" fitContainer="true" alignItems="Center">
+						<m:FlexBox wrap="NoWrap" fitContainer="true" alignItems="Center" class="sapUiTinyMarginEnd">
+							<!-- <f:Avatar
+								src="https://sapui5.hana.ondemand.com/{products>ProductPicUrl}"
+								displaySize="S"
+								displayShape="Square"
+								class="sapUiTinyMarginEnd"/> -->
+							<m:Title text="Product Id: {products>id}" wrapping="true"/>
+						</m:FlexBox>
+					</m:FlexBox>
+				</snappedHeading>
+				
+				<navigationActions>
+					<m:OverflowToolbarButton
+						type="Transparent"
+						icon="sap-icon://full-screen"
+						press=".handleFullScreen"
+						tooltip="Widok pełnoekranowy"
+						visible="{= ${/actionButtonsInfo/midColumn/fullScreen} !== null }"/>
+					<m:OverflowToolbarButton
+						type="Transparent"
+						icon="sap-icon://exit-full-screen"
+						press=".handleExitFullScreen"
+						tooltip="Opuść widok pełnoekranowy"
+						visible="{= ${/actionButtonsInfo/midColumn/exitFullScreen} !== null }"/>
+					<m:OverflowToolbarButton
+						type="Transparent"
+						icon="sap-icon://decline"
+						press=".handleClose"
+						tooltip="Zamknij podgląd"
+						visible="{= ${/actionButtonsInfo/midColumn/closeColumn} !== null }"/>
+				</navigationActions>
+
+				<actions>
+					<!--m:ToggleButton
+						text="Edytuj"
+						type="Emphasized"
+						press=".onEditToggleButtonPress"/>
+					<m:Button
+						text="Usuń"
+						type="Transparent"
+						press=".onDelete"/>
+					<!-m:Button
+						text="Kopiuj"
+						type="Transparent"/-->
+				</actions>
+			</ObjectPageDynamicHeaderTitle>
+		</headerTitle>
+
+		<headerContent>
+			<m:FlexBox wrap="Wrap" fitContainer="true" alignItems="Stretch">
+				<!--src="https://sapui5.hana.ondemand.com/{products>ProductPicUrl}"--><f:Avatar
+					displaySize="L"
+					displayShape="Square"
+					class="sapUiTinyMarginEnd">
+				</f:Avatar>
+				
+				<m:VBox justifyContent="Center" class="sapUiSmallMarginEnd">
+					<m:Label text="Nazwa Produktu"/>
+					<m:Text text="{products>nazwa}"/>
+				</m:VBox>
+				<m:VBox justifyContent="Center" class="sapUiSmallMarginEnd">
+					<m:Label text="Kod Ean"/>
+					<m:Text text="{products>kodEan}"/>
+				</m:VBox>
+				<!-- <m:VBox justifyContent="Center" class="sapUiSmallMarginEnd">
+					<m:Label text="Price"/>
+					<!- <m:ObjectNumber number="{products>CurrencyCode} {products>Price}" emphasized="false"/> ->
+				</m:VBox> -->
+			</m:FlexBox>
+		</headerContent>
+
+		<sections>
+			<ObjectPageSection title="Informator"><!--TODO do wprowadzenia w i18n--> <!--To jest cały blok, który pojawia się w nagłówku strony-->
+				<subSections>
+					<ObjectPageSubSection>
+						<blocks>
+							<form:SimpleForm
+								maxContainerCols="2"
+								editable="false"
+								layout="ResponsiveGridLayout"
+								labelSpanL="12"
+								labelSpanM="12"
+								emptySpanL="0"
+								emptySpanM="0"
+								columnsL="1"
+								columnsM="1">
+								<form:content>
+									<!--m:Label text="Kto wystawił dokument "/><!-TODO do wprowadzenia w i18n-> <!-Tutaj końcowo pojawią się informacje w osobnych akapitach. Lekcja 13 już je ma->
+									<m:Text text="{dokumenty>ktoWystawil/imie} {dokumenty>ktoWystawil/nazwisko}"/->
+
+									<m:Label text="Wystawił" labelFor="ktoWystawil" />	
+									<m:ComboBox
+											id="ktoWystawil"
+											enabled = "{editDetail>/edit}"
+											showSecondaryValues= "true"
+											filterSecondaryValues = "true"
+											items="{
+												path: 'pracownicy>/',
+												sorter: { path: 'imie' }
+											}">
+											<core:ListItem key="{pracownicy>id}" text="{pracownicy>imie} {pracownicy>nazwisko}"/>
+									</m:ComboBox> 
+									
+									<m:Label text="Data wystawienia"/><!-TODO do wprowadzenia w i18n--> <!--Tutaj końcowo pojawią się informacje w osobnych akapitach. Lekcja 13 już je ma-->
+									<!-- <m:Text text="{dokumenty>dataWystawienia}"/> -->
+									
+									<!--m:Label text="Kto zatwierdził / przyjął dokument "/><!-TODO do wprowadzenia w i18n-> <!-Tutaj końcowo pojawią się informacje w osobnych akapitach. Lekcja 13 już je ma->
+									<m:Text text="{dokumenty>ktoZatwierdzilPrzyjal/imie} {dokumenty>ktoZatwierdzilPrzyjal/nazwisko}"/-->
+									
+									<!-- <m:Label text="Zatwierdził" labelFor="ktoZatwierdzil" />	
+									<m:ComboBox
+											id="ktoZatwierdzil"
+											enabled = "{editDetail>/edit}"
+											showSecondaryValues= "false"
+											filterSecondaryValues = "true"
+											items="{
+												path: 'pracownicy>/',
+												sorter: { path: 'imie' }
+
+											}">
+											<core:ListItem key="{pracownicy>id}" text="{pracownicy>imie} {pracownicy>nazwisko}"/>
+									</m:ComboBox>	 -->
+
+									<!--m:Label text="Data zatwierdzenia"/--> <!--TODO do wprowadzenia w i18n--> <!--Tutaj końcowo pojawią się informacje w osobnych akapitach. Lekcja 13 już je ma-->
+									<!-- <m:Text text="{dokumenty>dataZatwierdzeniaPrzyjecia}"/> -->
+									
+									<m:Label text="Ilość Obecna"/><!--TODO do wprowadzenia w i18n--> <!--Tutaj końcowo pojawią się informacje w osobnych akapitach. Lekcja 13 już je ma-->
+									<m:Input value="{products>iloscObecna}" type="Number" enabled = "{editDetail>/edit}"/>
+
+									<m:Label text="Ilość Zarezerwowana"/><!--TODO do wprowadzenia w i18n--> <!--Tutaj końcowo pojawią się informacje w osobnych akapitach. Lekcja 13 już je ma-->
+									<m:Input value="{products>iloscZarezerwowana}" type="Number" enabled = "{editDetail>/edit}"/>
+
+									<m:Label text="Ilość Dostępna"/><!--TODO do wprowadzenia w i18n--> <!--Tutaj końcowo pojawią się informacje w osobnych akapitach. Lekcja 13 już je ma-->
+									<m:Input value="{products>iloscDostepna}" type="Number" enabled = "{editDetail>/edit}"/>
+
+								</form:content>
+							</form:SimpleForm>
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+
+			<ObjectPageSection title="Dokumenty gdzie występuje produkt o ID: {products>id}"><!--TODO do wprowadzenia w i18n--> <!--To jest cały blok, który pojawia się w nagłówku strony-->
+				<subSections>
+					<ObjectPageSubSection>
+						<blocks>
+							<m:VBox fitContainer="false">
+								<tab:Table
+									id="suppliersTable"
+									rows="{path : 'products>dokumenty'}"
+									selectionMode="None">
+									<tab:columns>
+										<tab:Column width="12em">
+											<m:Label text="{i18n>detailProduct_column_id}"/>
+											<tab:template>
+												<m:Text text="{products>dokumentId}" wrapping="false" />
+											</tab:template>
+										</tab:Column>
+										<tab:Column width="12em">
+											<m:Label text="{i18n>detailProduct_column_quantity}"/>
+											<tab:template>
+												<m:Text text="{products>ilosc}" wrapping="false" />
+											</tab:template>
+										</tab:Column>
+									</tab:columns>
+								</tab:Table>
+							</m:VBox>
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+		</sections>
+
+		<!-- <footer>
+			<m:OverflowToolbar>
+				<m:ToolbarSpacer/>
+				<m:Button type="Accept" text="Zapisz" press=".onToolbarSpacerAccept"/>
+				<m:Button type="Reject" text="Anuluj" press=".onToolbarSpacerReject"/>
+			</m:OverflowToolbar>
+		</footer> -->
+	</ObjectPageLayout>
+</mvc:View>
