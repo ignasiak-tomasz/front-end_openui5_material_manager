@@ -166,6 +166,64 @@ sap.ui.define([
 			oKontrahenciModel.setSizeLimit(1000);
 			this.setModel(oKontrahenciModel, 'pracownicy');	
 
+			/**
+			 * Modle 6
+			 */
+			var oLokalizacjaModel = new JSONModel();
+			jQuery.ajax({
+				method: "GET",
+				url: "proxy/https/localhost:5001/api/inz/lokalizacje",
+				contentType: "application/json",
+				dataType: 'json',
+				async: false,
+				success: function(data){
+					console.log(data);
+				},
+				error: function(error){
+					console.log(error);
+				}
+			}).then(function(data){
+				oLokalizacjaModel.setData(data);
+			});
+
+			/*
+			$.getJSON("temp_database_lokalizacje.json", function(data){
+				oLokalizacjaModel.setData(data);
+			}).fail(function(){
+				console.log("An error has occurred.");
+			});*/
+			oLokalizacjaModel.setSizeLimit(1000);
+			this.setModel(oLokalizacjaModel, 'lokalizacje');	
+
+			/**
+			 * Modle 6
+			 */
+			var oKategorieaModel = new JSONModel();
+			jQuery.ajax({
+				method: "GET",
+				url: "proxy/https/localhost:5001/api/inz/kategorie",
+				contentType: "application/json",
+				dataType: 'json',
+				async: false,
+				success: function(data){
+					console.log(data);
+				},
+				error: function(error){
+					console.log(error);
+				}
+			}).then(function(data){
+				oKategorieaModel.setData(data);
+			});
+
+			/*
+			$.getJSON("temp_database_kategorie.json", function(data){
+				oKategorieaModel.setData(data);
+			}).fail(function(){
+				console.log("An error has occurred.");
+			});*/
+			oKategorieaModel.setSizeLimit(1000);
+			this.setModel(oKategorieaModel, 'kategorie');	
+
 			oRouter = this.getRouter();
 			oRouter.attachBeforeRouteMatched(this._onBeforeRouteMatched, this);
 			oRouter.initialize();

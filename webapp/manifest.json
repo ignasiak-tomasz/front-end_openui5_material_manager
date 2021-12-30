@@ -92,6 +92,12 @@
 					"layout": "MidColumnFullScreen"
 				},	
 				{
+					"pattern": "addProduct",
+					"name": "addProduct",
+					"target": "addProduct",
+					"layout": "MidColumnFullScreen"
+				},
+				{
 					"pattern": ":layout:",
 					"name": "master",
 					"target": [
@@ -148,6 +154,10 @@
 				},
 				"addDocument": {
 					"viewName": "AddDocument",
+					"controlAggregation": "midColumnPages"
+				},
+				"addProduct": {
+					"viewName": "AddProduct",
 					"controlAggregation": "midColumnPages"
 				}
 

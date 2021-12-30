@@ -73,6 +73,15 @@ sap.ui.define([
 				});
 			}.bind(this));
 		},
+		onAddProducts: function(){
+			var oNextUIState;
+			this.getOwnerComponent().getHelper().then(function (oHelper) {
+				oNextUIState = oHelper.getNextUIState(3);
+				this.oRouter.navTo("addProduct", {
+					layout: oNextUIState.layout
+				});
+			}.bind(this));
+		},
 		onSort: function () {
 			this._bDescendingSort = !this._bDescendingSort;
 			var oBinding = this.oApplicationTable.getBinding("items"),

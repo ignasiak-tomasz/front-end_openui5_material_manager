@@ -1,5 +1,5 @@
 <mvc:View
-	controllerName="opensap.myapp.controller.AddDocument"
+	controllerName="opensap.myapp.controller.AddProduct"
 	xmlns="sap.m"
 	xmlns:f="sap.f"
 	xmlns:mvc="sap.ui.core.mvc"
@@ -28,38 +28,39 @@
 				path: '/email'
 			}" />-->
 
-		<Label text="Typ Dokumentu" labelFor="type_documentu" />
+		<Label text="{i18n>AddProduct_Label_Name_Product}" labelFor="productName" />
+		<Input id="productName" placeholder="{i18n>AddProduct_Placeholder_Name_Product}"/>
+
+		<Label text="{i18n>AddProduct_Label_Quantity_Present}" labelFor="productQuantityPresent" />
+		<Input id="productQuantityPresent" placeholder="{i18n>AddProduct_Placeholder_Quantity_Present}" type="Number"/>
+
+		<Label text="{i18n>AddProduct_Label_Quantity_Reserved}" labelFor="productQuantityReserved" />
+		<Input id="productQuantityReserved" placeholder="{i18n>AddProduct_Placeholder_Quantity_Reserved}"/>
+
+		<Label text="{i18n>AddProduct_Label_Quantity_Available}" labelFor="productQuantityAvailable" />
+		<Input id="productQuantityAvailable" placeholder="{i18n>AddProduct_Placeholder_Quantity_Available}"/>
+
+		<Label text="{i18n>AddProduct_Label_Localization}" labelFor="productLocalization" />
 		<ComboBox
-				id="type_documentu"
-				showSecondaryValues= "true"
+				id="productLocalization"
+				placeholder="{i18n>AddProduct_Placeholder_Localization}"
 				items="{
-					path: 'typy_dokumentu>/',
-					sorter: { path: 'text' }
+					path: 'lokalizacje>/',
+					sorter: { path: 'numerRegalu' }
 				}">
-				<core:ListItem key="{typy_dokumentu>id}" text="{typy_dokumentu>nazwa}" /><!--additionalText = "{typ_dokumentu>id}"-->
+				<core:ListItem key="{lokalizacje>id}" text="{lokalizacje>numerRegalu}" /><!--additionalText = "{typ_dokumentu>id}"-->
 		</ComboBox>
 
-		<Label text="Kontrahenci" labelFor="kontrahenci" />
+		<Label text="{i18n>AddProduct_Label_Categories}" labelFor="productCategories" />
 		<ComboBox
-				id="kontrahenci"
-				showSecondaryValues= "true"
+				id="productCategories"
+				placeholder="{i18n>AddProduct_Placeholder_Categories}"
 				items="{
-					path: 'kontrahenci>/',
+					path: 'kategorie>/',
 					sorter: { path: 'nazwa' }
 				}">
-				<core:ListItem key="{kontrahenci>id}" text="{kontrahenci>nazwa}" /><!--additionalText = "{typ_dokumentu>id}"-->
+				<core:ListItem key="{kategorie>id}" text="{kategorie>nazwa}" /><!--additionalText = "{typ_dokumentu>id}"-->
 		</ComboBox>	
-
-		<Label text="Kto Wystawił Dokument" labelFor="ktoWystawil" />	
-		<ComboBox
-				id="ktoWystawil"
-				items="{
-					path: 'pracownicy>/',
-					sorter: { path: 'imie' }
-
-				}">
-				<core:ListItem key="{pracownicy>id}" text="{pracownicy>imie} {pracownicy>nazwisko}" /><!--additionalText="{pracownicy>nazwisko}"/><!- = "{pracownicy>nazwisko}"-->
-		</ComboBox>		
 
 		<Button text="Submit" press=".onSubmit" />
 	</l:VerticalLayout>
