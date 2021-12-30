@@ -39,7 +39,7 @@
 				<core:ListItem key="{typy_dokumentu>id}" text="{typy_dokumentu>nazwa}" /><!--additionalText = "{typ_dokumentu>id}"-->
 		</ComboBox>
 
-		<Label text="Kontrahenci" labelFor="kontrahenci" />
+		<Label text="Kontrahent" labelFor="kontrahenci" />
 		<ComboBox
 				id="kontrahenci"
 				showSecondaryValues= "true"
@@ -50,7 +50,7 @@
 				<core:ListItem key="{kontrahenci>id}" text="{kontrahenci>nazwa}" /><!--additionalText = "{typ_dokumentu>id}"-->
 		</ComboBox>	
 
-		<Label text="Kto Wystawił Dokument" labelFor="ktoWystawil" />	
+		<Label text="Wystawił" labelFor="ktoWystawil" />	
 		<ComboBox
 				id="ktoWystawil"
 				items="{
@@ -61,7 +61,7 @@
 				<core:ListItem key="{pracownicy>id}" text="{pracownicy>imie} {pracownicy>nazwisko}" /><!--additionalText="{pracownicy>nazwisko}"/><!- = "{pracownicy>nazwisko}"-->
 		</ComboBox>		
 
-		<Button text="Submit" press=".onSubmit" />
+		<Button text="Dodaj" press=".onSubmit" />
 	</l:VerticalLayout>
 	<!-- <f:DynamicPage toggleHeaderOnTitleClick="false">
 		<!- DynamicPage Title ->

@@ -62,7 +62,7 @@
 				<core:ListItem key="{kategorie>id}" text="{kategorie>nazwa}" /><!--additionalText = "{typ_dokumentu>id}"-->
 		</ComboBox>	
 
-		<Button text="Submit" press=".onSubmit" />
+		<Button text="Dodaj" press=".onSubmit" />
 	</l:VerticalLayout>
 	<!-- <f:DynamicPage toggleHeaderOnTitleClick="false">
 		<!- DynamicPage Title ->
