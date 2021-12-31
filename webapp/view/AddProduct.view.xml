@@ -29,16 +29,16 @@
 			}" />-->
 
 		<Label text="{i18n>AddProduct_Label_Name_Product}" labelFor="productName" />
-		<Input id="productName" placeholder="{i18n>AddProduct_Placeholder_Name_Product}"/>
+		<Input id="productName" placeholder="{i18n>AddProduct_Placeholder_Name_Product}" value="{addProduct>/nazwa}"/>
 
 		<Label text="{i18n>AddProduct_Label_Quantity_Present}" labelFor="productQuantityPresent" />
-		<Input id="productQuantityPresent" placeholder="{i18n>AddProduct_Placeholder_Quantity_Present}" type="Number"/>
+		<Input id="productQuantityPresent" placeholder="{i18n>AddProduct_Placeholder_Quantity_Present}" type="Number" value="{addProduct>/iloscObecna}"/>
 
 		<Label text="{i18n>AddProduct_Label_Quantity_Reserved}" labelFor="productQuantityReserved" />
-		<Input id="productQuantityReserved" placeholder="{i18n>AddProduct_Placeholder_Quantity_Reserved}"/>
+		<Input id="productQuantityReserved" placeholder="{i18n>AddProduct_Placeholder_Quantity_Reserved}" type="Number" value="{addProduct>/iloscZarezerwowana}"/>
 
 		<Label text="{i18n>AddProduct_Label_Quantity_Available}" labelFor="productQuantityAvailable" />
-		<Input id="productQuantityAvailable" placeholder="{i18n>AddProduct_Placeholder_Quantity_Available}"/>
+		<Input id="productQuantityAvailable" placeholder="{i18n>AddProduct_Placeholder_Quantity_Available}" type="Number" value="{addProduct>/iloscDostepna}"/>
 
 		<Label text="{i18n>AddProduct_Label_Localization}" labelFor="productLocalization" />
 		<ComboBox

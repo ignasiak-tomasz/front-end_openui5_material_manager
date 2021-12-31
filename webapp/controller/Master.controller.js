@@ -67,7 +67,7 @@ sap.ui.define([
 		onAdd: function(){
 			var oNextUIState;
 			this.getOwnerComponent().getHelper().then(function (oHelper) {
-				oNextUIState = oHelper.getNextUIState(3);
+				oNextUIState = oHelper.getNextUIState(2);
 				this.oRouter.navTo("addDocument", {
 					layout: oNextUIState.layout
 				});
@@ -76,7 +76,7 @@ sap.ui.define([
 		onAddProducts: function(){
 			var oNextUIState;
 			this.getOwnerComponent().getHelper().then(function (oHelper) {
-				oNextUIState = oHelper.getNextUIState(3);
+				oNextUIState = oHelper.getNextUIState(2);
 				this.oRouter.navTo("addProduct", {
 					layout: oNextUIState.layout
 				});

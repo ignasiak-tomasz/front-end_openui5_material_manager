@@ -14,31 +14,17 @@ sap.ui.define([
 			this.oRouter.getRoute("addProduct").attachPatternMatched(this._onPatternMatch, this);
 
 			var oMM = Core.getMessageManager();
-
-			var oView = this.getView(),
-			  	aInputs = [
-				oView.byId("kontrahenci"),
-				oView.byId("ktoWystawil")
-			];
-
-			// attach handlers for validation errors
-			// this.oOwnerComponent = this.getOwnerComponent();
-			// this.oModel = this.oOwnerComponent.getModel();
 		},
 		onSubmit: function () {
 			this._prepareModel();
 			var oView = this.getView(),
-				oViewModelDataJson = oView.getModel("addDocument");//,
+				oViewModelDataJson = oView.getModel("addProduct");//,
 				let data = JSON.parse(oViewModelDataJson.getJSON());
 				delete data.id;
-				/*aInputs = [
-				oView.byId("nameInput"),
-				oView.byId("emailInput")
-				];*/
 			
 				jQuery.ajax({
 				method: "POST",
-				url: "proxy/https/localhost:5001/api/inz/dokument",
+				url: "proxy/https/localhost:5001/api/inz/produkty",
 				contentType: "application/json; charset=utf-8",
 				dataType: 'json',
 				data: JSON.stringify(data),
@@ -61,12 +47,12 @@ sap.ui.define([
 		_onCreateSuccess: function (sHeaderId, oHelper) {
 			var sMessage = 'Poprawnie zapisano dane !!!';/*this.getResourceBundle().getText("newPersonCreated",*/
 			
-			var oNewModel = this.getView().getModel("addDocument"),
+			var oNewModel = this.getView().getModel("addProduct"),
 				oJSONNewModel;
 			oNewModel.setProperty("/id", sHeaderId);
 			oJSONNewModel = oNewModel.getJSON();
 
-			var oModel = this.getView().getModel("dokumenty"),
+			var oModel = this.getView().getModel("products"),
 				sModelDokumenty = oModel.getJSON(),
 				oJSONModelDokumenty = JSON.parse(sModelDokumenty);
 			oJSONModelDokumenty.push(JSON.parse(oJSONNewModel));
@@ -74,7 +60,7 @@ sap.ui.define([
 			oModel.refresh();
 
 			// var oNextUIState = oHelper.getNextUIState(1);
-			this.getView().unbindObject("addDocument");
+			this.getView().unbindObject("addProduct");
 			var index = -1;
 			oModel.oData.find(function(item, i){
 				if(item.id === sHeaderId){
@@ -84,8 +70,8 @@ sap.ui.define([
 			});
 
 			this.oOwnerComponent.getHelper().then(function (oHelper) {
-				let oNextUIState = oHelper.getNextUIState(1); 
-				this.oRouter.navTo("detail", {
+				let oNextUIState = oHelper.getNextUIState(2); 
+				this.oRouter.navTo("detailProduct", {
 					layout: oNextUIState.layout,
 					product: index
 				});
@@ -101,37 +87,14 @@ sap.ui.define([
 			});
 		},
 		_prepareModel: function(){
-			function toIsoString(date) {
-				var tzo = -date.getTimezoneOffset(),
-					pad = function(num) {
-						var norm = Math.floor(Math.abs(num));
-						return (norm < 10 ? '0' : '') + norm;
-					};
-			  
-				return date.getFullYear() +
-					'-' + pad(date.getMonth() + 1) +
-					'-' + pad(date.getDate()) +
-					'T' + pad(date.getHours()) +
-					':' + pad(date.getMinutes()) +
-					':' + pad(date.getSeconds())
-			}
 
-			var dataWystawienia = toIsoString(new Date());
-			this.getView().getModel("addDocument").setProperty("/dataWystawienia", dataWystawienia);
+			var type_doc = this.getView().byId("productLocalization").getSelectedItem().mProperties;
+			this.getView().getModel("addProduct").setProperty("/lokalizacja/id", parseInt(type_doc.key));
+			this.getView().getModel("addProduct").setProperty("/lokalizacja/numerRegalu", type_doc.text);
 
-			var type_doc = this.getView().byId("type_documentu").getSelectedItem().mProperties;
-			this.getView().getModel("addDocument").setProperty("/typDokumentu/id", parseInt(type_doc.key));
-			this.getView().getModel("addDocument").setProperty("/typDokumentu/nazwa", type_doc.text);
-
-			var type_doc2 = this.getView().byId("kontrahenci").getSelectedItem().mProperties;
-			this.getView().getModel("addDocument").setProperty("/kontrahent/id", parseInt(type_doc2.key));
-			this.getView().getModel("addDocument").setProperty("/kontrahent/nazwa", type_doc2.text);
-			
-			var type_doc3 = this.getView().byId("ktoWystawil").getSelectedItem().mProperties;
-			this.getView().getModel("addDocument").setProperty("/ktoWystawil/id", parseInt(type_doc3.key));
-			this.getView().getModel("addDocument").setProperty("/ktoWystawil/imie", type_doc3.text);
-			this.getView().getModel("addDocument").setProperty("/ktoWystawil/nazwisko", type_doc3.additionalText);
-			
+			var type_doc2 = this.getView().byId("productCategories").getSelectedItem().mProperties;
+			this.getView().getModel("addProduct").setProperty("/kategoria/id", parseInt(type_doc2.key));
+			this.getView().getModel("addProduct").setProperty("/kategoria/nazwa", type_doc2.text);			
 		},
 		_onCreateFailed: function (oError) {
 			var sMessage = 'Błąd przy zapisie danych !!!';// this.getResourceBundle().getText("newPersonNotCreated",
@@ -189,9 +152,8 @@ sap.ui.define([
 		},
 		onExit: function () {
 			this.oRouter.getRoute("addProduct").detachPatternMatched(this._onPatternMatch, this);
-			this.getView().byId("type_documentu").setSelectedItem(null);
-			this.getView().byId("kontrahenci").setSelectedItem(null);
-			this.getView().byId("ktoWystawil").setSelectedItem(null);
+			this.getView().byId("productLocalization").setSelectedItem(null);
+			this.getView().byId("productCategories").setSelectedItem(null);
 		}
 	});
 });

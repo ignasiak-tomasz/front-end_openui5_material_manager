@@ -84,7 +84,7 @@ sap.ui.define([
 			});
 
 			this.oOwnerComponent.getHelper().then(function (oHelper) {
-				let oNextUIState = oHelper.getNextUIState(1); 
+				let oNextUIState = oHelper.getNextUIState(2); 
 				this.oRouter.navTo("detail", {
 					layout: oNextUIState.layout,
 					product: index
