@@ -56,7 +56,7 @@
 				</navigationActions>
 
 				<actions>
-					<!--m:ToggleButton
+					<m:ToggleButton
 						text="Edytuj"
 						type="Emphasized"
 						press=".onEditToggleButtonPress"/>
@@ -64,7 +64,7 @@
 						text="Usuń"
 						type="Transparent"
 						press=".onDelete"/>
-					<!-m:Button
+					<!--m:Button
 						text="Kopiuj"
 						type="Transparent"/-->
 				</actions>

@@ -2,9 +2,9 @@
 	  xmlns="sap.m"
 	  xmlns:f="sap.f"
 	  xmlns:mvc="sap.ui.core.mvc">
-	<IconTabBar id="IconTabBar">
+	<IconTabBar id="IconTabBar" stretchContentHeight="true">
 		<items>
-			<IconTabFilter key="documents" text="Dokumenty">
+			<IconTabFilter key="documents" text="Dokumenty" height="100%">
 				<f:DynamicPage id="dynamicPageId"
 								toggleHeaderOnTitleClick="false">
 							<!-- DynamicPage Title ->

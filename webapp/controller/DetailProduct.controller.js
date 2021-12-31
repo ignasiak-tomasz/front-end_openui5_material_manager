@@ -48,26 +48,26 @@ sap.ui.define([
 			oComboBoxKtoZatwierdzil.setSelectedKey(iIdPersonAcceptDocument);
 			//oComboBoxKtoZatwierdzil.setEnabled(bEdit);
 			*/
-		}/*,
+		},
 		onDelete: function(oEvent){
-			var idDokumentu = this.getView().getBindingContext("dokumenty").getProperty("id");
+			var idProduct = this.getView().getBindingContext("products").getProperty("id");
 
-			MessageBox.warning( this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("deletionQuestion", [idDokumentu]), {
+			MessageBox.warning( this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("deletionQuestion", [idProduct]), {
 				actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
 				emphasizedAction: MessageBox.Action.OK,
 				onClose: function (sAction) {
 					if(sAction === MessageBox.Action.OK){
 						//oModel.metadataLoaded().then(this._onMetadataDelete.bind(this,sPath,sId)); OData
-						this.getView().getModel("dokumenty").dataLoaded().then(this._onMetadataDelete.bind(this, idDokumentu));
+						this.getView().getModel("products").dataLoaded().then(this._onMetadataDelete.bind(this, idProduct));
 					}
 				}.bind(this)
 				
 			});
-		}*//*,
-		_onMetadataDelete: function(idDokumentu){
+		},
+		_onMetadataDelete: function(idProduct){
 			$.ajax({
 					
-				url: "proxy/https/localhost:5001/api/inz/dokument/" + idDokumentu,
+				url: "proxy/https/localhost:5001/api/inz/produkt/" + idProduct,
 				type: 'DELETE',
 				success: function(result) {
 					var Object = result;
@@ -77,15 +77,15 @@ sap.ui.define([
 				}
 			}).then(
 				function(data){
-					this._mySuccessHandler(idDokumentu)
+					this._mySuccessHandler(idProduct)
 				}.bind(this),
 				function(data){
-					this._myErrorHandler(idDokumentu)
+					this._myErrorHandler(idProduct)
 				}.bind(this)
 			);
-		}*//*,
-		_mySuccessHandler: function(idDokumentu){				
-			var oModel = this.getView().getModel("dokumenty"),
+		},
+		_mySuccessHandler: function(idProduct){				
+			var oModel = this.getView().getModel("products"),
 				oData = oModel.getData();
 
 			oData.splice(this._product,1);
@@ -94,14 +94,14 @@ sap.ui.define([
 
 			this.handleExitFullScreen();
 
-			var sMessage = this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("deletionSuccess", [idDokumentu]);
+			var sMessage = this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("deletionSuccess", [idProduct]);
 			MessageToast.show(sMessage);
-		}*//*,
-		_myErrorHandler: function(idDokumentu){
-			var sMessage = this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("deletionError", [idDokumentu]);
+		},
+		_myErrorHandler: function(idProduct){
+			var sMessage = this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("deletionError", [idProduct]);
 			MessageToast.show(sMessage);
 			//this.getView().getModel("dokumenty").resetChanges(); Only OData
-		}*//*,
+		}/*,
         /**
          * Ta metoda wyświetla w dolnej części Drugiego okna informację o tym czy chcemy zapisać zmiany.
          */
