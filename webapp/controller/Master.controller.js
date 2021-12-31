@@ -14,6 +14,10 @@ sap.ui.define([
 			this.oApplicationTable = this.oView.byId("applicationTable");
 			this.oApplicationTable2 = this.oView.byId("applicationTable2");
 			this.oRouter = this.getOwnerComponent().getRouter();
+
+			if(window.location.href.includes("detailProduc")){
+				this.oView.byId("IconTabBar").setSelectedKey('Products');
+			}
 		},
 		/**
 		 * To o dziwo działa. Czy wcześniej miałem problem aby pobrać patch?

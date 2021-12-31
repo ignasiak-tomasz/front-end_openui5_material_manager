@@ -24,7 +24,7 @@ sap.ui.define([
 			
 				jQuery.ajax({
 				method: "POST",
-				url: "proxy/https/localhost:5001/api/inz/produkty",
+				url: "proxy/https/localhost:5001/api/inz/produkt",
 				contentType: "application/json; charset=utf-8",
 				dataType: 'json',
 				data: JSON.stringify(data),
@@ -70,7 +70,7 @@ sap.ui.define([
 			});
 
 			this.oOwnerComponent.getHelper().then(function (oHelper) {
-				let oNextUIState = oHelper.getNextUIState(2); 
+				let oNextUIState = oHelper.getNextUIState(1); 
 				this.oRouter.navTo("detailProduct", {
 					layout: oNextUIState.layout,
 					product: index
