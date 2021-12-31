@@ -40,6 +40,9 @@
 		<Label text="{i18n>AddProduct_Label_Quantity_Available}" labelFor="productQuantityAvailable" />
 		<Input id="productQuantityAvailable" placeholder="{i18n>AddProduct_Placeholder_Quantity_Available}" type="Number" value="{addProduct>/iloscDostepna}"/>
 
+		<Label text="{i18n>AddProduct_Label_Ean}" labelFor="productEan" />
+		<Input id="productEan" placeholder="{i18n>AddProduct_Placeholder_Ean}" type="Number" value="{addProduct>/kodEan}"/>
+
 		<Label text="{i18n>AddProduct_Label_Localization}" labelFor="productLocalization" />
 		<ComboBox
 				id="productLocalization"
