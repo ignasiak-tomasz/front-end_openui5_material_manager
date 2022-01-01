@@ -73,16 +73,27 @@ sap.ui.define([
 				}
 			}).then(
 				function(data){
-					this._mySuccessHandler(idProduct)
+					this._mySuccessHandler(idProduct);
 				}.bind(this),
 				function(data){
-					this._myErrorHandler(idProduct)
+					this._myErrorHandler(idProduct);
 				}.bind(this)
 			);
 		},
 		_mySuccessHandler: function(idProduct){				
 			var oModel = this.getView().getModel("products"),
-				oData = oModel.getData();
+				oData = oModel.getData(),
+				oModelDocument = this.getView().getModel("dokumenty"),
+				oDataDocuments = oModelDocument.getData();
+			
+			for(var i = 0; i<oDataDocuments.length; i++){
+				for(var j = 0; j<oDataDocuments[i].produkty.length; j++){
+					if(oDataDocuments[i].produkty[j].produktId === idProduct){
+						oDataDocuments[i].produkty.splice(j,1);
+					}
+				}
+			}
+			oModelDocument.setData(oDataDocuments);
 
 			oData.splice(this._product,1);
 			oModel.setData(oData);

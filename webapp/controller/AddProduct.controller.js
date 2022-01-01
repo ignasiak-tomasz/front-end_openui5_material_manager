@@ -152,6 +152,12 @@ sap.ui.define([
 		},
 		onExit: function () {
 			this.oRouter.getRoute("addProduct").detachPatternMatched(this._onPatternMatch, this);
+			this.getView().byId("productName").setValue(null);
+			this.getView().byId("productQuantityPresent").setValue(null);
+			this.getView().byId("productQuantityReserved").setValue(null);
+			this.getView().byId("productQuantityAvailable").setValue(null);
+			this.getView().byId("productEan").setValue(null);
+
 			this.getView().byId("productLocalization").setSelectedItem(null);
 			this.getView().byId("productCategories").setSelectedItem(null);
 		}
