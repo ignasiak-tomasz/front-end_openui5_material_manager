@@ -232,9 +232,9 @@ sap.ui.define([
 
 			oDokument.ktoWystawil.id = parseInt(oComboBoxKtoWystail.key);
 			for(let i=0; i<oModelPracownicy.length; i++){
-				if(oModelPracownicy[0].id = oDokument.ktoWystawil.id){
-					oDokument.ktoWystawil.imie = oModelPracownicy[0].imie;
-					oDokument.ktoWystawil.nazwisko = oModelPracownicy[0].nazwisko;
+				if(oModelPracownicy[i].id === oDokument.ktoWystawil.id){
+					oDokument.ktoWystawil.imie = oModelPracownicy[i].imie;
+					oDokument.ktoWystawil.nazwisko = oModelPracownicy[i].nazwisko;
 					break;
 				}
 			};
@@ -248,9 +248,9 @@ sap.ui.define([
 				"nazwisko": " ",
 			};
 			for(let i=0; i<oModelPracownicy.length; i++){
-				if(oModelPracownicy[0].id = oDokument.ktoZatwierdzilPrzyjal.id){
-					oDokument.ktoZatwierdzilPrzyjal.imie = oModelPracownicy[0].imie;
-					oDokument.ktoZatwierdzilPrzyjal.nazwisko = oModelPracownicy[0].nazwisko;
+				if(oModelPracownicy[i].id === oDokument.ktoZatwierdzilPrzyjal.id){
+					oDokument.ktoZatwierdzilPrzyjal.imie = oModelPracownicy[i].imie;
+					oDokument.ktoZatwierdzilPrzyjal.nazwisko = oModelPracownicy[i].nazwisko;
 					break;
 				}
 			};

@@ -110,45 +110,7 @@
 								columnsL="1"
 								columnsM="1">
 								<form:content>
-									<!--m:Label text="Kto wystawił dokument "/><!-TODO do wprowadzenia w i18n-> <!-Tutaj końcowo pojawią się informacje w osobnych akapitach. Lekcja 13 już je ma->
-									<m:Text text="{dokumenty>ktoWystawil/imie} {dokumenty>ktoWystawil/nazwisko}"/->
 
-									<m:Label text="Wystawił" labelFor="ktoWystawil" />	
-									<m:ComboBox
-											id="ktoWystawil"
-											enabled = "{editDetail>/edit}"
-											showSecondaryValues= "true"
-											filterSecondaryValues = "true"
-											items="{
-												path: 'pracownicy>/',
-												sorter: { path: 'imie' }
-											}">
-											<core:ListItem key="{pracownicy>id}" text="{pracownicy>imie} {pracownicy>nazwisko}"/>
-									</m:ComboBox> 
-									
-									<m:Label text="Data wystawienia"/><!-TODO do wprowadzenia w i18n--> <!--Tutaj końcowo pojawią się informacje w osobnych akapitach. Lekcja 13 już je ma-->
-									<!-- <m:Text text="{dokumenty>dataWystawienia}"/> -->
-									
-									<!--m:Label text="Kto zatwierdził / przyjął dokument "/><!-TODO do wprowadzenia w i18n-> <!-Tutaj końcowo pojawią się informacje w osobnych akapitach. Lekcja 13 już je ma->
-									<m:Text text="{dokumenty>ktoZatwierdzilPrzyjal/imie} {dokumenty>ktoZatwierdzilPrzyjal/nazwisko}"/-->
-									
-									<!-- <m:Label text="Zatwierdził" labelFor="ktoZatwierdzil" />	
-									<m:ComboBox
-											id="ktoZatwierdzil"
-											enabled = "{editDetail>/edit}"
-											showSecondaryValues= "false"
-											filterSecondaryValues = "true"
-											items="{
-												path: 'pracownicy>/',
-												sorter: { path: 'imie' }
-
-											}">
-											<core:ListItem key="{pracownicy>id}" text="{pracownicy>imie} {pracownicy>nazwisko}"/>
-									</m:ComboBox>	 -->
-
-									<!--m:Label text="Data zatwierdzenia"/--> <!--TODO do wprowadzenia w i18n--> <!--Tutaj końcowo pojawią się informacje w osobnych akapitach. Lekcja 13 już je ma-->
-									<!-- <m:Text text="{dokumenty>dataZatwierdzeniaPrzyjecia}"/> -->
-									
 									<m:Label text="Ilość Obecna"/><!--TODO do wprowadzenia w i18n--> <!--Tutaj końcowo pojawią się informacje w osobnych akapitach. Lekcja 13 już je ma-->
 									<m:Input value="{products>iloscObecna}" type="Number" enabled = "{editDetail>/edit}"/>
 
@@ -157,6 +119,28 @@
 
 									<m:Label text="Ilość Dostępna"/><!--TODO do wprowadzenia w i18n--> <!--Tutaj końcowo pojawią się informacje w osobnych akapitach. Lekcja 13 już je ma-->
 									<m:Input value="{products>iloscDostepna}" type="Number" enabled = "{editDetail>/edit}"/>
+									
+									<m:Label text="{i18n>DetailProduct_Label_Localization}" labelFor="productLocalization" />
+									<m:ComboBox
+											id="productLocalization"
+											enabled = "{editDetail>/edit}"
+											items="{
+												path: 'lokalizacje>/',
+												sorter: { path: 'numerRegalu' }
+											}">
+											<core:ListItem key="{lokalizacje>id}" text="{lokalizacje>numerRegalu}" /><!--additionalText = "{typ_dokumentu>id}"-->
+									</m:ComboBox>
+
+									<m:Label text="{i18n>DetailProduct_Label_Categories}" labelFor="productCategories" />
+									<m:ComboBox
+											id="productCategories"
+											enabled = "{editDetail>/edit}"
+											items="{
+												path: 'kategorie>/',
+												sorter: { path: 'nazwa' }
+											}">
+											<core:ListItem key="{kategorie>id}" text="{kategorie>nazwa}" /><!--additionalText = "{typ_dokumentu>id}"-->
+									</m:ComboBox>	
 
 								</form:content>
 							</form:SimpleForm>
@@ -196,12 +180,12 @@
 			</ObjectPageSection>
 		</sections>
 
-		<!-- <footer>
+		<footer>
 			<m:OverflowToolbar>
 				<m:ToolbarSpacer/>
 				<m:Button type="Accept" text="Zapisz" press=".onToolbarSpacerAccept"/>
 				<m:Button type="Reject" text="Anuluj" press=".onToolbarSpacerReject"/>
 			</m:OverflowToolbar>
-		</footer> -->
+		</footer> 
 	</ObjectPageLayout>
 </mvc:View>

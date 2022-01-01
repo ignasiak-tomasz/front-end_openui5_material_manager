@@ -35,19 +35,15 @@ sap.ui.define([
 				path: "/" + this._product,
 				model: "products"
 			});
-			/*
-			//let bEdit = this.getView().getModel("editDetail").getProperty("/edit");
-
-			let iIdPersonCreateDocument = this.getView().getBindingContext("dokumenty").getProperty("ktoWystawil/id");
-			let oComboBoxKtoWystail = this.getView().byId("ktoWystawil");
+			
+			let iIdPersonCreateDocument = this.getView().getBindingContext("products").getProperty("lokalizacja/id");
+			let oComboBoxKtoWystail = this.getView().byId("productLocalization");
 			oComboBoxKtoWystail.setSelectedKey(iIdPersonCreateDocument);
-			//oComboBoxKtoWystail.setEnabled(bEdit);
 
-			let iIdPersonAcceptDocument = this.getView().getBindingContext("dokumenty").getProperty("ktoZatwierdzilPrzyjal/id");
-			let oComboBoxKtoZatwierdzil = this.getView().byId("ktoZatwierdzil");
+			let iIdPersonAcceptDocument = this.getView().getBindingContext("products").getProperty("kategoria/id");
+			let oComboBoxKtoZatwierdzil = this.getView().byId("productCategories");
 			oComboBoxKtoZatwierdzil.setSelectedKey(iIdPersonAcceptDocument);
-			//oComboBoxKtoZatwierdzil.setEnabled(bEdit);
-			*/
+			
 		},
 		onDelete: function(oEvent){
 			var idProduct = this.getView().getBindingContext("products").getProperty("id");
@@ -101,11 +97,11 @@ sap.ui.define([
 			var sMessage = this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("deletionError", [idProduct]);
 			MessageToast.show(sMessage);
 			//this.getView().getModel("dokumenty").resetChanges(); Only OData
-		}/*,
+		},
         /**
          * Ta metoda wyświetla w dolnej części Drugiego okna informację o tym czy chcemy zapisać zmiany.
          */
-		/*onEditToggleButtonPress: function() {
+		onEditToggleButtonPress: function() {
 			var oObjectPage = this.getView().byId("ObjectPageLayout"),
 				bCurrentShowFooterState = oObjectPage.getShowFooter();
 
@@ -113,7 +109,7 @@ sap.ui.define([
 			
 			let bEdit = this.getView().getModel('editDetail').getProperty("/edit");
 			this.getView().getModel('editDetail').setProperty("/edit", !bEdit);
-		}*//*,
+		},
 		onToolbarSpacerAccept: function(){
 			var oObjectPage = this.getView().byId("ObjectPageLayout"),
 			bCurrentShowFooterState = oObjectPage.getShowFooter();
@@ -123,60 +119,31 @@ sap.ui.define([
 			let bEdit = this.getView().getModel('editDetail').getProperty("/edit");
 			this.getView().getModel('editDetail').setProperty("/edit", !bEdit);
 
-			let oDokument = this.getView().getBindingContext("dokumenty").getObject();
-
-			function toIsoString(date) {
-				var tzo = -date.getTimezoneOffset(),
-					pad = function(num) {
-						var norm = Math.floor(Math.abs(num));
-						return (norm < 10 ? '0' : '') + norm;
-					};
-			  
-				return date.getFullYear() +
-					'-' + pad(date.getMonth() + 1) +
-					'-' + pad(date.getDate()) +
-					'T' + pad(date.getHours()) +
-					':' + pad(date.getMinutes()) +
-					':' + pad(date.getSeconds())
-			}
-
-			var sDataZatwierdzeniaPrzyjecia = toIsoString(new Date());
-			oDokument.dataZatwierdzeniaPrzyjecia = sDataZatwierdzeniaPrzyjecia;
+			let oDokument = this.getView().getBindingContext("products").getObject();
 			
-			var oComboBoxKtoWystail = this.getView().byId("ktoWystawil").getSelectedItem().mProperties;
-			let oModelPracownicy = this.getView().getModel("pracownicy").getData();
-
-			oDokument.ktoWystawil.id = parseInt(oComboBoxKtoWystail.key);
-			for(let i=0; i<oModelPracownicy.length; i++){
-				if(oModelPracownicy[0].id = oDokument.ktoWystawil.id){
-					oDokument.ktoWystawil.imie = oModelPracownicy[0].imie;
-					oDokument.ktoWystawil.nazwisko = oModelPracownicy[0].nazwisko;
+			let oModelLokalizacje = this.getView().getModel("lokalizacje").getData();
+			let oComboBoxProductLocalization = this.getView().byId("productLocalization").getSelectedItem().mProperties;
+			oDokument.lokalizacja.id = parseInt(oComboBoxProductLocalization.key);
+			for(let i=0; i<oModelLokalizacje.length; i++){
+				if(oModelLokalizacje[i].id === oDokument.lokalizacja.id){
+					oDokument.lokalizacja.numerRegalu = oModelLokalizacje[i].numerRegalu;
 					break;
 				}
 			};
-			//oDokument.ktoWystawil.imie = oComboBoxKtoWystail.text;
-			//oDokument.ktoWystawil.nazwisko = oComboBoxKtoWystail.additionalText;
 			
-			var oComboBoxKtoZatwierdzil = this.getView().byId("ktoZatwierdzil").getSelectedItem().mProperties;
-			oDokument.ktoZatwierdzilPrzyjal = {
-				"id" : parseInt(oComboBoxKtoZatwierdzil.key),
-				"imie": " ",
-				"nazwisko": " ",
-			};
-			for(let i=0; i<oModelPracownicy.length; i++){
-				if(oModelPracownicy[0].id = oDokument.ktoZatwierdzilPrzyjal.id){
-					oDokument.ktoZatwierdzilPrzyjal.imie = oModelPracownicy[0].imie;
-					oDokument.ktoZatwierdzilPrzyjal.nazwisko = oModelPracownicy[0].nazwisko;
+			let oModelKategorie = this.getView().getModel("kategorie").getData();
+			let oComboBoxProductCategories = this.getView().byId("productCategories").getSelectedItem().mProperties;
+			oDokument.kategoria.id = parseInt(oComboBoxProductCategories.key);
+			for(let i=0; i<oModelKategorie.length; i++){
+				if(oModelKategorie[i].id === oDokument.kategoria.id){
+					oDokument.kategoria.nazwa = oModelKategorie[i].nazwa;
 					break;
 				}
 			};
-
-			//oDokument.ktoZatwierdzil.imie = oComboBoxKtoZatwierdzil.text;
-			//oDokument.ktoZatwierdzil.nazwisko = oComboBoxKtoZatwierdzil.additionalText;
 
 			jQuery.ajax({
 				method: "PUT",
-				url: "proxy/https/localhost:5001/api/inz/dokument/" + oDokument.id,
+				url: "proxy/https/localhost:5001/api/inz/produkt/" + oDokument.id,
 				contentType: "application/json; charset=utf-8",
 				dataType: 'json',
 				data: JSON.stringify(oDokument),
@@ -188,17 +155,17 @@ sap.ui.define([
 				}
 				
 			}).then(function(data){
-				let sPath = this.getView().getBindingContext("dokumenty").getPath();
-				this.getView().getModel("dokumenty").setProperty(sPath,oDokument);		
+				let sPath = this.getView().getBindingContext("products").getPath();
+				this.getView().getModel("products").setProperty(sPath,oDokument);		
 				this.getOwnerComponent().getHelper().then(function (oHelper) {
 					this._onEditSuccess();
 				}.bind(this));
 			}.bind(this), function(data){
 				this._onChangeFailed();
 			}.bind(this));
-		}*//*,
+		},
 		_onEditSuccess: function () {
-			var sMessage = 'Poprawnie zapisano dane !!!';/*this.getResourceBundle().getText("newPersonCreated",/
+			var sMessage = 'Poprawnie zapisano dane !!!';/*this.getResourceBundle().getText("newPersonCreated",*/
 				//[oPerson.Pesel]);
 				
 			//this.onNavBack(); //<!-- brak takiej funkcji
@@ -206,7 +173,7 @@ sap.ui.define([
 			MessageToast.show(sMessage, {
 				closeOnBrowserNavigation : false
 			});
-		}*//*,
+		},
 		
 		_onChangeFailed: function () {
 			var sMessage = 'Błąd przy zapisie danych !!!';// this.getResourceBundle().getText("newPersonNotCreated",
@@ -217,7 +184,7 @@ sap.ui.define([
 			MessageToast.show(sMessage, {
 				closeOnBrowserNavigation : false
 			});
-		}*//*,
+		}/*,
 		onAdd: function(oEvent){
 			var oButton = oEvent.getSource(),
 				oView = this.getView();
@@ -280,7 +247,7 @@ sap.ui.define([
 				//1MessageToast.show("You have chosen " + aContexts.map(function (oContext) { return oContext.getObject().id; }).join(", "));
 			}
 
-		}*//*,
+		}*/,
 
 		onToolbarSpacerReject: function(){
 			var oObjectPage = this.getView().byId("ObjectPageLayout"),
@@ -290,7 +257,7 @@ sap.ui.define([
 
 			let bEdit = this.getView().getModel('editDetail').getProperty("/edit");
 			this.getView().getModel('editDetail').setProperty("/edit", !bEdit);
-		}*/,
+		},
 
 		handleFullScreen: function () {
 			var sNextLayout = this.oModel.getProperty("/actionButtonsInfo/midColumn/fullScreen");
