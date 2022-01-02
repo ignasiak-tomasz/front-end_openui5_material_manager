@@ -14,6 +14,7 @@ sap.ui.define([
 		
 		init : function(){
 			var oModel,
+				oModelCoppyProduct,
 				oDocumentsModel,
 				oProductsModel,
 				oRouter;
@@ -22,7 +23,8 @@ sap.ui.define([
 
 			oModel = new JSONModel(); /**Base model for All Solution */
 			this.setModel(oModel); /**Base model for All Solution */
-			
+			oModelCoppyProduct = new JSONModel();
+			this.setModel(oModelCoppyProduct,"coppyModelProduct");
 			/**
 			 * Model 1
 			 */

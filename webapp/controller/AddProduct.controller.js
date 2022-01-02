@@ -12,7 +12,6 @@ sap.ui.define([
 			this.oOwnerComponent = this.getOwnerComponent();
 			this.oRouter = this.oOwnerComponent.getRouter();
 			this.oRouter.getRoute("addProduct").attachPatternMatched(this._onPatternMatch, this);
-
 			var oMM = Core.getMessageManager();
 		},
 		onSubmit: function () {
@@ -75,7 +74,7 @@ sap.ui.define([
 					layout: oNextUIState.layout,
 					product: index
 				});
-				this.onExit();
+				this.destroy();
 			}.bind(this));
 			// this.oRouter.navTo("detail", {
 			// 	layout: oNextUIState.layout,
@@ -112,7 +111,33 @@ sap.ui.define([
 			oModel.dataLoaded().then(this._onMetadataLoaded.bind(this,oModel));
 		},
 		_onMetadataLoaded: function(oModel){
-			let oTODOClearLineModel = JSON.parse(JSON.stringify(oModel.getProperty("/0"))); // Delete reference to original path
+			let oTODOClearLineModel
+			try {
+				oTODOClearLineModel = JSON.parse(JSON.stringify(oModel.getProperty("/0"))); // Delete reference to original path
+			}catch(error){
+				oTODOClearLineModel = {
+					"nazwa": "string",
+					"iloscObecna": 0,
+					"iloscZarezerwowana": 0,
+					"iloscDostepna": 0,
+					"kodEan": "string",
+					"lokalizacja": {
+					  "id": 0,
+					  "numerRegalu": 0
+					},
+					"kategoria": {
+					  "id": 0,
+					  "nazwa": "string"
+					},
+					"dokumenty": [
+					  {
+						"dokumentId": 0,
+						"produktId": 0,
+						"ilosc": 0
+					  }
+					]
+				  };
+			};
 
 			// for (var item in oTODOClearLineModel) { https://stackoverflow.com/questions/684672/how-do-i-loop-through-or-enumerate-a-javascript-object
 			// 	if (oTODOClearLineModel.hasOwnProperty(item)) {
@@ -145,6 +170,18 @@ sap.ui.define([
 				}else{
 					oTODOClearLineModel[key] = undefined;
 				}
+			};
+			let oCoppyModelProduct = this.getView().getModel("coppyModelProduct");
+
+			if( Object.keys(oCoppyModelProduct.oData).length !== 0 && oCoppyModelProduct.oData.constructor === Object){
+				oTODOClearLineModel = oCoppyModelProduct.getData();
+				this.getView().getModel("coppyModelProduct").setData(null);
+
+				let oComboBoxKtoWystail = this.getView().byId("productLocalization");
+				oComboBoxKtoWystail.setSelectedKey(oTODOClearLineModel.lokalizacja.id);
+
+				let oComboBoxKtoZatwierdzil = this.getView().byId("productCategories");
+				oComboBoxKtoZatwierdzil.setSelectedKey(oTODOClearLineModel.kategoria.id);
 			}
 
 			let oJSON = new JSONModel(oTODOClearLineModel);
@@ -152,12 +189,7 @@ sap.ui.define([
 		},
 		onExit: function () {
 			this.oRouter.getRoute("addProduct").detachPatternMatched(this._onPatternMatch, this);
-			this.getView().byId("productName").setValue(null);
-			this.getView().byId("productQuantityPresent").setValue(null);
-			this.getView().byId("productQuantityReserved").setValue(null);
-			this.getView().byId("productQuantityAvailable").setValue(null);
-			this.getView().byId("productEan").setValue(null);
-
+			
 			this.getView().byId("productLocalization").setSelectedItem(null);
 			this.getView().byId("productCategories").setSelectedItem(null);
 		}

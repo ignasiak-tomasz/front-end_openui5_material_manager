@@ -64,9 +64,10 @@
 						text="Usuń"
 						type="Transparent"
 						press=".onDelete"/>
-					<!--m:Button
+					<m:Button
 						text="Kopiuj"
-						type="Transparent"/-->
+						type="Transparent"
+						press=".onCoppy"/>
 				</actions>
 			</ObjectPageDynamicHeaderTitle>
 		</headerTitle>

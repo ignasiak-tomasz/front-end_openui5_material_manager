@@ -60,6 +60,19 @@ sap.ui.define([
 				
 			});
 		},
+		onCoppy: function(oEvent){
+			let oBindingProduct = this.getView().getBindingContext("products");
+			let oProduct = oBindingProduct.getObject();
+			this.getView().getModel('coppyModelProduct').setData(oProduct);
+
+			var oNextUIState;
+			this.getOwnerComponent().getHelper().then(function (oHelper) {
+				oNextUIState = oHelper.getNextUIState(2);
+				this.oRouter.navTo("addProduct", {
+					layout: oNextUIState.layout
+				});
+			}.bind(this));
+		},
 		_onMetadataDelete: function(idProduct){
 			$.ajax({
 					
