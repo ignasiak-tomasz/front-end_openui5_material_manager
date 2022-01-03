@@ -8,11 +8,14 @@ sap.ui.define([
 	'sap/ui/core/Fragment',
 	'sap/ui/model/Filter',
 	'sap/ui/model/FilterOperator',
-	"sap/ui/core/syncStyleClass"
-], function (Controller, MessageBox, MessageToast, PDFViewer, File, JSONModel, Fragment, Filter, FilterOperator, syncStyleClass) {
+	"sap/ui/core/syncStyleClass",
+	"../model/formatter"
+], function (Controller, MessageBox, MessageToast, PDFViewer, File, JSONModel, Fragment, Filter, FilterOperator, syncStyleClass, formatter) {
 	"use strict";
 
 	return Controller.extend("opensap.myapp.controller.Detail", {
+		formatter: formatter,
+		
         onInit: function () {
 			
 			var oEditDetailModel = new JSONModel();
@@ -223,9 +226,6 @@ sap.ui.define([
 					':' + pad(date.getMinutes()) +
 					':' + pad(date.getSeconds())
 			}
-
-			var sDataZatwierdzeniaPrzyjecia = toIsoString(new Date());
-			oDokument.dataZatwierdzeniaPrzyjecia = sDataZatwierdzeniaPrzyjecia;
 			
 			var oComboBoxKtoWystail = this.getView().byId("ktoWystawil").getSelectedItem().mProperties;
 			let oModelPracownicy = this.getView().getModel("pracownicy").getData();
@@ -240,20 +240,26 @@ sap.ui.define([
 			};
 			//oDokument.ktoWystawil.imie = oComboBoxKtoWystail.text;
 			//oDokument.ktoWystawil.nazwisko = oComboBoxKtoWystail.additionalText;
+			try{
+				var oComboBoxKtoZatwierdzil = this.getView().byId("ktoZatwierdzil").getSelectedItem().mProperties;
+				oDokument.ktoZatwierdzilPrzyjal = {
+					"id" : parseInt(oComboBoxKtoZatwierdzil.key),
+					"imie": " ",
+					"nazwisko": " ",
+				};
+				for(let i=0; i<oModelPracownicy.length; i++){
+					if(oModelPracownicy[i].id === oDokument.ktoZatwierdzilPrzyjal.id){
+						oDokument.ktoZatwierdzilPrzyjal.imie = oModelPracownicy[i].imie;
+						oDokument.ktoZatwierdzilPrzyjal.nazwisko = oModelPracownicy[i].nazwisko;
+						break;
+					}
+				};
+				var sDataZatwierdzeniaPrzyjecia = toIsoString(new Date());
+				oDokument.dataZatwierdzeniaPrzyjecia = sDataZatwierdzeniaPrzyjecia;
+			}catch{
+				//DoNothing
+			}
 			
-			var oComboBoxKtoZatwierdzil = this.getView().byId("ktoZatwierdzil").getSelectedItem().mProperties;
-			oDokument.ktoZatwierdzilPrzyjal = {
-				"id" : parseInt(oComboBoxKtoZatwierdzil.key),
-				"imie": " ",
-				"nazwisko": " ",
-			};
-			for(let i=0; i<oModelPracownicy.length; i++){
-				if(oModelPracownicy[i].id === oDokument.ktoZatwierdzilPrzyjal.id){
-					oDokument.ktoZatwierdzilPrzyjal.imie = oModelPracownicy[i].imie;
-					oDokument.ktoZatwierdzilPrzyjal.nazwisko = oModelPracownicy[i].nazwisko;
-					break;
-				}
-			};
 
 			//oDokument.ktoZatwierdzil.imie = oComboBoxKtoZatwierdzil.text;
 			//oDokument.ktoZatwierdzil.nazwisko = oComboBoxKtoZatwierdzil.additionalText;
@@ -351,6 +357,8 @@ sap.ui.define([
 				});
 				let oBindingIdDocument = this.getView().getBindingContext("dokumenty").getProperty('id');
 				let oBindingProduktyInDocument = this.getView().getBindingContext("dokumenty").getProperty('produkty');
+				if(oBindingProduktyInDocument === null) oBindingProduktyInDocument = [];
+
 				for(let i = 0; i<oObjectSelected.length ; i++){
 					oBindingProduktyInDocument.push({
 						"dokumentId": parseInt(oBindingIdDocument),
