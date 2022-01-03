@@ -59,7 +59,7 @@ sap.ui.define([
 			oModel.refresh();
 
 			// var oNextUIState = oHelper.getNextUIState(1);
-			this.getView().unbindObject("addProduct");
+			//this.getView().unbindObject("addProduct");
 			var index = -1;
 			oModel.oData.find(function(item, i){
 				if(item.id === sHeaderId){
@@ -75,6 +75,7 @@ sap.ui.define([
 					product: index
 				});
 				this.destroy();
+				
 			}.bind(this));
 			// this.oRouter.navTo("detail", {
 			// 	layout: oNextUIState.layout,
