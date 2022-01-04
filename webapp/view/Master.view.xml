@@ -2,12 +2,13 @@
 	  xmlns="sap.m"
 	  xmlns:f="sap.f"
 	  xmlns:mvc="sap.ui.core.mvc">
+
 	<IconTabBar id="IconTabBar" stretchContentHeight="true">
 		<items>
 			<IconTabFilter key="documents" text="Dokumenty">
 				<f:DynamicPage id="dynamicPageId"
 								toggleHeaderOnTitleClick="false">
-							<!-- DynamicPage Title ->
+							<!-- DynamicPage Title -->
 							<f:title>
 								<f:DynamicPageTitle>
 									<f:heading>
@@ -15,7 +16,7 @@
 									</f:heading>
 								</f:DynamicPageTitle>
 							</f:title>
-							<!- DynamicPage Content -->
+							<!-- DynamicPage Content -->
 							<f:content>
 								<VBox fitContainer="true">
 									<OverflowToolbar class="sapFDynamicPageAlignContent">
@@ -39,6 +40,12 @@
 											<Column>
 												<Text text="{i18n>date_and_time}" />
 											</Column> 
+											<Column minScreenWidth="Desktop">
+												<Text text="Kontrahent" />
+											</Column> 
+											<Column minScreenWidth="Desktop">
+												<Text text="Kto wystawił" />
+											</Column> 
 										</columns>
 										<items>
 											<!--<ColumnListItem type="Navigation" press="onListItemPress">-->
@@ -54,6 +61,8 @@
 																	strictParsing: true
 																}
 															}" /> 
+													<Text text="{dokumenty>kontrahent/nazwa}"/>
+													<Text text="{dokumenty>ktoWystawil/imie} {dokumenty>ktoWystawil/nazwisko}"/>
 												</cells>
 											</ColumnListItem>
 										</items>
@@ -107,6 +116,18 @@
 											<Column>
 												<Text text="{i18n>product_category}" />
 											</Column> 
+											<Column minScreenWidth="Desktop">
+												<Text text="Ilość Obecna" />
+											</Column> 
+											<Column minScreenWidth="Desktop">
+												<Text text="Ilość Zarezerwowana" />
+											</Column> 
+											<Column minScreenWidth="Desktop">
+												<Text text="Ilość Dostępna" />
+											</Column> 
+											<Column minScreenWidth="Desktop">
+												<Text text="Kod Ean" />
+											</Column> 
 										</columns>
 										<items>
 											<!--<ColumnListItem type="Navigation" press="onListItemPress">-->
@@ -115,6 +136,10 @@
 													<!-- <ObjectIdentifier title="{applications>text}" /> -->
 													<ObjectIdentifier title="{products>id}" text="{products>nazwa}" />
 													<ObjectIdentifier text="{products>kategoria/nazwa}" /> 
+													<Text text="{products>iloscObecna}"/>
+													<Text text="{products>iloscZarezerwowana}"/>
+													<Text text="{products>iloscDostepna}"/>
+													<Text text="{products>kodEan}"/>
 												</cells>
 											</ColumnListItem>
 										</items>

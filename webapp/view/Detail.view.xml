@@ -186,6 +186,9 @@
 											<m:Text text="{i18n>detail_column_name_product}" />
 										</m:Column>
 										<m:Column width="12em">
+											<m:Text text="{i18n>detail_column_category_product}" />
+										</m:Column>
+										<m:Column width="12em">
 											<m:Text text="{i18n>detail_column_quantity}" />
 										</m:Column>
 									</m:columns>
@@ -194,6 +197,7 @@
 											<m:cells>
 												<m:ObjectIdentifier text="{dokumenty>produktId}"/>
 												<m:Text text="{path:'dokumenty>produktId', formatter: '.formatter.nameProduct'}"/>
+												<m:Text text="{path:'dokumenty>produktId', formatter: '.formatter.categoryProduct'}"/>
 												<m:Input  value="{dokumenty>ilosc}" type="Number" enabled = "{editDetail>/edit}"/>
 												<!--<m:ObjectIdentifier text="{dokumenty>ilosc}"/>-->
 											</m:cells>
