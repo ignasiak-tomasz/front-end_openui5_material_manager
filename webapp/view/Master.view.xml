@@ -2,71 +2,162 @@
 	  xmlns="sap.m"
 	  xmlns:f="sap.f"
 	  xmlns:mvc="sap.ui.core.mvc">
-	<f:DynamicPage id="dynamicPageId"
-				   toggleHeaderOnTitleClick="false">
-		<!-- DynamicPage Title -->
-		<f:title>
-			<f:DynamicPageTitle>
-				<f:heading>
-					<Title text="{i18n>appplications}"/>
-				</f:heading>
-			</f:DynamicPageTitle>
-		</f:title>
-		<!-- DynamicPage Content -->
-		<f:content>
-			
-			<VBox fitContainer="true">
-				<OverflowToolbar class="sapFDynamicPageAlignContent">
-					<ToolbarSpacer/>
-					<SearchField search=".onSearch" width="17.5rem"/> 
-					<OverflowToolbarButton icon="sap-icon://add" text="Add" type="Transparent"  press=".onAdd"/>
-					<OverflowToolbarButton icon="sap-icon://sort" text="Sort" type="Transparent" press=".onSort"/>
-				</OverflowToolbar>
-				
-				<Table id="applicationTable"
-					inset="false"
-					items="{
-							path: 'dokumenty>/'
-						}"
-					class="sapFDynamicPageAlignContent"
-					width="auto"><!--id applicationTable zostanie wykorzystane do kursu 13. Musisz wziąć to pod uwagę!!!-->
-					<columns>
-						<Column width="12em">
-							<Text text="{i18n>appplication}" />
-						</Column>
-						 <Column>
-							<Text text="{i18n>date_and_time}" />
-						</Column> 
-					</columns>
-					<items>
-						<!--<ColumnListItem type="Navigation" press="onListItemPress">-->
-						<ColumnListItem type="Navigation" press=".onListItemPress">
-							<cells>
-								<!-- <ObjectIdentifier title="{applications>text}" /> -->
-								<ObjectIdentifier title="{dokumenty>id}" text="{dokumenty>typDokumentu/nazwa}" />
-								<ObjectIdentifier
-										text="{
-											parts:[{path:'dokumenty>dataWystawienia'}],
-											type: 'sap.ui.model.type.DateTime',
-											formatOptions: {
-												strictParsing: true
-											}
-										}" /> 
-							</cells>
-						</ColumnListItem>
-					</items>
-				</Table>
-			</VBox>
-		</f:content>
 
-		<!-- DynamicPage Footer -->
-		<f:footer>
-			<OverflowToolbar>
-				<ToolbarSpacer/>
-				<Button type="Accept" text="Zapisz"/>
-				<Button type="Reject" text="Anuluj"/>
-			</OverflowToolbar>
-		</f:footer>
-		
-	</f:DynamicPage>
+	<IconTabBar id="IconTabBar" stretchContentHeight="true">
+		<items>
+			<IconTabFilter key="documents" text="Dokumenty">
+				<f:DynamicPage id="dynamicPageId"
+								toggleHeaderOnTitleClick="false">
+							<!-- DynamicPage Title -->
+							<f:title>
+								<f:DynamicPageTitle>
+									<f:heading>
+										<Title text="{i18n>appplications}"/>
+									</f:heading>
+								</f:DynamicPageTitle>
+							</f:title>
+							<!-- DynamicPage Content -->
+							<f:content>
+								<VBox fitContainer="true">
+									<OverflowToolbar class="sapFDynamicPageAlignContent">
+										<ToolbarSpacer/>
+										<SearchField search=".onSearch" width="17.5rem"/> 
+										<OverflowToolbarButton icon="sap-icon://add" text="Add" type="Transparent"  press=".onAdd"/>
+										<OverflowToolbarButton icon="sap-icon://sort" text="Sort" type="Transparent" press=".onSort"/>
+									</OverflowToolbar>
+									
+									<Table id="applicationTable"
+										inset="false"
+										items="{
+												path: 'dokumenty>/'
+											}"
+										class="sapFDynamicPageAlignContent"
+										width="auto"><!--id applicationTable zostanie wykorzystane do kursu 13. Musisz wziąć to pod uwagę!!!-->
+										<columns>
+											<Column width="12em">
+												<Text text="{i18n>id_document}" />
+											</Column>
+											<Column>
+												<Text text="{i18n>date_and_time}" />
+											</Column> 
+											<Column minScreenWidth="Desktop">
+												<Text text="Kontrahent" />
+											</Column> 
+											<Column minScreenWidth="Desktop">
+												<Text text="Kto wystawił" />
+											</Column> 
+										</columns>
+										<items>
+											<!--<ColumnListItem type="Navigation" press="onListItemPress">-->
+											<ColumnListItem type="Navigation" press=".onListItemPress">
+												<cells>
+													<!-- <ObjectIdentifier title="{applications>text}" /> -->
+													<ObjectIdentifier title="{dokumenty>id}" text="{dokumenty>typDokumentu/nazwa}" />
+													<ObjectIdentifier
+															text="{
+																parts:[{path:'dokumenty>dataWystawienia'}],
+																type: 'sap.ui.model.type.DateTime',
+																formatOptions: {
+																	strictParsing: true
+																}
+															}" /> 
+													<Text text="{dokumenty>kontrahent/nazwa}"/>
+													<Text text="{dokumenty>ktoWystawil/imie} {dokumenty>ktoWystawil/nazwisko}"/>
+												</cells>
+											</ColumnListItem>
+										</items>
+									</Table>
+								</VBox>
+							</f:content>
+
+							<!-- DynamicPage Footer -->
+							<!--f:footer>
+								<OverflowToolbar>
+									<ToolbarSpacer/>
+									<Button type="Accept" text="Zapisz"/>
+									<Button type="Reject" text="Anuluj"/>
+								</OverflowToolbar>
+							</f:footer-->
+							
+				</f:DynamicPage>
+			</IconTabFilter>
+			<IconTabFilter key="Products" text="Produkty">
+				<f:DynamicPage id="dynamicPageId2"
+								toggleHeaderOnTitleClick="false">
+							<!-- DynamicPage Title ->
+							<f:title>
+								<f:DynamicPageTitle>
+									<f:heading>
+										<Title text="{i18n>appplications}"/>
+									</f:heading>
+								</f:DynamicPageTitle>
+							</f:title>
+							<!- DynamicPage Content -->
+							<f:content>
+								<VBox fitContainer="true">
+									<OverflowToolbar class="sapFDynamicPageAlignContent">
+										<ToolbarSpacer/>
+										<SearchField search=".onSearchProducts" width="17.5rem"/> 
+										<OverflowToolbarButton icon="sap-icon://add" text="Add" type="Transparent"  press=".onAddProducts"/>
+										<OverflowToolbarButton icon="sap-icon://sort" text="Sort" type="Transparent" press=".onSortProducts"/>
+									</OverflowToolbar>
+									
+									<Table id="applicationTable2"
+										inset="false"
+										items="{
+												path: 'products>/'
+											}"
+										class="sapFDynamicPageAlignContent"
+										width="auto"><!--id applicationTable zostanie wykorzystane do kursu 13. Musisz wziąć to pod uwagę!!!-->
+										<columns>
+											<Column width="12em">
+												<Text text="{i18n>id_product}" />
+											</Column>
+											<Column>
+												<Text text="{i18n>product_category}" />
+											</Column> 
+											<Column minScreenWidth="Desktop">
+												<Text text="Ilość Obecna" />
+											</Column> 
+											<Column minScreenWidth="Desktop">
+												<Text text="Ilość Zarezerwowana" />
+											</Column> 
+											<Column minScreenWidth="Desktop">
+												<Text text="Ilość Dostępna" />
+											</Column> 
+											<Column minScreenWidth="Desktop">
+												<Text text="Kod Ean" />
+											</Column> 
+										</columns>
+										<items>
+											<!--<ColumnListItem type="Navigation" press="onListItemPress">-->
+											<ColumnListItem type="Navigation" press=".onListItemPressProduct">
+												<cells>
+													<!-- <ObjectIdentifier title="{applications>text}" /> -->
+													<ObjectIdentifier title="{products>id}" text="{products>nazwa}" />
+													<ObjectIdentifier text="{products>kategoria/nazwa}" /> 
+													<Text text="{products>iloscObecna}"/>
+													<Text text="{products>iloscZarezerwowana}"/>
+													<Text text="{products>iloscDostepna}"/>
+													<Text text="{products>kodEan}"/>
+												</cells>
+											</ColumnListItem>
+										</items>
+									</Table>
+								</VBox>
+							</f:content>
+
+							<!-- DynamicPage Footer -->
+							<!--f:footer>
+								<OverflowToolbar>
+									<ToolbarSpacer/>
+									<Button type="Accept" text="Zapisz"/>
+									<Button type="Reject" text="Anuluj"/>
+								</OverflowToolbar>
+							</f:footer-->
+							
+				</f:DynamicPage>
+			</IconTabFilter>
+		</items>
+	</IconTabBar>
 </mvc:View>

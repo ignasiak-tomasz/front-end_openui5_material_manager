@@ -3,12 +3,27 @@ sap.ui.define([
 	"sap/m/MessageBox",
 	"sap/m/MessageToast",
 	"sap/m/PDFViewer",
-	"sap/ui/core/util/File"
-], function (Controller, MessageBox, MessageToast, PDFViewer, File) {
+	"sap/ui/core/util/File",
+	'sap/ui/model/json/JSONModel',
+	'sap/ui/core/Fragment',
+	'sap/ui/model/Filter',
+	'sap/ui/model/FilterOperator',
+	"sap/ui/core/syncStyleClass",
+	"../model/formatter"
+], function (Controller, MessageBox, MessageToast, PDFViewer, File, JSONModel, Fragment, Filter, FilterOperator, syncStyleClass, formatter) {
 	"use strict";
 
 	return Controller.extend("opensap.myapp.controller.Detail", {
+		formatter: formatter,
+		
         onInit: function () {
+			
+			var oEditDetailModel = new JSONModel();
+			oEditDetailModel.setData({
+				edit: false
+			});
+			this.getView().setModel(oEditDetailModel, "editDetail");
+
 			this.oOwnerComponent = this.getOwnerComponent();
 
 			this.oRouter = this.oOwnerComponent.getRouter();
@@ -107,6 +122,19 @@ sap.ui.define([
 				path: "/" + this._product,
 				model: "dokumenty"
 			});
+			
+			//let bEdit = this.getView().getModel("editDetail").getProperty("/edit");
+
+			let iIdPersonCreateDocument = this.getView().getBindingContext("dokumenty").getProperty("ktoWystawil/id");
+			let oComboBoxKtoWystail = this.getView().byId("ktoWystawil");
+			oComboBoxKtoWystail.setSelectedKey(iIdPersonCreateDocument);
+			//oComboBoxKtoWystail.setEnabled(bEdit);
+
+			let iIdPersonAcceptDocument = this.getView().getBindingContext("dokumenty").getProperty("ktoZatwierdzilPrzyjal/id");
+			let oComboBoxKtoZatwierdzil = this.getView().byId("ktoZatwierdzil");
+			oComboBoxKtoZatwierdzil.setSelectedKey(iIdPersonAcceptDocument);
+			//oComboBoxKtoZatwierdzil.setEnabled(bEdit);
+
 		},
 		onDelete: function(oEvent){
 			var idDokumentu = this.getView().getBindingContext("dokumenty").getProperty("id");
@@ -169,6 +197,191 @@ sap.ui.define([
 				bCurrentShowFooterState = oObjectPage.getShowFooter();
 
 			oObjectPage.setShowFooter(!bCurrentShowFooterState);
+			
+			let bEdit = this.getView().getModel('editDetail').getProperty("/edit");
+			this.getView().getModel('editDetail').setProperty("/edit", !bEdit);
+		},
+		onToolbarSpacerAccept: function(){
+			var oObjectPage = this.getView().byId("ObjectPageLayout"),
+			bCurrentShowFooterState = oObjectPage.getShowFooter();
+
+			oObjectPage.setShowFooter(!bCurrentShowFooterState);
+			
+			let bEdit = this.getView().getModel('editDetail').getProperty("/edit");
+			this.getView().getModel('editDetail').setProperty("/edit", !bEdit);
+
+			let oDokument = this.getView().getBindingContext("dokumenty").getObject();
+
+			function toIsoString(date) {
+				var tzo = -date.getTimezoneOffset(),
+					pad = function(num) {
+						var norm = Math.floor(Math.abs(num));
+						return (norm < 10 ? '0' : '') + norm;
+					};
+			  
+				return date.getFullYear() +
+					'-' + pad(date.getMonth() + 1) +
+					'-' + pad(date.getDate()) +
+					'T' + pad(date.getHours()) +
+					':' + pad(date.getMinutes()) +
+					':' + pad(date.getSeconds())
+			}
+			
+			var oComboBoxKtoWystail = this.getView().byId("ktoWystawil").getSelectedItem().mProperties;
+			let oModelPracownicy = this.getView().getModel("pracownicy").getData();
+
+			oDokument.ktoWystawil.id = parseInt(oComboBoxKtoWystail.key);
+			for(let i=0; i<oModelPracownicy.length; i++){
+				if(oModelPracownicy[i].id === oDokument.ktoWystawil.id){
+					oDokument.ktoWystawil.imie = oModelPracownicy[i].imie;
+					oDokument.ktoWystawil.nazwisko = oModelPracownicy[i].nazwisko;
+					break;
+				}
+			};
+			//oDokument.ktoWystawil.imie = oComboBoxKtoWystail.text;
+			//oDokument.ktoWystawil.nazwisko = oComboBoxKtoWystail.additionalText;
+			try{
+				var oComboBoxKtoZatwierdzil = this.getView().byId("ktoZatwierdzil").getSelectedItem().mProperties;
+				oDokument.ktoZatwierdzilPrzyjal = {
+					"id" : parseInt(oComboBoxKtoZatwierdzil.key),
+					"imie": " ",
+					"nazwisko": " ",
+				};
+				for(let i=0; i<oModelPracownicy.length; i++){
+					if(oModelPracownicy[i].id === oDokument.ktoZatwierdzilPrzyjal.id){
+						oDokument.ktoZatwierdzilPrzyjal.imie = oModelPracownicy[i].imie;
+						oDokument.ktoZatwierdzilPrzyjal.nazwisko = oModelPracownicy[i].nazwisko;
+						break;
+					}
+				};
+				var sDataZatwierdzeniaPrzyjecia = toIsoString(new Date());
+				oDokument.dataZatwierdzeniaPrzyjecia = sDataZatwierdzeniaPrzyjecia;
+			}catch{
+				//DoNothing
+			}
+			
+
+			//oDokument.ktoZatwierdzil.imie = oComboBoxKtoZatwierdzil.text;
+			//oDokument.ktoZatwierdzil.nazwisko = oComboBoxKtoZatwierdzil.additionalText;
+
+			jQuery.ajax({
+				method: "PUT",
+				url: "proxy/https/localhost:5001/api/inz/dokument/" + oDokument.id,
+				contentType: "application/json; charset=utf-8",
+				dataType: 'json',
+				data: JSON.stringify(oDokument),
+				success: function(data){
+					var lv_data = data;
+				},
+				error: function(error){
+					var lv_error = error;
+				}
+				
+			}).then(function(data){
+				let sPath = this.getView().getBindingContext("dokumenty").getPath();
+				this.getView().getModel("dokumenty").setProperty(sPath,oDokument);		
+				this.getOwnerComponent().getHelper().then(function (oHelper) {
+					this._onEditSuccess();
+				}.bind(this));
+			}.bind(this), function(data){
+				this._onChangeFailed();
+			}.bind(this));
+		},
+		_onEditSuccess: function () {
+			var sMessage = 'Poprawnie zapisano dane !!!';/*this.getResourceBundle().getText("newPersonCreated",*/
+				//[oPerson.Pesel]);
+				
+			//this.onNavBack(); //<!-- brak takiej funkcji
+	
+			MessageToast.show(sMessage, {
+				closeOnBrowserNavigation : false
+			});
+		},
+		
+		_onChangeFailed: function () {
+			var sMessage = 'Błąd przy zapisie danych !!!';// this.getResourceBundle().getText("newPersonNotCreated",
+				//[oPerson.Pesel]);
+				
+			//this.onNavBack(); //<!-- brak takiej funkcji
+	
+			MessageToast.show(sMessage, {
+				closeOnBrowserNavigation : false
+			});
+		},
+		onAdd: function(oEvent){
+			var oButton = oEvent.getSource(),
+				oView = this.getView();
+
+			if (!this._pDialog) {
+				this._pDialog = Fragment.load({
+					id: oView.getId(),
+					name: "opensap.myapp.view.Products",
+					controller: this
+				}).then(function(oDialog){
+					oView.addDependent(oDialog);
+					return oDialog;
+				});
+			}
+
+			this._pDialog.then(function(oDialog){
+				this._configDialog(oButton, oDialog);
+				oDialog.open();
+			}.bind(this));
+		},
+		_configDialog: function (oButton, oDialog) {
+
+			// Multi-select if required
+			var bMultiSelect = !!oButton.data("multi");
+			oDialog.setMultiSelect(bMultiSelect);
+
+			// toggle compact style
+			syncStyleClass("sapUiSizeCompact", this.getView(), oDialog);
+		},
+
+		handleSearchPopUp: function (oEvent) {
+			var sValue = oEvent.getParameter("value");
+			var oFilter = new Filter("nazwa", FilterOperator.Contains, sValue);
+			var oBinding = oEvent.getSource().getBinding("items");
+			oBinding.filter([oFilter]);
+		},
+
+		handleClosePopUp: function (oEvent) {
+			// reset the filter
+			var oBinding = oEvent.getSource().getBinding("items");
+			oBinding.filter([]);
+
+			var aContexts = oEvent.getParameter("selectedContexts");
+			if (aContexts && aContexts.length) {
+				let oObjectSelected = aContexts.map(function (oContext) { 
+					return oContext.getObject(); 
+				});
+				let oBindingIdDocument = this.getView().getBindingContext("dokumenty").getProperty('id');
+				let oBindingProduktyInDocument = this.getView().getBindingContext("dokumenty").getProperty('produkty');
+				if(oBindingProduktyInDocument === null) oBindingProduktyInDocument = [];
+
+				for(let i = 0; i<oObjectSelected.length ; i++){
+					oBindingProduktyInDocument.push({
+						"dokumentId": parseInt(oBindingIdDocument),
+						"produktId": parseInt(oObjectSelected[i].id),
+						"ilosc": 0
+					});
+				}
+				let sPath = this.getView().getBindingContext("dokumenty").getPath();
+				this.getView().getModel("dokumenty").setProperty(sPath+"/produkty",oBindingProduktyInDocument);
+				
+				//1MessageToast.show("You have chosen " + aContexts.map(function (oContext) { return oContext.getObject().id; }).join(", "));
+			}
+
+		},
+
+		onToolbarSpacerReject: function(){
+			var oObjectPage = this.getView().byId("ObjectPageLayout"),
+			bCurrentShowFooterState = oObjectPage.getShowFooter();
+
+			oObjectPage.setShowFooter(!bCurrentShowFooterState);
+
+			let bEdit = this.getView().getModel('editDetail').getProperty("/edit");
+			this.getView().getModel('editDetail').setProperty("/edit", !bEdit);
 		},
 
 		handleFullScreen: function () {

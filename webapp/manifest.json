@@ -46,6 +46,9 @@
 				},
 				"sap.ui.layout": {
 					"minVersion": "1.87.0"
+				},
+				"sap.ui.table": {
+					"minVersion": "1.87.0"
 				}
 			}
 		},
@@ -89,6 +92,12 @@
 					"layout": "MidColumnFullScreen"
 				},	
 				{
+					"pattern": "addProduct",
+					"name": "addProduct",
+					"target": "addProduct",
+					"layout": "MidColumnFullScreen"
+				},
+				{
 					"pattern": ":layout:",
 					"name": "master",
 					"target": [
@@ -102,6 +111,14 @@
 					"target": [
 						"master",
 						"detail"
+					]
+				},
+				{
+					"pattern": "detailProduct/{product}/{layout}",
+					"name": "detailProduct",
+					"target": [
+						"master",
+						"detailProduct"
 					]
 				},
 				{
@@ -123,6 +140,10 @@
 					"viewName": "Detail",
 					"controlAggregation": "midColumnPages"
 				},
+				"detailProduct": {
+					"viewName" : "DetailProduct",
+					"controlAggregation": "midColumnPages"
+				},
 				"detailDetail": {
 					"viewName": "DetailDetail",
 					"controlAggregation": "endColumnPages"
@@ -133,6 +154,10 @@
 				},
 				"addDocument": {
 					"viewName": "AddDocument",
+					"controlAggregation": "midColumnPages"
+				},
+				"addProduct": {
+					"viewName": "AddProduct",
 					"controlAggregation": "midColumnPages"
 				}
 

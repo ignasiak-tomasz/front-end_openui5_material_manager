@@ -14,6 +14,7 @@ sap.ui.define([
 		
 		init : function(){
 			var oModel,
+				oModelCoppyProduct,
 				oDocumentsModel,
 				oProductsModel,
 				oRouter;
@@ -22,11 +23,12 @@ sap.ui.define([
 
 			oModel = new JSONModel(); /**Base model for All Solution */
 			this.setModel(oModel); /**Base model for All Solution */
-			
+			oModelCoppyProduct = new JSONModel();
+			this.setModel(oModelCoppyProduct,"coppyModelProduct");
 			/**
 			 * Model 1
 			 */
-			var oDocumentsModel = new JSONModel();
+			var oDocumentsModel = new JSONModel();/*
 			jQuery.ajax({
 				method: "GET",
 				url: "proxy/https/localhost:5001/api/inz/dokumenty",
@@ -41,12 +43,12 @@ sap.ui.define([
 				}
 			}).then(function(data){
 					oDocumentsModel.setData(data);
-			});/*
+			});*/
 			 $.getJSON("temp_database.json", function(data){
 			 	oDocumentsModel.setData(data);
 			 }).fail(function(){
 			 	console.log("An error has occurred.");
-			 });*/
+			 });
 			oDocumentsModel.setSizeLimit(1000);
 			this.setModel(oDocumentsModel, 'dokumenty');
 
@@ -54,7 +56,7 @@ sap.ui.define([
 			/**
 			 * Modle 2
 			 */
-			 var oProductsModel = new JSONModel();
+			 var oProductsModel = new JSONModel();/*
 			 jQuery.ajax({
 				 method: "GET",
 				 url: "proxy/https/localhost:5001/api/inz/produkty",
@@ -69,12 +71,12 @@ sap.ui.define([
 				 }
 			 }).then(function(data){
 					 oProductsModel.setData(data);
-			 });/*
+			 });*/
 			  $.getJSON("temp_database_products.json", function(data){
 			 	oProductsModel.setData(data);
 			  }).fail(function(){
 			 	 console.log("An error has occurred.");
-			  });*/
+			  });
 			 oProductsModel.setSizeLimit(1000);
 			 this.setModel(oProductsModel, 'products');
 
@@ -82,7 +84,7 @@ sap.ui.define([
 			/**
 			 * Modle 3
 			 */
-			var oTypDokumentuModel = new JSONModel();
+			var oTypDokumentuModel = new JSONModel();/*
 			jQuery.ajax({
 				method: "GET",
 				url: "proxy/https/localhost:5001/api/inz/typy_dokumentow",
@@ -99,19 +101,19 @@ sap.ui.define([
 				oTypDokumentuModel.setData(data);
 			});
 
-			/*
+			*/
 			$.getJSON("temp_database_typ_dokumentu.json", function(data){
 				oTypDokumentuModel.setData(data);
 			}).fail(function(){
 				console.log("An error has occurred.");
-			});*/
+			});
 			oTypDokumentuModel.setSizeLimit(1000);
 			this.setModel(oTypDokumentuModel, 'typy_dokumentu');
 
 			/**
 			 * Modle 4
 			 */
-			var oKontrahenciModel = new JSONModel();
+			var oKontrahenciModel = new JSONModel();/*
 			jQuery.ajax({
 				method: "GET",
 				url: "proxy/https/localhost:5001/api/inz/kontrahenci",
@@ -128,19 +130,19 @@ sap.ui.define([
 				oKontrahenciModel.setData(data);
 			});
 
-			/*
+			*/
 			$.getJSON("temp_database_kontrahenci.json", function(data){
 				oKontrahenciModel.setData(data);
 			}).fail(function(){
 				console.log("An error has occurred.");
-			});*/
+			});
 			oKontrahenciModel.setSizeLimit(1000);
 			this.setModel(oKontrahenciModel, 'kontrahenci');		
 			
 			/**
 			 * Modle 5
 			 */
-			var oKontrahenciModel = new JSONModel();
+			var oKontrahenciModel = new JSONModel();/*
 			jQuery.ajax({
 				method: "GET",
 				url: "proxy/https/localhost:5001/api/inz/pracownicy",
@@ -157,14 +159,72 @@ sap.ui.define([
 				oKontrahenciModel.setData(data);
 			});
 
-			/*
+			*/
 			$.getJSON("temp_database_pracownicy.json", function(data){
 				oKontrahenciModel.setData(data);
 			}).fail(function(){
 				console.log("An error has occurred.");
-			});*/
+			});
 			oKontrahenciModel.setSizeLimit(1000);
 			this.setModel(oKontrahenciModel, 'pracownicy');	
+
+			/**
+			 * Modle 6
+			 */
+			var oLokalizacjaModel = new JSONModel();/*
+			jQuery.ajax({
+				method: "GET",
+				url: "proxy/https/localhost:5001/api/inz/lokalizacje",
+				contentType: "application/json",
+				dataType: 'json',
+				async: false,
+				success: function(data){
+					console.log(data);
+				},
+				error: function(error){
+					console.log(error);
+				}
+			}).then(function(data){
+				oLokalizacjaModel.setData(data);
+			});
+
+			*/
+			$.getJSON("temp_database_lokalizacje.json", function(data){
+				oLokalizacjaModel.setData(data);
+			}).fail(function(){
+				console.log("An error has occurred.");
+			});
+			oLokalizacjaModel.setSizeLimit(1000);
+			this.setModel(oLokalizacjaModel, 'lokalizacje');	
+
+			/**
+			 * Modle 6
+			 */
+			var oKategorieaModel = new JSONModel();/*
+			jQuery.ajax({
+				method: "GET",
+				url: "proxy/https/localhost:5001/api/inz/kategorie",
+				contentType: "application/json",
+				dataType: 'json',
+				async: false,
+				success: function(data){
+					console.log(data);
+				},
+				error: function(error){
+					console.log(error);
+				}
+			}).then(function(data){
+				oKategorieaModel.setData(data);
+			});
+
+			*/
+			$.getJSON("temp_database_kategorie.json", function(data){
+				oKategorieaModel.setData(data);
+			}).fail(function(){
+				console.log("An error has occurred.");
+			});
+			oKategorieaModel.setSizeLimit(1000);
+			this.setModel(oKategorieaModel, 'kategorie');	
 
 			oRouter = this.getRouter();
 			oRouter.attachBeforeRouteMatched(this._onBeforeRouteMatched, this);

@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "nazwa": null
+  },
+  {
+    "id": 2,
+    "nazwa": "Farba"
+  },
+  {
+    "id": 3,
+    "nazwa": "Chemia"
+  },
+  {
+    "id": 4,
+    "nazwa": "Art. budowlane"
+  },
+  {
+    "id": 5,
+    "nazwa": "Art. spożywcze"
+  },
+  {
+    "id": 6,
+    "nazwa": "Drewno"
+  }
+]

@@ -15,6 +15,12 @@ sap.ui.define([
 
 			var oMM = Core.getMessageManager();
 
+			var oView = this.getView(),
+			  	aInputs = [
+				oView.byId("kontrahenci"),
+				oView.byId("ktoWystawil")
+			];
+
 			// attach handlers for validation errors
 			// this.oOwnerComponent = this.getOwnerComponent();
 			// this.oModel = this.oOwnerComponent.getModel();
@@ -143,7 +149,41 @@ sap.ui.define([
 			oModel.dataLoaded().then(this._onMetadataLoaded.bind(this,oModel));
 		},
 		_onMetadataLoaded: function(oModel){
-			let oTODOClearLineModel = JSON.parse(JSON.stringify(oModel.getProperty("/0"))); // Delete reference to original path
+			let oTODOClearLineModel;
+			try{
+				oTODOClearLineModel = JSON.parse(JSON.stringify(oModel.getProperty("/0"))); // Delete reference to original path
+			}catch(error){
+				oTODOClearLineModel = {
+					"typDokumentu": {
+					  "id": 0,
+					  "nazwa": "string"
+					},
+					"kontrahent": {
+					  "id": 0,
+					  "nazwa": "string"
+					},
+					"dataWystawienia": "2022-01-02T14:42:35.270Z",
+					"dataZatwierdzeniaPrzyjecia": "2022-01-02T14:42:35.270Z",
+					"ktoWystawil": {
+					  "id": 0,
+					  "imie": "string",
+					  "nazwisko": "string"
+					},
+					"ktoZatwierdzilPrzyjal": {
+					  "id": 0,
+					  "imie": "string",
+					  "nazwisko": "string"
+					},
+					"produkty": [
+					  {
+						"dokumentId": 0,
+						"produktId": 0,
+						"ilosc": 0
+					  }
+					]
+				  };
+			}
+			
 
 			// for (var item in oTODOClearLineModel) { https://stackoverflow.com/questions/684672/how-do-i-loop-through-or-enumerate-a-javascript-object
 			// 	if (oTODOClearLineModel.hasOwnProperty(item)) {
